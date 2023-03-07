@@ -1,80 +1,81 @@
 #ifndef _VEC2_H
 #define _VEC2_H
 
-class Vec2
+
+/**
+ * @brief Structure Vec2 qui contient deux réels x et y 
+ * 
+ */
+struct Vec2
 {
-    private:
-
-    float x,y; 
-
-    public:
-
-    /**
-     * @brief Constructeur par defaut de la classe Vec2.
-     * 
-     */
-    Vec2();
-
-    /**
-     * @brief Constructeur par copie de la classe Vec2.
-     * 
-     * @param[in] v 
-     */
-    Vec2(const Vec2 &v);
-
-    /**
-     * @brief Detruit les objets de la classe Vec2.
-     * 
-     */
-    ~Vec2();
-
-    /**
-     * @brief operator+ retourne la somme de deux vecteurs. 
-     * 
-     * @param[in] v2 
-     * @return Vec2 
-     */
-
-    Vec2 operator+(const Vec2 & v2)const;  
-
-    /**
-     * @brief operator- retourne la différence entre deux vecteurs.
-     * 
-     * @param v2 
-     * @return Vec2 
-     */
-    Vec2 operator-(const Vec2& v2)const;
-    
-    /**
-     * @brief getx récupère la donnée membre x.
-     * 
-     * @return float& 
-     */
-    float & getx() const;
-
-    /**
-     * @brief setx modifie la valeur de la donnée membre x.
-     * 
-     * @param x 
-     */
-    void setx (float x);
-
-    /**
-     * @brief getx récupère la donnée membre y.
-     * 
-     * @return float& 
-     */
-    float & gety() const;
-
-    /**
-     * @brief setx modifie la valeur de la donnée membre y.
-     * 
-     * @param y 
-     */
-    void sety (float y);
-
-
-
+    float x, y;
 };
+
+/**
+ * @brief Créer un vecteur à partir de deux points
+ * 
+ * @param[in] x 
+ * @param[in] y 
+ * @param[out] Vec2 
+ */
+Vec2 make_vec2(float x, float y);
+
+/**
+ * @brief Operateur +, additionne deux vecteurs
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2 
+ */
+Vec2 operator+(Vec2 a, Vec2 b);
+
+/**
+ * @brief Opérateur - , soustrait deux vecteurs
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2 
+ */
+Vec2 operator-( Vec2 a, Vec2 b);
+
+/**
+ * @brief Operateur += , permet d'ajouter b à a sans récrire a
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2 
+ */
+Vec2 operator+=(Vec2 a,  Vec2 b);
+
+/**
+ * @brief Operateur *, multiplie un réel et un vecteur
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2  
+ */
+Vec2 operator*(float a,  Vec2 b);
+
+/**
+ * @brief Operateur *, multiplie un réel et un vecteur
+ * Deux opérateurs * pour éviter des erreurs avec l'ordre du vecteur et du réel
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2 
+ */
+Vec2 operator*(Vec2 b, float a);
+
+
+/**
+ * @brief Operateur /, divise un vecteur par un réel
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @param[out] Vec2 
+ */
+Vec2 operator/(Vec2 a, float b);
+
+
 
 #endif
