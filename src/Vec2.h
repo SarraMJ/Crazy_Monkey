@@ -16,7 +16,7 @@ struct Vec2
  * 
  * @param[in] x 
  * @param[in] y 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 make_vec2(float x, float y);
 
@@ -25,7 +25,7 @@ Vec2 make_vec2(float x, float y);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 operator+(Vec2 a, Vec2 b);
 
@@ -34,7 +34,7 @@ Vec2 operator+(Vec2 a, Vec2 b);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 operator-( Vec2 a, Vec2 b);
 
@@ -43,7 +43,7 @@ Vec2 operator-( Vec2 a, Vec2 b);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 operator+=(Vec2 a,  Vec2 b);
 
@@ -52,7 +52,7 @@ Vec2 operator+=(Vec2 a,  Vec2 b);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2  
+ * @return Vec2  
  */
 Vec2 operator*(float a,  Vec2 b);
 
@@ -62,7 +62,7 @@ Vec2 operator*(float a,  Vec2 b);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 operator*(Vec2 b, float a);
 
@@ -72,7 +72,7 @@ Vec2 operator*(Vec2 b, float a);
  * 
  * @param[in] a 
  * @param[in] b 
- * @param[out] Vec2 
+ * @return Vec2 
  */
 Vec2 operator/(Vec2 a, float b);
 

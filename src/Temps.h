@@ -33,14 +33,14 @@ class Temps {
      * @brief Accesseur qui récupère les secondes
 
      * 
-     * @param[out] unsigned int& 
+     * @return unsigned int& 
      */
     unsigned int  getSec() const;
 
     /**
      * @brief Accesseur qui récupère les minutes 
      * 
-     * @param[out] unsigned int& 
+     * @return unsigned int& 
      */
     unsigned int getMin() const ; // on a enlevé le & car ça marchait pas sans, à revoir si il faut le mettre dans les deux get
 

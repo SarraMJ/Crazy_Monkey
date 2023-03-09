@@ -26,7 +26,7 @@ public:
     /**
      * @brief Accesseur  pour la position
      * 
-     * @param[out] Vec2
+     * @return Vec2
      */
     Vec2 getPosition() const;
 
