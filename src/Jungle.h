@@ -1,6 +1,7 @@
 #ifndef _JUNGLE_H
 #define _JUNGLE_H
-
+#include </usr/include/SDL2/SDL.h>
+#include </usr/include/SDL2/SDL_image.h>
 #include "Arbre.h"
 #include "Singe.h"
 
@@ -12,15 +13,31 @@ private:
     Arbre * tab_arbre;
     unsigned int nb_serpent;
     Singe s;
+    int etat; // si = 0 alors au joueur de choisir l'angle, si 
+    SDL_Window * window;
+    SDL_Renderer * renderer;
+
+
+   /**
+    * @brief Initialise et création de la fenêtre SDL2
+    * 
+    */
+   void afficherInit();
+
+    /**
+     * @brief Affiche la fenêtre et permet le zoomage avec T, dézoomage avec G ou quitter la fenêtre avec esc (ou la croix) 
+    * 
+    */
+   void afficherBoucle();
+
+    /**
+    * @brief Détruit la fenêtre générée par SDL2
+    * 
+    */
+   void afficherDetruit();
 
    
 public:
-
-    /**
-     * @brief Constructeur par défaut
-     * 
-     */
-    Jungle();
 
     /**
      * @brief Constructeur par copie

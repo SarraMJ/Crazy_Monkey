@@ -7,24 +7,33 @@ class Singe
 private:
 
     Vec2 position;
-    float masse;
+    //float masse;
     unsigned int nb_vie;
+    unsigned int v0; 
 
 public:
 
-    Vec2 Vitesse;
-    Vec2 force;
+
+    //Vec2 Vitesse;
+    //Vec2 force;
+
 
     /**
      * @brief Constructeur de la classe Singe
      * 
      * @param[in] viesInit 
-     * @param[in] position 
-     * @param[in] force 
-     * @param[in] mas 
-     * @param[in] vites 
+     * @param[in] p
+     * @param[in] vitesseInit
+     * @param[in] v
      */
-    Singe(unsigned int viesInit, Vec2 position, Vec2 force, float mas, Vec2 vites );
+    Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit);
+
+    /**
+     * @brief Destructeur
+     * 
+     */
+    ~Singe();
+
 
     /**
      * @brief accesseur de la donnée membre nb_vie
@@ -40,12 +49,15 @@ public:
      */
     Vec2 getpos()const;
 
+
+
     /**
-     * @brief accesseur de la donnée membre masse
+     * @brief Accesseur de la donnée membre v0
      * 
-     * @return float 
+     * @return unsigned int 
      */
-    float getmasse()const;
+    unsigned int get_v0() const;
+
 
     /**
      * @brief mutateur de la donnée membre nb_vie
@@ -53,23 +65,8 @@ public:
      * @param[in] nb 
      */
     void set_nb_vie(unsigned int nb);
+    
 
-
-    /**
-     * @brief mutateur de la donnée membre ancienne_pos
-     * 
-     * @param[in] v 
-     */
-    void setpos(const Vec2 & v);
-    void setmasse(float mas);
-
-     /**
-     * @brief convertit les angles  en degrès à des angles en radiants
-     * 
-     * @param[in] rad 
-     * @return float 
-     */
-    float to_degree(float rad)const;
 
     /**
      * @brief convertit les angles  en radiants à des angles en degrès.
@@ -103,8 +100,27 @@ public:
      * @param[in] f 
      */
     void rajouteForce (Vec2 f);
+
+
+/**
+ * @brief Calcule la coordonnée x de ... 
+ * 
+ * @param angle 
+ * @param[in] t
+ * @return float 
+ */
+float calculeX(float angle, float t);
+
+/**
+ * @brief Calcule la coordonnée Y de la position de notre objet sur la parabole au temps t
+ * 
+ * @param angle 
+ * @param t 
+ * @return float 
+ */
+float calculeY(float angle, float t);
+
+
 };
-
-
 
 #endif
