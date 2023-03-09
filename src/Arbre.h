@@ -1,5 +1,6 @@
 #ifndef _ARBRE_H
 #define _ARBRE_H
+
 #include "Serpent.h"
 
 class Arbre
@@ -25,10 +26,10 @@ public:
      * @param m 
      * @param c 
      * @param serpent 
-     * @param rayon 
-     * @param centre 
+     * @param cen
+     * @param r 
      */
-    Arbre(bool m, bool c, Serpent * serpent, Vec2 rayon, int centre);
+    Arbre(bool m, bool c, Serpent * serpent, Vec2 cen, int r);
 
     /**
      * @brief Destructeur
@@ -60,18 +61,19 @@ public:
     Serpent * getSerpent() const;
 
     /**
-     * @brief Accesseur vers min
+     * @brief Accesseur au centre
      * 
      * @return Vec2 
      */
     Vec2 getCentre() const;
 
     /**
-     * @brief Accesseur vers max
+     * @brief Accesseur au rayon
      * 
      * @return int 
      */
     int getRayon() const;
 
 };
+
 #endif
