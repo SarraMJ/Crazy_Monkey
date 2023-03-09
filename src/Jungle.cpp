@@ -13,11 +13,11 @@ Jungle::Jungle(){
 
 }
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int s, Singe sin) {
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nb, const Singe & sin) {
     dimx = x;
     dimy = y;
     tab_arbre = a;
-    nb_serpent = s;
+    nb_serpent = nb;
     s = sin;
 }
 
@@ -30,27 +30,27 @@ Jungle::~Jungle() {
     
 }
 
-unsigned int get_dimx() const {
+unsigned int Jungle::get_dimx() const {
     return dimx;
  }
 
-unsigned int get_dimy() const {
+unsigned int Jungle::get_dimy() const {
     return dimy;
   }
 
-  Arbre getTab_arbre(unsigned int indice) const {
+  Arbre Jungle::getTab_arbre(unsigned int indice) const {
     return tab_arbre[indice];
  }
 
- unsigned int getNb_serpent() const {
+ unsigned int Jungle::getNb_serpent() const {
     return nb_serpent;
  }
 
-Singe get_singe() const {
+Singe Jungle::get_singe() const {
     return s;
 }
 
-void set_singe(const & Singe sin) {
+void Jungle::set_singe(const  Singe & sin) {
     s = sin;
 }
 

@@ -28,9 +28,10 @@ public:
      * @param[in] x 
      * @param[in] y 
      * @param[in] a 
+     * @param[in] nb
      * @param[in] sin 
      */
-    Jungle(unsigned int x, unsigned int y, Arbre * a, Singe sin);
+    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nb, const Singe & sin);
 
     /**
      * @brief Destructeur
@@ -78,7 +79,7 @@ public:
      * 
      * @param sin 
      */
-    void set_singe(const & Singe sin);
+    void set_singe(const Singe &sin);
 };
 
 
