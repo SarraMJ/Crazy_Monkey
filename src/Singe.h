@@ -6,18 +6,14 @@ class Singe
 {
 private:
 
-    Vec2 position;
-    //float masse;
     unsigned int nb_vie;
+    unsigned int nb_vie_init;
     unsigned int v0; 
-
+    float g;
+    Vec2 position;
+    Vec2 pos_init;
+    float rayon;
 public:
-
-
-    //Vec2 Vitesse;
-    //Vec2 force;
-
-
     /**
      * @brief Constructeur de la classe Singe
      * 
@@ -43,12 +39,32 @@ public:
     unsigned int get_nb_vie() const;
 
     /**
+     * @brief accesseur de la donnée membre nb_vie_init
+     * 
+     * @return unsigned int 
+     */
+    unsigned int get_nb_vie() const;
+
+    /**
      * @brief accesseur de la donnée membre position
      * 
      * @return Vec2 
      */
     Vec2 getpos()const;
 
+    /**
+     * @brief accesseur de la donnée membre pos_init
+     * 
+     * @return Vec2 
+     */
+    Vec2 getpos_init() const;
+
+    /**
+     * @brief accesseur de la donnée membre g 
+     * 
+     * @return float 
+     */
+    float getG()const;
 
 
     /**
@@ -58,6 +74,12 @@ public:
      */
     unsigned int get_v0() const;
 
+    /**
+     * @brief Accesseur de la donnée membre rayon
+     * 
+     * @return float 
+     */
+    float getrayon()const;
 
     /**
      * @brief mutateur de la donnée membre nb_vie
@@ -66,42 +88,61 @@ public:
      */
     void set_nb_vie(unsigned int nb);
     
+    /**
+     * @brief mutateur de la donnée membre nb_vie_init
+     * 
+     * @param[in] nb 
+     */
+    void set_nb_vie_init(unsigned int nb);
+
+    /**
+     * @brief  mutateur de la donnée membre v0
+     * 
+     * @param[in] v 
+     */
+    void set_v0(unsigned int v);
+
+    /**
+     * @brief  mutateur de la donnée membre pos_init
+     * 
+     * @param[in] v 
+     */
+    void set_pos_init(const Vec2 & v);
+    
+    /**
+     * @brief  mutateur de la donnée membre g
+     * 
+     * @param[in] p 
+     */
+    void set_g(float p);
+
+    /**
+     * @brief  mutateur de la donnée membre position
+     * 
+     * @param[in] v 
+     */
+    void set_pos(const Vec2 & v);
+
+    /**
+     * @brief mutateur de la donnée membre rayon
+     * 
+     * @param[in] r 
+     */
+    void setrayon(float r);
+
 
 
     /**
-     * @brief convertit les angles  en radiants à des angles en degrès.
+     * @brief convertit les angles en radiants à des angles en degrès.
      * @param[in] deg 
      * @return float 
      */
     float to_rad(float deg)const; 
 
-     /**
-     * @brief calcule l'équation du mouvement parabolique.
-     * 
-     * @return float 
-     */
-    float calcule_eqpara();
-
-    /**
-     * @brief fait la rotation d'un objet
-     * 
-     * @param[in] p 
-     * @param[in] cx 
-     * @param[in] cy 
-     * @param[in] theta_deg 
-     * @return Vec2 
-     */
-
-    Vec2 rotation(Vec2 p, float cx, float cy, float theta_deg);
-
-    /**
-     * @brief ajoute une force à une ancienne force.
-     * 
-     * @param[in] f 
-     */
-    void rajouteForce (Vec2 f);
 
 
+   
+   
 /**
  * @brief Calcule la coordonnée x de ... 
  * 
@@ -120,6 +161,13 @@ float calculeX(float angle, float t);
  */
 float calculeY(float angle, float t);
 
+/**
+ * @brief calcule l'angle alpha formée par la position initiale du singe et la position de l'utilisateur.
+ * 
+ * @param[in] pos_curseur 
+ * @return float 
+ */
+float calculeAlpha( const Vec2 & pos_curseur) const;
 
 };
 

@@ -5,10 +5,15 @@
 using namespace std;
 
 
-Singe::Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit) {
+Singe::Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,float r, float gr) {
     nb_vie = viesInit;
-    position = p;
+    nb_vie_init= viesInit;
+    pos_init=p;
+    position = pos_init;
     v0 = vitesseInit;
+    rayon=r;
+    g=gr;
+
 }
 
 Singe::~Singe() {
