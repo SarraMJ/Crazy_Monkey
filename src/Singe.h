@@ -2,6 +2,11 @@
 #define _SINGE_H
 #include"Vec2.h"
 
+/**
+ * @brief Classe qui représente un singe et ses composants 
+ * 
+ */
+
 class Singe
 {
 private:

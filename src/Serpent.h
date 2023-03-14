@@ -2,6 +2,11 @@
 #define _SERPENT_H
 #include "Vec2.h"
 
+/**
+ * @brief Classe qui représente un serpent et ses composants.
+ * 
+ */
+
 class Serpent
 {
 private:
