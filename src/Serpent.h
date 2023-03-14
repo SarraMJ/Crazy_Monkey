@@ -1,4 +1,4 @@
-#ifndef _SERPENT_H
+#ifndef _SERPENT0_H
 #define _SERPENT_H
 #include "Vec2.h"
 
@@ -12,6 +12,7 @@ class Serpent
 private:
 
     Vec2 position ; 
+    double rayon;
 
 public:
 
@@ -41,6 +42,19 @@ public:
      */
     void setPosition(Vec2 p);
 
+    /**
+     * @brief accesseur de la donnée membre rayon
+     * 
+     * @return double 
+     */
+    double getRayon()const;
+
+    /**
+     * @brief mutateur de la donnée membre rayon
+     * 
+     * @param r 
+     */
+    void setRayon(double r);
 };
 
 

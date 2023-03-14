@@ -20,3 +20,13 @@ Vec2 Serpent::getPosition() const {
 void Serpent::setPosition(Vec2 p) {
     position = p;
 }
+
+double Serpent::getRayon()const
+{
+    return rayon;
+}
+
+void Serpent:: setRayon(double r)
+{
+    rayon=r;
+}
