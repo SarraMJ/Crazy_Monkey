@@ -24,14 +24,7 @@ public:
      */
     Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,double r, double gr);
 
-    /**
-     * @brief Destructeur
-     * 
-     */
-    ~Singe();
-
-
-    /**
+      /**
      * @brief accesseur de la donnée membre nb_vie
      * 
      * @return unsigned int 
@@ -143,7 +136,7 @@ Vec2 calcule_pos(double angle, double t);
 ;
 
 /**
- * @brief calcule l'angle alpha formée par la position initiale du singe et la position de l'utilisateur.
+ * @brief calcule l'angle alpha formé par la position initiale du singe et la position de l'utilisateur.
  * 
  * @param[in] pos_curseur 
  * @return double 

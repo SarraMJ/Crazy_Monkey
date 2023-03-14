@@ -21,7 +21,11 @@ Arbre::Arbre(bool m, bool c, Serpent * serpent, Vec2 cen, int r) {
 
 
 Arbre::~Arbre() {
-
+    if(s!= nullptr)
+    {
+        delete s;
+        s=nullptr;
+    } 
 }
 
 bool Arbre::getBanane_magique() const {

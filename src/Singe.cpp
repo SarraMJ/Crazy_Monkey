@@ -16,10 +16,6 @@ Singe::Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,double r, d
 
 }
 
-Singe::~Singe() {
-
-}
-
 unsigned int Singe::get_nb_vie() const {
 return nb_vie;
 }
