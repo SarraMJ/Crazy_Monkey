@@ -19,7 +19,9 @@ private:
     unsigned int nb_serpent;
     float temps_partie; //en seconde
     Singe s;
-    int etat; // si = 0 alors au joueur de choisir l'angle, si 
+    int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
+    bool collision_arbre;
+    bool collision_sol;
     SDL_Window * window;
     SDL_Renderer * renderer;
     SDL_Surface surface;
@@ -58,8 +60,10 @@ public:
      * @param[in] temps
      * @param[in] sin 
      * @param[in] e
+     * @param[in] ca
+     * @param[in] cs
      */
-    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e);
+    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, bool ca, bool cs);
 
     /**
      * @brief Destructeur

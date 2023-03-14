@@ -4,7 +4,7 @@
 using namespace std;
 
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e) {
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, bool ca, bool cs) {
     dimx = x;
     dimy = y;
     tab_arbre = a;
@@ -13,6 +13,8 @@ Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsi
     temps_partie = temps;
     s = sin;
     etat = e;
+    collision_arbre = ca;
+    collision_sol = cs; 
 }
 
 Jungle::~Jungle() {
@@ -51,13 +53,12 @@ void Jungle::set_singe(const  Singe & sin) {
 
 void Jungle::collision(double angle, double t) {
 
-    bool collision_arbre = false;
-    bool collision_sol = false;
+
     do {
 
         //calcule le mouvement parabolique
         s.set_pos(s.calcule_pos(angle, t));
-
+        cout << s.getpos().x << " " << s.getpos().y << endl;
         for (unsigned int i = 0; i < nb_arbre; i++) {
              if (distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon())) {
                 Vec2 pos_init = make_vec2(tab_arbre[i].getCentre().x, tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() + s.getrayon());
@@ -92,6 +93,7 @@ void Jungle::collision(double angle, double t) {
     if (collision_sol) {
         cout<<"Perdu!"<<endl;
     }
+    etat = 0;
 
 }
 
@@ -146,10 +148,6 @@ void Jungle::afficherBoucle() {
     double angle;
 	bool quit = false; 
 
-    // Chargement des images
-    //const char * image_singe = "data/singe.png";
-
-
     // tant que ce n'est pas la fin ...
 	while (!quit) {
 
@@ -157,8 +155,9 @@ void Jungle::afficherBoucle() {
 		// tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_MOUSEBUTTONDOWN) {    
-                        
+			else if (events.type == SDL_MOUSEBUTTONDOWN && etat == 0) {    
+                        cout<<"souris"<<endl;
+                        etat = 1;
                         angle = s.calculeAlpha(make_vec2( events.button.x, events.button.y));
                         collision(angle, SDL_GetTicks());
 			}
