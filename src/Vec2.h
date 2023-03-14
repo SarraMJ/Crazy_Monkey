@@ -19,7 +19,7 @@ struct Vec2
  * @param[in] y 
  * @return Vec2 
  */
-Vec2 make_vec2(float x, float y);
+Vec2 make_vec2(double x, double y);
 
 /**
  * @brief Operateur +, additionne deux vecteurs
