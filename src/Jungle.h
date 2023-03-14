@@ -5,6 +5,10 @@
 #include "Arbre.h"
 #include "Singe.h"
 
+/**
+ * @brief une classe qui représente une jungle avec ses composantes.
+ * 
+ */
 class Jungle
 {
 private:

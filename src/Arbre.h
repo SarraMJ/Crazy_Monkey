@@ -3,6 +3,10 @@
 
 #include "Serpent.h"
 
+/**
+ * @brief la classe arbre représente un arbre et ses composants.
+ * 
+ */
 class Arbre
 {
 private:
