@@ -13,7 +13,7 @@ private:
     Arbre * tab_arbre;
     unsigned int nb_arbre;
     unsigned int nb_serpent;
-    float temps_partie;
+    float temps_partie; //en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si 
     SDL_Window * window;
@@ -49,10 +49,13 @@ public:
      * @param[in] x 
      * @param[in] y 
      * @param[in] a 
-     * @param[in] nb
+     * @param[in] nbs
+     * @param[in] nba
+     * @param[in] temps
      * @param[in] sin 
+     * @param[in] e
      */
-    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nb, const Singe & sin);
+    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e);
 
     /**
      * @brief Destructeur
@@ -109,7 +112,13 @@ public:
      * 
      * @param[in] angle 
      */
-    void collision(double angle);
+    void collision(double angle, double t);
+
+    /**
+     * @brief Affiche le jeu
+     * 
+     */
+    void afficher();
 };
 
 

@@ -6,14 +6,10 @@ CFLAGS = -g -Wall
 
 LIBS_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lGL
 
-all: folders bin/test bin/exemple bin/affichage docs
+all: folders bin/Jeu docs
 
 folders:
 	mkdir -p obj bin data
-
-bin/test: $(OBJ) obj/mainTest.o
-	$(COMPILER) $(OBJ) obj/mainTest.o -o bin/test $(LIBS_SDL) 
-
 
 bin/Jeu: $(OBJ) obj/mainJeu.o
 	$(COMPILER) $(OBJ) obj/mainJeu.o -o bin/Jeu $(LIBS_SDL)

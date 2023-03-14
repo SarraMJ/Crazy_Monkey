@@ -4,12 +4,15 @@
 using namespace std;
 
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nb, const Singe & sin) {
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e) {
     dimx = x;
     dimy = y;
     tab_arbre = a;
-    nb_serpent = nb;
+    nb_serpent = nbs;
+    nb_arbre = nba;
+    temps_partie = temps;
     s = sin;
+    etat = e;
 }
 
 Jungle::~Jungle() {
@@ -156,7 +159,7 @@ void Jungle::afficherBoucle() {
 				switch (events.key.keysym.scancode) {
 				case SDL_MOUSEBUTTONDOWN:
 					 {
-                        angle = calculeAlpha(make_vec2( event.button.x, event.button.y));
+                        angle = s.calculeAlpha(make_vec2( events.button.x, events.button.y));
 
                      }
 					break;
@@ -201,6 +204,12 @@ void Jungle::afficherDetruit() {
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
+}
+
+void Jungle::afficher() {
+    afficherInit();
+    afficherBoucle();
+    afficherDetruit();
 }
 
 
