@@ -3,7 +3,7 @@
 #include "Vec2.h"
 
 
-Vec2 make_vec2(float x, float y)
+Vec2 make_vec2(double x, double y)
 {
     Vec2 v;
     v.x = x;
@@ -60,3 +60,7 @@ Vec2 operator/(Vec2 a, float b)
     return r;
 }
 
+
+double distance (Vec2 a, Vec2 b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+}

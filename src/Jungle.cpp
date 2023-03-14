@@ -46,6 +46,50 @@ void Jungle::set_singe(const  Singe & sin) {
 }
 
 
+void Jungle::collision(double angle, double t) {
+
+    bool collision_arbre = false;
+    bool collision_sol;
+    do {
+
+        
+        s.set_pos(s.calcule_pos(angle, t));
+
+        for (unsigned int i = 0; i < nb_arbre; i++) {
+             if (distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon())) {
+                Vec2 pos_init = make_vec2(tab_arbre[i].getCentre().x, tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() + s.getrayon());
+                s.set_pos_init(pos_init);
+                collision_arbre = true;
+             }
+            
+        }
+
+        if (distance(s.getpos(), make_vec2(s.getpos().x, 0)) <= s.getrayon()) {
+            s.set_nb_vie(s.get_nb_vie() - 1);
+            collision_sol = true;
+
+        }
+    }
+    while (!collision_arbre || !collision_sol);
+
+    if (collision_arbre) {
+        for (unsigned int i = 0; i < nb_arbre; i++) {
+             if (tab_arbre[i].getSerpent()) 
+                s.set_nb_vie(s.get_nb_vie() - 1);
+              if (tab_arbre[i].getBanane_magique()) {
+                if (s.get_nb_vie() == 4)
+                    temps_partie += 10; 
+                else s.set_nb_vie(s.get_nb_vie() + 1);
+                }
+             }
+    }
+
+    if (collision_sol) {
+        cout<<"Perdu!"<<endl;
+    }
+
+}
+
 void Jungle::afficherInit() {
 if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -72,13 +116,34 @@ if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 	//Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 255,255,255,255);
     SDL_RenderClear(renderer);
+
+      SDL_Surface* surface = IMG_Load("data/singe.png");
+    if (surface == NULL) {
+        printf("Erreur lors du chargement de l'image: %s\n", IMG_GetError());
+        exit(1);
+    }
+
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    if (texture == NULL) {
+        printf("Erreur lors de la conversion de la surface en texture: %s\n", SDL_GetError());
+        exit(1);
+    }
+
+
 }
+
 
 
 void Jungle::afficherBoucle() {
     
     SDL_Event events;
+    double angle;
 	bool quit = false; 
+
+    // Chargement des images
+    const char * image_singe = "data/singe.png";
+
 
     // tant que ce n'est pas la fin ...
 	while (!quit) {
@@ -89,17 +154,11 @@ void Jungle::afficherBoucle() {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
 				switch (events.key.keysym.scancode) {
-				case SDL_SCANCODE_T:
+				case SDL_MOUSEBUTTONDOWN:
 					 {
-                        zoom = zoom * 1.5;
+                        angle = calculeAlpha(make_vec2( event.button.x, event.button.y));
 
                      }
-					break;
-				case SDL_SCANCODE_G:
-					    {
-                        zoom = zoom * 0.5; 
-                       
-                        }
 					break;
                 case SDL_SCANCODE_ESCAPE:
                     quit = true;
@@ -110,26 +169,27 @@ void Jungle::afficherBoucle() {
 			}
 		}
 
- 
-	
-        float xcenter = ((200 - (dimx * zoom))/ 2); //calcule la coordonnée x du centre de l'image 
-        float ycenter = ((200 - (dimy * zoom))/ 2); //calcule la coordonnée y du centre de l'image 
-        for (unsigned int i = 0; i <dimx; i++) {
-                            for (unsigned int j=0; j<dimy; j++) {
-                                Pixel pi = getPix(i, j);
-                                SDL_SetRenderDrawColor(renderer, pi.getRouge(), pi.getVert(), pi.getBleu(), 255);
-                                SDL_Rect zoomy; 
-                                zoomy.h = zoom;
-                                zoomy.w = zoom;
-                                zoomy.x = (float)(i*zoom+xcenter);
-                                zoomy.y= (float)(j*zoom+ycenter);
-                                SDL_RenderFillRect(renderer, &zoomy); 
-                            }
-                        }
-
 
 		//affiche
-        
+
+            // Création d'une texture de cercle pour le masque
+    SDL_Texture* circleMask = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+                                                 SDL_TEXTUREACCESS_TARGET,
+                                                 dimx, dimy);
+    SDL_SetRenderTarget(renderer, circleMask);
+
+    // Dessin du cercle sur la texture de cercle
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+    for (int y = 0; y < dimy; y++) {
+        for (int x = 0; x < dimx; x++) {
+            int dx = x - s.getpos().x ;
+            int dy = y - s.getpos().y;
+            if (sqrt(dx*dx + dy*dy) <= s.getrayon()) {
+                SDL_RenderDrawPoint(renderer, x, y);
+            }
+        }
+    }
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
 

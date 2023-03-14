@@ -11,11 +11,15 @@ private:
 
     unsigned int dimx, dimy;
     Arbre * tab_arbre;
+    unsigned int nb_arbre;
     unsigned int nb_serpent;
+    float temps_partie;
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si 
     SDL_Window * window;
     SDL_Renderer * renderer;
+    SDL_Surface surface;
+    SDL_Texture * texture;
 
 
    /**
@@ -97,6 +101,15 @@ public:
      * @param sin 
      */
     void set_singe(const Singe &sin);
+
+
+    /**
+     * @brief Vérifie la collision du singe avec un arbre ou le sol et fait voler le singe
+     *  
+     * 
+     * @param[in] angle 
+     */
+    void collision(double angle);
 };
 
 

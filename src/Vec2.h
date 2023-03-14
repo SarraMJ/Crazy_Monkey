@@ -2,13 +2,14 @@
 #define _VEC2_H
 
 
+
 /**
- * @brief Structure Vec2 qui contient deux réels x et y 
+ * @brief Structure Vec2 qui contient deux double x et y 
  * 
  */
 struct Vec2
 {
-    float x, y;
+    double x, y;
 };
 
 /**
@@ -75,6 +76,16 @@ Vec2 operator*(Vec2 b, float a);
  * @return Vec2 
  */
 Vec2 operator/(Vec2 a, float b);
+
+
+/**
+ * @brief Calcule la distance entre deux points
+ * 
+ * @param[in] a 
+ * @param[in] b 
+ * @return double 
+ */
+double distance(Vec2 a, Vec2 b);
 
 
 
