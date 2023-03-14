@@ -6,13 +6,13 @@ using namespace std;
 
 Singe::Singe()
 {   
-    nb_vie=nb_vie_init;
     nb_vie_init= 4;
-    pos_init.x=2;
-    pos_init.y=3;
+    nb_vie=nb_vie_init; 
+    pos_init.x=20;
+    pos_init.y=250;
     position = pos_init;
     v0=10;
-    rayon=5;
+    rayon=15;
     g=9.81;
 }
 
