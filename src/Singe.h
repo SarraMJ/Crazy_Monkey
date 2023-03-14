@@ -9,10 +9,10 @@ private:
     unsigned int nb_vie;
     unsigned int nb_vie_init;
     unsigned int v0; 
-    float g;
+    double g;
     Vec2 position;
     Vec2 pos_init;
-    float rayon;
+    double rayon;
 public:
     /**
      * @brief Constructeur de la classe Singe
@@ -22,7 +22,7 @@ public:
      * @param[in] vitesseInit
      * @param[in] v
      */
-    Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit);
+    Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,double r, double gr);
 
     /**
      * @brief Destructeur
@@ -43,7 +43,7 @@ public:
      * 
      * @return unsigned int 
      */
-    unsigned int get_nb_vie() const;
+    unsigned int get_nb_vie_init() const;
 
     /**
      * @brief accesseur de la donnée membre position
@@ -62,9 +62,9 @@ public:
     /**
      * @brief accesseur de la donnée membre g 
      * 
-     * @return float 
+     * @return double 
      */
-    float getG()const;
+    double getG()const;
 
 
     /**
@@ -77,9 +77,9 @@ public:
     /**
      * @brief Accesseur de la donnée membre rayon
      * 
-     * @return float 
+     * @return double 
      */
-    float getrayon()const;
+    double getrayon()const;
 
     /**
      * @brief mutateur de la donnée membre nb_vie
@@ -114,7 +114,7 @@ public:
      * 
      * @param[in] p 
      */
-    void set_g(float p);
+    void set_g(double p);
 
     /**
      * @brief  mutateur de la donnée membre position
@@ -128,46 +128,27 @@ public:
      * 
      * @param[in] r 
      */
-    void setrayon(float r);
+    void setrayon(double r);
 
-
-
-    /**
-     * @brief convertit les angles en radiants à des angles en degrès.
-     * @param[in] deg 
-     * @return float 
-     */
-    float to_rad(float deg)const; 
-
-
-
-   
-   
+  
 /**
- * @brief Calcule la coordonnée x de ... 
+ * @brief Calcule la nouvelle position du singe  
  * 
  * @param angle 
  * @param[in] t
- * @return float 
+ * @return Vec2
  */
-float calculeX(float angle, float t);
+Vec2 calcule_pos(double angle, double t);
 
-/**
- * @brief Calcule la coordonnée Y de la position de notre objet sur la parabole au temps t
- * 
- * @param angle 
- * @param t 
- * @return float 
- */
-float calculeY(float angle, float t);
+;
 
 /**
  * @brief calcule l'angle alpha formée par la position initiale du singe et la position de l'utilisateur.
  * 
  * @param[in] pos_curseur 
- * @return float 
+ * @return double 
  */
-float calculeAlpha( const Vec2 & pos_curseur) const;
+double calculeAlpha(const Vec2 & pos_curseur) const;
 
 };
 
