@@ -52,10 +52,10 @@ void Jungle::set_singe(const  Singe & sin) {
 void Jungle::collision(double angle, double t) {
 
     bool collision_arbre = false;
-    bool collision_sol;
+    bool collision_sol = false;
     do {
 
-        
+        //calcule le mouvement parabolique
         s.set_pos(s.calcule_pos(angle, t));
 
         for (unsigned int i = 0; i < nb_arbre; i++) {
@@ -77,8 +77,10 @@ void Jungle::collision(double angle, double t) {
 
     if (collision_arbre) {
         for (unsigned int i = 0; i < nb_arbre; i++) {
-             if (tab_arbre[i].getSerpent()) 
-                s.set_nb_vie(s.get_nb_vie() - 1);
+             if (tab_arbre[i].getSerpent() != nullptr) {
+                if (distance(tab_arbre[i].getSerpent()->getPosition(), s.getpos()) <= s.getrayon() + tab_arbre[i].getSerpent()->getRayon())
+                    s.set_nb_vie(s.get_nb_vie() - 1);
+             } 
               if (tab_arbre[i].getBanane_magique()) {
                 if (s.get_nb_vie() == 4)
                     temps_partie += 10; 
@@ -156,36 +158,19 @@ void Jungle::afficherBoucle() {
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_MOUSEBUTTONDOWN) {    
-
+                        
                         angle = s.calculeAlpha(make_vec2( events.button.x, events.button.y));
+                        collision(angle, SDL_GetTicks());
 			}
+
 		}
 
 
 		//affiche
+        
         SDL_Rect rect = { s.getpos_init().x - s.getrayon(), s.getpos().y -  s.getrayon(), s.getrayon(), s.getrayon() };
 
         SDL_RenderCopyEx(renderer,texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
-        
-      /*      // Création d'une texture de cercle pour le masque
-    SDL_Texture* circleMask = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
-                                                 SDL_TEXTUREACCESS_TARGET,
-                                                 dimx, dimy);
-    SDL_SetRenderTarget(renderer, circleMask);
-
-    // Dessin du cercle sur la texture de cercle
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-    for (unsigned int y = 0; y < dimy; y++) {
-        for (unsigned int x = 0; x < dimx; x++) {
-            int dx = x - s.getpos().x ;
-            int dy = y - s.getpos().y;
-            if (sqrt(dx*dx + dy*dy) <= s.getrayon()) {
-                SDL_RenderDrawPoint(renderer, x, y);
-            }
-        }
-    }
-    */
 
 
         SDL_RenderPresent(renderer);
