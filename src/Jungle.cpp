@@ -108,7 +108,7 @@ if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         exit(1);
     }
         // Creation de la fenetre
-    window = SDL_CreateWindow("Module Image", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 200, 200, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("Module Image", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dimx, dimy, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl; 
         SDL_Quit(); 
@@ -156,15 +156,18 @@ void Jungle::afficherBoucle() {
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
 			else if (events.type == SDL_MOUSEBUTTONDOWN) {    
-                
+
                         angle = s.calculeAlpha(make_vec2( events.button.x, events.button.y));
 			}
 		}
 
 
 		//affiche
+        SDL_Rect rect = { s.getpos_init().x - s.getrayon(), s.getpos().y -  s.getrayon(), s.getrayon(), s.getrayon() };
 
-            // Création d'une texture de cercle pour le masque
+        SDL_RenderCopyEx(renderer,texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
+        
+      /*      // Création d'une texture de cercle pour le masque
     SDL_Texture* circleMask = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
                                                  SDL_TEXTUREACCESS_TARGET,
                                                  dimx, dimy);
@@ -182,6 +185,9 @@ void Jungle::afficherBoucle() {
             }
         }
     }
+    */
+
+
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
 
