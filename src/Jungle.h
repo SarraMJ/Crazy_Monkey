@@ -6,7 +6,7 @@
 #include "Singe.h"
 
 /**
- * @brief une classe qui représente une jungle avec ses composantes.
+ * @brief une classe qui représente une jungle avec ses  composantes.
  * 
  */
 class Jungle
@@ -22,32 +22,14 @@ private:
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
     bool collision_arbre;
     bool collision_sol;
-    SDL_Window * window;
-    SDL_Renderer * renderer;
-    SDL_Surface surface;
-    SDL_Texture * texture;
-
-
-   /**
-    * @brief Initialise et création de la fenêtre SDL2
-    * 
-    */
-   void afficherInit();
-
-    /**
-     * @brief Affiche la fenêtre et permet le zoomage avec T, dézoomage avec G ou quitter la fenêtre avec esc (ou la croix) 
-    * 
-    */
-   void afficherBoucle();
-
-    /**
-    * @brief Détruit la fenêtre générée par SDL2
-    * 
-    */
-   void afficherDetruit();
-
    
 public:
+
+    /**
+     * @brief Constructeur par défaut de la classe jungle
+     * 
+     */
+    Jungle();
 
     /**
      * @brief Constructeur par copie
