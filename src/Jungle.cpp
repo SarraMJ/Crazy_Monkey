@@ -145,7 +145,7 @@ void Jungle::afficherBoucle() {
 	bool quit = false; 
 
     // Chargement des images
-    const char * image_singe = "data/singe.png";
+    //const char * image_singe = "data/singe.png";
 
 
     // tant que ce n'est pas la fin ...
@@ -155,20 +155,9 @@ void Jungle::afficherBoucle() {
 		// tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
-				switch (events.key.keysym.scancode) {
-				case SDL_MOUSEBUTTONDOWN:
-					 {
+			else if (events.type == SDL_MOUSEBUTTONDOWN) {    
+                
                         angle = s.calculeAlpha(make_vec2( events.button.x, events.button.y));
-
-                     }
-					break;
-                case SDL_SCANCODE_ESCAPE:
-                    quit = true;
-
-                    break;
-				default: break;
-				}
 			}
 		}
 
@@ -184,8 +173,8 @@ void Jungle::afficherBoucle() {
     // Dessin du cercle sur la texture de cercle
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
-    for (int y = 0; y < dimy; y++) {
-        for (int x = 0; x < dimx; x++) {
+    for (unsigned int y = 0; y < dimy; y++) {
+        for (unsigned int x = 0; x < dimx; x++) {
             int dx = x - s.getpos().x ;
             int dy = y - s.getpos().y;
             if (sqrt(dx*dx + dy*dy) <= s.getrayon()) {
