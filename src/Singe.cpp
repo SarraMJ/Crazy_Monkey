@@ -4,6 +4,17 @@
 
 using namespace std;
 
+Singe::Singe()
+{   
+    nb_vie=nb_vie_init;
+    nb_vie_init= 4;
+    pos_init.x=2;
+    pos_init.y=3;
+    position = pos_init;
+    v0=10;
+    rayon=5;
+    g=9.81;
+}
 
 Singe::Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,double r, double gr) {
     nb_vie = viesInit;

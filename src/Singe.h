@@ -13,7 +13,15 @@ private:
     Vec2 position;
     Vec2 pos_init;
     double rayon;
+
 public:
+
+    /**
+     * @brief constructeur par défaut de la classe Singe.
+     * 
+     */
+    Singe();
+
     /**
      * @brief Constructeur de la classe Singe
      * 
@@ -23,6 +31,8 @@ public:
      * @param[in] v
      */
     Singe(unsigned int viesInit, Vec2 p, unsigned int vitesseInit,double r, double gr);
+
+    
 
       /**
      * @brief accesseur de la donnée membre nb_vie
