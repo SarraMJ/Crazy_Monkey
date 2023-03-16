@@ -75,7 +75,7 @@ public:
 /**
     La classe gerant le jeu avec un affichage SDL
 */
-class SDLSimple {
+class AffichageSDL {
 
 private :
 
@@ -106,13 +106,13 @@ public :
      * @brief Constructeur par défaut de la classe SDLSimple
      * 
      */
-    SDLSimple ();
+    AffichageSDL ();
 
     /**
      * @brief Destructeur de la classe SDLSimple
      * 
      */
-    ~SDLSimple ();
+    ~AffichageSDL ();
 
     /**
      * @brief prend en considèration l'interaction de l'utilisateur avec l'interface

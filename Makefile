@@ -17,33 +17,35 @@ bin/Txt : obj/main_txt.o
 bin/Jeu: $(OBJ) obj/mainJeu.o
 	$(COMPILER) $(OBJ) obj/mainJeu.o -o bin/Jeu $(LIBS_SDL)
 
-obj/mainJeu.o: src/mainJeu.cpp src/Jungle.h 
-	$(COMPILER) $(CFLAGS) -c src/mainJeu.cpp  -o obj/mainJeu.o
+obj/mainJeu.o: src/sdl2/mainJeu.cpp src/sdl2/AffichageSDL2.h 
+	$(COMPILER) $(CFLAGS) -c src/sdl2/mainJeu.cpp  -o obj/mainJeu.o
 
+obj/AffichageSDL2.o: src/sdl2/AffichageSDL2.h src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
+	$(COMPILER) $(CFLAGS) -c src/sdl2/AffichageSDL2.cpp -o obj/AffichageSDL2.o
 
-obj/main_txt.o : src/main_txt.cpp src/Jungle.h
-	$(COMPILER) $(CFLAGS) -c src/main_txt.cpp  -o obj/main_txt.o
+obj/main_txt.o : src/txt/main_txt.cpp src/core/Jungle.h
+	$(COMPILER) $(CFLAGS) -c src/txt/main_txt.cpp  -o obj/main_txt.o
 
-obj/AffichageTxt.o: src/AffichageTxt.h src/WinTxt.h src/Jungle.h src/Arbre.h src/Singe.h src/Vec2.h src/Serpent.h
-	$(COMPILER) $(CFLAGS) -c src/AffichageTxt.cpp -o obj/AffichageTxt.o
+obj/AffichageTxt.o: src/txt/AffichageTxt.h src/txt/WinTxt.h src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
+	$(COMPILER) $(CFLAGS) -c src/txt/AffichageTxt.cpp -o obj/AffichageTxt.o
 
-obj/Jungle.o: src/Jungle.cpp src/Jungle.h src/Arbre.h src/Singe.h src/Vec2.h src/Serpent.h
-	$(COMPILER) $(CFLAGS) -c src/Jungle.cpp -o obj/Jungle.o
+obj/Jungle.o: src/core/Jungle.cpp src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
+	$(COMPILER) $(CFLAGS) -c src/core/Jungle.cpp -o obj/Jungle.o
 
-obj/Arbre.o: src/Arbre.cpp src/Arbre.h src/Serpent.h src/Vec2.h
-	$(COMPILER) $(CFLAGS) -c src/Arbre.cpp -o obj/Arbre.o
+obj/Arbre.o: src/core/Arbre.cpp src/core/Arbre.h src/core/Serpent.h src/core/Vec2.h
+	$(COMPILER) $(CFLAGS) -c src/core/Arbre.cpp -o obj/Arbre.o
 
-obj/Serpent.o: src/Serpent.cpp src/Serpent.h src/Vec2.h
-	$(COMPILER) $(CFLAGS) -c src/Serpent.cpp -o obj/Serpent.o
+obj/Serpent.o: src/core/Serpent.cpp src/core/Serpent.h src/core/Vec2.h
+	$(COMPILER) $(CFLAGS) -c src/core/Serpent.cpp -o obj/Serpent.o
 
-obj/Singe.o: src/Singe.cpp src/Singe.h src/Vec2.h
-	$(COMPILER) $(CFLAGS) -c src/Singe.cpp -o obj/Singe.o
+obj/Singe.o: src/core/Singe.cpp src/core/Singe.h src/core/Vec2.h
+	$(COMPILER) $(CFLAGS) -c src/core/Singe.cpp -o obj/Singe.o
 
-obj/Vec2.o: src/Vec2.cpp src/Vec2.h
-	$(COMPILER) $(CFLAGS) -c src/Vec2.cpp -o obj/Vec2.o
+obj/Vec2.o: src/core/Vec2.cpp src/core/Vec2.h
+	$(COMPILER) $(CFLAGS) -c src/core/Vec2.cpp -o obj/Vec2.o
 
-obj/WinTxt : src/WinTxt.cpp src/WinTxt.h
-	$(COMPILER) $(CFLAGS) -c src/WinTxt.cpp -o obj/WinTxt.o
+obj/WinTxt : src/txt/WinTxt.cpp src/txt/WinTxt.h
+	$(COMPILER) $(CFLAGS) -c src/txt/WinTxt.cpp -o obj/WinTxt.o
 
 docs: doc/image.doxy
 	doxygen doc/image.doxy
