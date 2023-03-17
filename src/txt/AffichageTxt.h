@@ -7,8 +7,8 @@
 /**
  * @brief Affiche les éléments
  * 
- * @param win 
- * @param j 
+ * @param[in] win 
+ * @param[in] j 
  */
 void txtAff(WinTXT & win, const Jungle & j);
 
@@ -16,7 +16,7 @@ void txtAff(WinTXT & win, const Jungle & j);
 /**
  * @brief Affichage en mode txt
  * 
- * @param j 
+ * @param[in] j 
  */
 void txtBoucle (const Jungle & j);
 

@@ -14,9 +14,9 @@ void txtAff(WinTXT & win, const Jungle & j) {
     win.clear();
     //Affichage du singe
     win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
+    win.print(j.get_curseur().x, j.get_curseur().y, '*');
     win.draw();
 }
-
 
 
 
@@ -38,6 +38,19 @@ void txtBoucle(const Jungle & j) {
         #endif 
         
         //j.collision(angle, t);
+
+        c = win.getCh();
+		switch (c) {
+			case '72':
+				j.set_curseur(make_vec2(j.get_curseur().x, j.get_curseur().y+5));
+				break;
+			case '80':
+				j.set_curseur(make_vec2(j.get_curseur().x, j.get_curseur().y-5));
+				break;
+			case 'q':
+				ok = false;
+				break;
+		}
 
     } while (ok);
 }
