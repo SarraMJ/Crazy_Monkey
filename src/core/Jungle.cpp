@@ -16,12 +16,13 @@ Jungle::Jungle()
     temps_partie =90;
     s = singe;
     etat = 0;
+    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
     collision_arbre =false;
     collision_sol = false; 
 }
    
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, bool ca, bool cs) {
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool ca, bool cs) {
     dimx = x;
     dimy = y;
     tab_arbre = a;
@@ -30,6 +31,7 @@ Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsi
     temps_partie = temps;
     s = sin;
     etat = e;
+    curseur = curs;
     collision_arbre = ca;
     collision_sol = cs; 
 }
@@ -63,10 +65,41 @@ Singe Jungle::get_singe() const {
     return s;
 }
 
+int Jungle::get_etat() const {
+    return etat;
+}
+
+bool Jungle::getCollision_arbre() const {
+    return collision_arbre;
+}
+
+bool Jungle::getCollision_sol() const {
+    return collision_sol;
+}
+
+Vec2 Jungle::get_curseur() const {
+    return curseur;
+}
+
 void Jungle::set_singe(const  Singe & sin) {
     s = sin;
 }
 
+void Jungle::set_etat(int e) {
+    etat = e;
+}
+
+void Jungle::setCollision_arbre(bool a) {
+    collision_arbre = a;
+}
+
+void Jungle::setCollision_sol(bool c) {
+    collision_sol = c;
+}
+
+void Jungle::set_curseur(Vec2 c) {
+    curseur = c;
+}
 
 void Jungle::collision(double angle, double t) {
 
