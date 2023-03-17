@@ -20,7 +20,8 @@ void txtAff(WinTXT & win, const Jungle & j) {
 
 
 
-void txtBoucle(const Jungle & j) {
+
+void txtBoucle( Jungle & j) {
     //Creation d'une nouvelle fenetre en mode texte
     WinTXT win(j.get_dimx(), j.get_dimy());
 

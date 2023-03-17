@@ -18,6 +18,6 @@ void txtAff(WinTXT & win, const Jungle & j);
  * 
  * @param[in] j 
  */
-void txtBoucle (const Jungle & j);
+void txtBoucle ( Jungle & j);
 
 #endif
