@@ -4,29 +4,25 @@ COMPILER = g++
 
 CFLAGS = -g -Wall
 
+INCLUDE_DIR_SDL = -I/usr/include/SDL2
+INCLUDE_DIR			= -Isrc -Isrc/core -Isrc/sdl2 -Itxt
 LIBS_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lGL
 
-all: folders bin/Jeu  bin/Txt docs
+all: folders  bin/Txt docs
 
 folders:
 	mkdir -p obj bin data
 
-bin/Txt : obj/main_txt.o
-	$(COMPILER) $(OBJ) obj/AffichageTxt.o obj/main_txt.o -o bin/Txt
+bin/Txt : $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o
+	$(COMPILER) $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o -o bin/Txt
 
-bin/Jeu: $(OBJ) obj/mainJeu.o
-	$(COMPILER) $(OBJ) obj/mainJeu.o -o bin/Jeu $(LIBS_SDL)
-
-obj/mainJeu.o: src/sdl2/mainJeu.cpp src/sdl2/AffichageSDL2.h 
-	$(COMPILER) $(CFLAGS) -c src/sdl2/mainJeu.cpp  -o obj/mainJeu.o
-
-obj/AffichageSDL2.o: src/sdl2/AffichageSDL2.h src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
-	$(COMPILER) $(CFLAGS) -c src/sdl2/AffichageSDL2.cpp -o obj/AffichageSDL2.o
-
-obj/main_txt.o : src/txt/main_txt.cpp src/core/Jungle.h
+obj/main_txt.o : src/txt/main_txt.cpp src/txt/AffichageTxt.h
 	$(COMPILER) $(CFLAGS) -c src/txt/main_txt.cpp  -o obj/main_txt.o
 
-obj/AffichageTxt.o: src/txt/AffichageTxt.h src/txt/WinTxt.h src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
+obj/winTxt.o : src/txt/winTxt.cpp src/txt/winTxt.h
+	$(COMPILER) $(CFLAGS) -c src/txt/winTxt.cpp -o obj/winTxt.o
+
+obj/AffichageTxt.o: src/txt/AffichageTxt.cpp src/txt/AffichageTxt.h src/txt/winTxt.h src/core/Jungle.h 
 	$(COMPILER) $(CFLAGS) -c src/txt/AffichageTxt.cpp -o obj/AffichageTxt.o
 
 obj/Jungle.o: src/core/Jungle.cpp src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
@@ -44,8 +40,6 @@ obj/Singe.o: src/core/Singe.cpp src/core/Singe.h src/core/Vec2.h
 obj/Vec2.o: src/core/Vec2.cpp src/core/Vec2.h
 	$(COMPILER) $(CFLAGS) -c src/core/Vec2.cpp -o obj/Vec2.o
 
-obj/WinTxt : src/txt/WinTxt.cpp src/txt/WinTxt.h
-	$(COMPILER) $(CFLAGS) -c src/txt/WinTxt.cpp -o obj/WinTxt.o
 
 docs: doc/image.doxy
 	doxygen doc/image.doxy

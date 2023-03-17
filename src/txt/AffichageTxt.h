@@ -1,25 +1,15 @@
 #ifndef _AFFICHAGETXT_H
 #define _AFFICHAGETXT_H
-#include "Jungle.h"
+#include "../core/Jungle.h"
 #include "winTxt.h"
 
 
-const char terrain[13][48] = {
-    "###############################################",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "#   A          A          A        A       A  #",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "#                                             #",
-    "###############################################",
-}
-
+/**
+ * @brief Affiche les éléments
+ * 
+ * @param win 
+ * @param j 
+ */
 void txtAff(WinTXT & win, const Jungle & j);
 
 
