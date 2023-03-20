@@ -16,7 +16,7 @@ Jungle::Jungle()
     temps_partie =90;
     s = singe;
     etat = 0;
-    curseur = make_vec2(s.getpos().x + 15, s.getpos().y);
+    curseur = make_vec2(s.getpos().x + 10, s.getpos().y);
     collision_arbre =false;
     collision_sol = false; 
 }
