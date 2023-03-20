@@ -23,7 +23,7 @@ void txtAff(WinTXT & win, const Jungle &j)
 void txtAff2(WinTXT & win, const Jungle &j)
 {
 
-    win.clear();
+    //win.clear();
     // Affichage du singe
     win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
     win.draw();
@@ -33,7 +33,7 @@ void txtAff2(WinTXT & win, const Jungle &j)
 void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
 {
 
-    double dt = 0.01;
+    double dt = 0.1;
     Singe si;
     do
     {
@@ -41,20 +41,21 @@ void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
         //calcule le mouvement parabolique
         si.set_pos(j.get_singe().calcule_pos(angle, t));
         j.set_singe(si);
-        cout<<"toto"<<endl;
+       
         cout<<"Position singe x : "<<j.get_singe().getpos().x<<" et y :"<<j.get_singe().getpos().y<<endl;
+
         //j.get_singe().set_pos(j.get_singe().calcule_pos(angle, t));  get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas 
         txtAff2(win, j);
-/*
+
         #ifdef _MSC_VER
         Sleep(100);
         #else
-        usleep(100000);
+        usleep(10000);
         #endif
-        cout << endl; */
+        cout << endl; 
 
 
-        if (j.get_singe().getpos().y == j.get_dimy())
+        if (j.get_singe().getpos().y >=j.get_dimy())
         {
             j.get_singe().set_nb_vie(j.get_singe().get_nb_vie() - 1);
             j.setCollision_sol(true);
@@ -79,7 +80,6 @@ void txtBoucle(Jungle &j)
     int c;
     double t = 0;
     double angle;
-    // double dt = 0.01;
 
     do
     {
@@ -94,8 +94,9 @@ void txtBoucle(Jungle &j)
 
        
 
-        cout << "Pour bouger votre curseur vers le bas tapez b, et vers le haut tapez h." << endl;
-        // cout<<"Position x du curseur : "<<j.get_curseur().x << " et y : " << j.get_curseur().y <<endl;
+        cout << "Tapez h : bouge curseur vers le haut ; Tapez b : bouge curseur vers le bas ; Tapez e: valider"<<endl;
+        //cout<<"Pour bouger votre curseur vers le haut tapez h."<< endl;
+        //cout<<"Pour bouger valider, tapez e."<< endl;
 
         angle = j.get_singe().calculeAlpha(j.get_curseur());
         cout << "angle : " << angle << endl;

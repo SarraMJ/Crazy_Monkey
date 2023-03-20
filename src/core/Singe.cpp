@@ -8,20 +8,21 @@ Singe::Singe()
 {   
     nb_vie_init= 4;
     nb_vie=nb_vie_init; 
-    pos_init.x=20;
-    pos_init.y=250;
+    pos_init.x=5;
+    pos_init.y=15;
     position = pos_init;
     v0=10;
-    rayon=70;
+    rayon=10;
     g=9.81;
 }
 
-Singe::Singe(unsigned int viesInit, Vec2 p, double r, double gr) {
+Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr) {
     nb_vie = viesInit;
     nb_vie_init= viesInit;
     pos_init=p;
     position = pos_init;
     rayon=r;
+    v0 = v;
     g=gr;
 
 }
@@ -34,7 +35,7 @@ Vec2 Singe::getpos()const {
     return position;
 }
 
-float Singe::get_v0() const {
+double Singe::get_v0() const {
     return v0;
 }
 
@@ -85,24 +86,23 @@ void Singe::setrayon(double r)
     rayon=r;
 }
 
-void Singe::set_v0(float v)
+void Singe::set_v0(double v)
 {
     v0=v;
 }
 
-// v0 = (p.y - pos_init.y + 0.5 * g * t*t) / (t * sin(angle));
 
 Vec2 Singe::calcule_pos(double angle, double t) {
    Vec2 p;
-    p.x= v0*cos(angle)*v0* t*pos_init.x;
-    p.y= (-0.5*g*t*t+v0*sin(angle)*t+pos_init.y);
+    p.x= v0*cos(angle)*t + pos_init.x;
+    p.y= (0.5*g*t*t-v0*sin(angle)*t+pos_init.y);
     return p;
 }
 
 double Singe::calculeAlpha(const Vec2 & pos_curseur) const
 {
     double alpha;
-    alpha=atan((pos_curseur.y-pos_init.y)/(pos_curseur.x-pos_init.x));
+    alpha= - atan((pos_curseur.y-pos_init.y)/(pos_curseur.x-pos_init.x));
     return alpha;
 }
 

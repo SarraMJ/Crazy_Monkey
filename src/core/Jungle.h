@@ -165,24 +165,7 @@ public:
      */
     void collision(double angle, double t);
 
-    /**
-     * @brief Vérifie la collision du singe avec un arbre ou le sol et fait voler le singe
-     *  
-     * 
-     * @param[in] angle 
-     */
-    void collisiontxt(double angle, double t);
 
-
-    /**
-     * @brief Affiche le jeu
-     * 
-     */
-    void afficher();
-
-    void colSol();
-
-    void posi(double angle, double t, double d);
 };
 
 

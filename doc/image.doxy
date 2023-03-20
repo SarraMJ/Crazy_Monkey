@@ -908,7 +908,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ./src/Arbre.h  ./src/Arbre.cpp  ./src/Singe.h ./src/Singe.cpp ./src/Jungle.h ./src/Jungle.cpp ./src/Serpent.h ./src/Serpent.cpp ./src/Vec2.h ./src/Vec2.cpp 
+INPUT                  = ./src/core/Arbre.h  ./src/core/Arbre.cpp  ./src/core/Singe.h ./src/core/Singe.cpp ./src/core/Jungle.h ./src/core/Jungle.cpp ./src/core/Serpent.h ./src/core/Serpent.cpp ./src/core/Vec2.h ./src/core/Vec2.cpp ./src/txt/AffichageTxt.cpp ./src/txt/AffichageTxt.h ./src/txt/winTxt.cpp ./src/txt/winTxt.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

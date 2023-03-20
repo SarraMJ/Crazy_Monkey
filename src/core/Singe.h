@@ -13,7 +13,7 @@ private:
 
     unsigned int nb_vie;
     unsigned int nb_vie_init;
-    float v0; 
+    double v0; 
     double g;
     Vec2 position;
     Vec2 pos_init;
@@ -35,7 +35,7 @@ public:
      * @param[in] vitesseInit
      * @param[in] v
      */
-    Singe(unsigned int viesInit, Vec2 p,double r, double gr);
+    Singe(unsigned int viesInit, Vec2 p,double r, double v, double gr);
 
     
 
@@ -80,7 +80,7 @@ public:
      * 
      * @return unsigned int 
      */
-    float get_v0() const;
+    double get_v0() const;
 
     /**
      * @brief Accesseur de la donnée membre rayon
@@ -108,7 +108,7 @@ public:
      * 
      * @param[in] v 
      */
-    void set_v0(float v);
+    void set_v0(double v);
 
     /**
      * @brief  mutateur de la donnée membre pos_init

@@ -8,15 +8,15 @@ Jungle::Jungle()
 {   
     Singe singe;
 
-    dimx = 800;
-    dimy = 800;
+    dimx = 30;
+    dimy = 30;
     tab_arbre = new Arbre[6];
     nb_serpent =1;
     nb_arbre = 6;
     temps_partie =90;
     s = singe;
     etat = 0;
-    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
+    curseur = make_vec2(s.getpos().x + 15, s.getpos().y);
     collision_arbre =false;
     collision_sol = false; 
 }
@@ -147,46 +147,4 @@ void Jungle::collision(double angle, double t) {
 
 }
 
-void Jungle::colSol() {
-    if (s.getpos().y <= 0) {
-            s.set_nb_vie(s.get_nb_vie() - 1);
-            collision_sol = true;
 
-        }
-        if (collision_sol) {
-        cout<<"Perdu!"<<endl;
-    }
-
-}
-
-void Jungle::posi(double angle, double t, double dt) {
-
-    t += dt;
-        //calcule le mouvement parabolique
-        s.set_pos(s.calcule_pos(angle, t));
-}
-
-void Jungle::collisiontxt(double angle, double t) {
-
-    double dt = 0.01;
-    do {
-        t += dt;
-        //calcule le mouvement parabolique
-        s.set_pos(s.calcule_pos(angle, t));
-        
-       
-        if (s.getpos().y <= 0) {
-            s.set_nb_vie(s.get_nb_vie() - 1);
-            collision_sol = true;
-
-        }
-    } while (!collision_sol); //!collision_arbre ||
-    t = 0;
-
-
-    if (collision_sol) {
-        cout<<"Perdu!"<<endl;
-    }
-    etat = 0;
-
-}
