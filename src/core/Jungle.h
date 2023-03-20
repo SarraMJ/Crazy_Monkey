@@ -1,7 +1,5 @@
 #ifndef _JUNGLE_H
 #define _JUNGLE_H
-#include </usr/include/SDL2/SDL.h>
-#include </usr/include/SDL2/SDL_image.h>
 #include "Arbre.h"
 #include "Singe.h"
 
@@ -160,7 +158,7 @@ public:
     /**
      * @brief Vérifie la collision du singe avec un arbre ou le sol et fait voler le singe
      *  
-     * 
+     * @param[in] t
      * @param[in] angle 
      */
     void collision(double angle, double t);

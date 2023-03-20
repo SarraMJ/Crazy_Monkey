@@ -32,8 +32,9 @@ public:
      * 
      * @param[in] viesInit 
      * @param[in] p
-     * @param[in] vitesseInit
+     * @param[in] gr
      * @param[in] v
+     * @param[in] r
      */
     Singe(unsigned int viesInit, Vec2 p,double r, double v, double gr);
 
