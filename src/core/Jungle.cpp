@@ -61,7 +61,7 @@ unsigned int Jungle::get_dimy() const {
     return nb_serpent;
  }
 
-Singe Jungle::get_singe() const {
+Singe Jungle::get_singe()  const{
     return s;
 }
 
@@ -147,5 +147,46 @@ void Jungle::collision(double angle, double t) {
 
 }
 
+void Jungle::colSol() {
+    if (s.getpos().y <= 0) {
+            s.set_nb_vie(s.get_nb_vie() - 1);
+            collision_sol = true;
+
+        }
+        if (collision_sol) {
+        cout<<"Perdu!"<<endl;
+    }
+
+}
+
+void Jungle::posi(double angle, double t, double dt) {
+
+    t += dt;
+        //calcule le mouvement parabolique
+        s.set_pos(s.calcule_pos(angle, t));
+}
+
+void Jungle::collisiontxt(double angle, double t) {
+
+    double dt = 0.01;
+    do {
+        t += dt;
+        //calcule le mouvement parabolique
+        s.set_pos(s.calcule_pos(angle, t));
+        
+       
+        if (s.getpos().y <= 0) {
+            s.set_nb_vie(s.get_nb_vie() - 1);
+            collision_sol = true;
+
+        }
+    } while (!collision_sol); //!collision_arbre ||
+    t = 0;
 
 
+    if (collision_sol) {
+        cout<<"Perdu!"<<endl;
+    }
+    etat = 0;
+
+}
