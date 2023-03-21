@@ -11,7 +11,7 @@
   * @param[in] win 
   * @param[in] j 
   */
-void txtAff(WinTXT & win, const Jungle & j);
+void txtAff(WinTXT & win, Jungle & j);
 
 /**
  * @brief affiche seulement l singe avce la nouvelle position.
@@ -19,7 +19,7 @@ void txtAff(WinTXT & win, const Jungle & j);
  * @param[in] win 
  * @param[in] j 
  */
-void txtAff2(WinTXT & win, const Jungle & j);
+void txtAff2(WinTXT & win, Jungle & j);
 
 /**
  * @brief calcule si il ya  collision du singe avec les autres elements de la fenetre.

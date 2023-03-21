@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void txtAff(WinTXT & win, const Jungle &j)
+void txtAff(WinTXT & win, Jungle &j)
 {
 
     win.clear();
@@ -20,7 +20,7 @@ void txtAff(WinTXT & win, const Jungle &j)
     win.draw();
 }
 
-void txtAff2(WinTXT & win, const Jungle &j)
+void txtAff2(WinTXT & win,  Jungle &j)
 {
 
     win.clear();
@@ -34,17 +34,20 @@ void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
 {
 
     double dt = 0.1;
-    Singe si;
+    //Singe si;
     do
     {
         t += dt;
         //calcule le mouvement parabolique
-        si.set_pos(j.get_singe().calcule_pos(angle, t));
-        j.set_singe(si);
+       // si.set_pos(j.get_singe().calcule_pos(angle, t));
+        //j.set_singe(si);
        
+
+        j.get_singe().set_pos(j.get_singe().calcule_pos(angle, t));  //get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas 
+        
         cout<<"Position singe x : "<<j.get_singe().getpos().x<<" et y :"<<j.get_singe().getpos().y<<endl;
 
-        //j.get_singe().set_pos(j.get_singe().calcule_pos(angle, t));  get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas 
+
         txtAff2(win, j);
 
         #ifdef _MSC_VER

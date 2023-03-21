@@ -61,7 +61,7 @@ unsigned int Jungle::get_dimy() const {
     return nb_serpent;
  }
 
-Singe Jungle::get_singe()  const{
+Singe & Jungle::get_singe() {
     return s;
 }
 
