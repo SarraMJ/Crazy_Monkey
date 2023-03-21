@@ -98,7 +98,10 @@ void Jungle::set_dimy(unsigned int y)
     dimy=y;
 }
 
-
+void Jungle::set_nb_arbre(unsigned int nb)
+{
+    nb_arbre=nb;
+}
 
 void Jungle::set_etat(int e) {
     etat = e;
