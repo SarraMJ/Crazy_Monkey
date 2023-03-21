@@ -95,6 +95,13 @@ public:
      */
     int get_etat() const;
 
+     /**
+     * @brief Accesseur du nombre d'arbre
+     * 
+     * @return nb_arbre 
+     */
+    unsigned int get_nb_arbre() const;
+
     /**
      * @brief Accesseur du bool collision_arbre
      * 
@@ -118,7 +125,15 @@ public:
      */
     Vec2 get_curseur() const; 
 
+    /**
+     * @brief Mutateur du nombre d'arbre
+     * 
+     * @param[in] nb
+     */
+    void set_nb_arbre(unsigned int nb);
 
+    void set_dimx(unsigned int x);
+    void set_dimy(unsigned int y);
     /**
      * @brief Mutateur du singe
      * 

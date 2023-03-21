@@ -17,6 +17,7 @@ void txtAff(WinTXT & win, Jungle &j)
     // Affichage du singe
     win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
     win.print(j.get_curseur().x, j.get_curseur().y, '*');
+    for (unsigned int  i=0 ; i< j.get)
     win.draw();
 }
 

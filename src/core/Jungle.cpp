@@ -81,9 +81,24 @@ Vec2 Jungle::get_curseur() const {
     return curseur;
 }
 
+unsigned int Jungle::get_nb_arbre()const
+{
+    return nb_arbre;
+}
+
 void Jungle::set_singe(const  Singe & sin) {
     s = sin;
 }
+void Jungle::set_dimx(unsigned int x)
+{
+    dimx=x;
+}
+void Jungle::set_dimy(unsigned int y)
+{
+    dimy=y;
+}
+
+
 
 void Jungle::set_etat(int e) {
     etat = e;
