@@ -23,7 +23,7 @@ void txtAff(WinTXT & win, const Jungle &j)
 void txtAff2(WinTXT & win, const Jungle &j)
 {
 
-    //win.clear();
+    win.clear();
     // Affichage du singe
     win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
     win.draw();
@@ -50,7 +50,7 @@ void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
         #ifdef _MSC_VER
         Sleep(100);
         #else
-        usleep(10000);
+        usleep(100000);
         #endif
         cout << endl; 
 

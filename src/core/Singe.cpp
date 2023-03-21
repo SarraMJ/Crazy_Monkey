@@ -11,7 +11,7 @@ Singe::Singe()
     pos_init.x=5;
     pos_init.y=15;
     position = pos_init;
-    v0=15;
+    v0=25;
     rayon=10;
     g=9.81;
 }
