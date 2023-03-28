@@ -21,6 +21,8 @@ private:
     bool collision_arbre;
     bool collision_sol;
     Vec2 curseur;
+    friend class AffichageSDL;
+    
    
 public:
 
