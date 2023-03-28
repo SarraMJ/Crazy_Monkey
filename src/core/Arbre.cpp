@@ -41,10 +41,15 @@ Serpent * Arbre::getSerpent() const {
     return s;
 }
 
-Vec2 Arbre::getCentre() const {
+Vec2 Arbre::getCentre() const  {
     return centre;
 }
 
 int Arbre::getRayon() const {
     return rayon;
+}
+
+void Arbre:: setCentre(Vec2 v)
+{
+    centre=make_vec2(v.x,v.y);
 }

@@ -10,18 +10,22 @@ Jungle::Jungle()
 
     dimx = 30; //"jfieo 
     dimy = 30;
-    tab_arbre = new Arbre[6];
+    tab_arbre = new Arbre[3];
     nb_serpent =1;
-    nb_arbre = 6;
+    nb_arbre = 3;
+    tab_arbre[0].setCentre(make_vec2(s.getpos().x+8,s.getpos().y));
+    for (unsigned int i=1; i< nb_arbre; i++)
+    {   
+        tab_arbre[i].setCentre(make_vec2((tab_arbre[i-1].getCentre().x+6),tab_arbre[i-1].getCentre().y));
+    }
     temps_partie =90;
     s = singe;
     etat = 0;
-    curseur = make_vec2(s.getpos().x + 10, s.getpos().y);
+    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
     collision_arbre =false;
     collision_sol = false; 
 }
    
-
 Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool ca, bool cs) {
     dimx = x;
     dimy = y;

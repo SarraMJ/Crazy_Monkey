@@ -7,7 +7,8 @@ using namespace std;
 int main(int argc, char** argv) {
     termClear();
     Jungle ji;
-    txtBoucle(ji);
+    AffichageTxt AF;
+    AF.txtBoucle(ji);
     termClear();
     return 0;
 }

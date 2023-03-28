@@ -69,7 +69,7 @@ public:
      * 
      * @return Vec2 
      */
-    Vec2 getCentre() const;
+    Vec2 getCentre() const ;
 
     /**
      * @brief Accesseur au rayon
@@ -77,6 +77,13 @@ public:
      * @return int 
      */
     int getRayon() const;
+
+    /**
+     * @brief mutateur de la donnée membre Centre.
+     * 
+     * @param[in] V 
+     */
+    void setCentre(Vec2 V);
 
 };
 

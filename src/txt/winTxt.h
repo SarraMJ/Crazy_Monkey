@@ -12,6 +12,7 @@ private:
 
 public:
 
+    WinTXT();
     WinTXT (int dx, int dy);
     void clear (char c=' ');
     void print (int x, int y, char c);

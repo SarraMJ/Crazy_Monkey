@@ -10,31 +10,43 @@
 
 using namespace std;
 
-void txtAff(WinTXT & win, Jungle &j)
+
+AffichageTxt::AffichageTxt()
+{
+    WinTXT w(30, 30);
+    win = w;  
+}
+
+void AffichageTxt:: txtAff(const Jungle &j)
 {
 
     win.clear();
     // Affichage du singe
-    win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
-    win.print(j.get_curseur().x, j.get_curseur().y, '*');
-    for (unsigned int  i=0 ; i< j.get_nb_arbre();i++)
+    //win.print(j.s.getpos().x, j.s.getpos().y, 'S');
+    win.print(j.s.getpos().x, j.s.getpos().y, 'S');
+    win.print(j.curseur.x, j.curseur.y, '*');
+   for (unsigned int i=0 ; i< j.nb_arbre;i++)
     {
-       // win.print(j.getTab_arbre(i).)
-    }
+        win.print(j.tab_arbre[i].getCentre().x,j.tab_arbre[i].getCentre().y,'A');
+    } 
     win.draw();
 }
 
-void txtAff2(WinTXT & win,  Jungle &j)
+void AffichageTxt:: txtAff2(const Jungle &j)
 {
-
     win.clear();
     // Affichage du singe
-    win.print(j.get_singe().getpos().x, j.get_singe().getpos().y, 'S');
+    win.print(j.s.getpos().x, j.s.getpos().y, 'S');
+    //win.print(j.s.getpos().x, j.s.getpos().y, 'S');
+    for (unsigned int i=0 ; i< j.nb_arbre;i++)
+    {
+        win.print(j.tab_arbre[i].getCentre().x,j.tab_arbre[i].getCentre().y,'A');
+    } 
     win.draw();
 }
 
 
-void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
+void AffichageTxt:: collisiontxt(Jungle &j, double angle, double t)
 {
 
     double dt = 0.1;
@@ -43,16 +55,16 @@ void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
     {
         t += dt;
         //calcule le mouvement parabolique
-       // si.set_pos(j.get_singe().calcule_pos(angle, t));
+       // si.set_pos(j.s.calcule_pos(angle, t));
         //j.set_singe(si);
        
 
-        j.get_singe().set_pos(j.get_singe().calcule_pos(angle, t));  //get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas 
+        j.s.set_pos(j.s.calcule_pos(angle, t));  //get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas 
         
-        cout<<"Position singe x : "<<j.get_singe().getpos().x<<" et y :"<<j.get_singe().getpos().y<<endl;
+        cout<<"Position singe x : "<<j.s.getpos().x<<" et y :"<<j.s.getpos().y<<endl;
 
 
-        txtAff2(win, j);
+        txtAff2(j);
 
         #ifdef _MSC_VER
         Sleep(100);
@@ -62,22 +74,22 @@ void collisiontxt(Jungle &j, double angle, double t, WinTXT & win)
         cout << endl; 
 
 
-        if (j.get_singe().getpos().y >=j.get_dimy())
+        if (j.s.getpos().y >=j.dimy)
         {
-            j.get_singe().set_nb_vie(j.get_singe().get_nb_vie() - 1);
-            j.setCollision_sol(true);
+            j.s.set_nb_vie(j.s.get_nb_vie() - 1);
+            j.collision_sol==true;
         }
-    } while (!j.getCollision_sol());
+    } while (!j.collision_sol);
     t = 0;
 
-    if (j.getCollision_sol())
+    if (j.collision_sol)
     {
         cout << "Perdu!" << endl;
     }
     j.set_etat(0);
 }
 
-void txtBoucle(Jungle &j)
+void AffichageTxt::txtBoucle(Jungle &j)
 {
     // Creation d'une nouvelle fenetre en mode texte
 
@@ -91,7 +103,7 @@ void txtBoucle(Jungle &j)
     do
     {
 
-        txtAff(win, j);
+        txtAff(j);
         #ifdef _MSC_VER
         Sleep(100);
         #else
@@ -105,9 +117,9 @@ void txtBoucle(Jungle &j)
         //cout<<"Pour bouger votre curseur vers le haut tapez h."<< endl;
         //cout<<"Pour bouger valider, tapez e."<< endl;
 
-        angle = j.get_singe().calculeAlpha(j.get_curseur());
+        angle = j.s.calculeAlpha(j.curseur);
         cout << "angle : " << angle << endl;
-        if (j.getCollision_sol())
+        if (j.collision_sol)
         {
             cout << "Perdu!" << endl;
 
@@ -116,16 +128,16 @@ void txtBoucle(Jungle &j)
         switch (c)
         {
         case 'h':
-            if (j.get_etat() == 0)
-                j.set_curseur(make_vec2(j.get_curseur().x, j.get_curseur().y - 1));
+            if (j.etat == 0)
+                j.curseur= (make_vec2(j.curseur.x, j.curseur.y - 1));
             break;
         case 'b':
-            if (j.get_etat() == 0)
-                j.set_curseur(make_vec2(j.get_curseur().x, j.get_curseur().y + 1));
+            if (j.etat == 0)
+                j.curseur= (make_vec2(j.curseur.x, j.curseur.y + 1));
             break;
         case 'e':
-            j.set_etat(1);
-            collisiontxt(j, angle, t, win);
+            j.etat=1;
+            collisiontxt(j, angle, t);
             break;
         case 'q':
             ok = false;

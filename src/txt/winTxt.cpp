@@ -74,6 +74,16 @@ void termInit()      // configure la saisie : ne pas afficher les caracteres tap
 #endif
 }
 
+WinTXT::WinTXT() 
+{
+    dimx = 0;
+    dimy = 0;
+    win = new char[dimx*dimy];
+    clear();
+    termInit();
+
+}
+
 WinTXT::WinTXT (int dx, int dy) {
     dimx = dx;
     dimy = dy;

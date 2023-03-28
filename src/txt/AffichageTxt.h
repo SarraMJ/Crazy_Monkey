@@ -3,23 +3,34 @@
 #include "../core/Jungle.h"
 #include "winTxt.h"
 
+class AffichageTxt
+{
+private:
+
+  WinTXT win;
+  
+public:
+
+  /**
+   * @brief Constructeur par défaut de la classe AffichageTxt.
+   * 
+   */
+  AffichageTxt();
 
 
  /**
   * @brief Affiche les éléments de la fenétre
   * 
-  * @param[in] win 
   * @param[in] j 
   */
-void txtAff(WinTXT & win, Jungle & j);
+void txtAff(const Jungle & j);
 
 /**
  * @brief affiche seulement l singe avce la nouvelle position.
  * 
- * @param[in] win 
  * @param[in] j 
  */
-void txtAff2(WinTXT & win, Jungle & j);
+void txtAff2(const Jungle & j);
 
 /**
  * @brief calcule si il ya  collision du singe avec les autres elements de la fenetre.
@@ -27,9 +38,8 @@ void txtAff2(WinTXT & win, Jungle & j);
  * @param[in] j 
  * @param[in] angle 
  * @param[in] t 
- * @param[in] win 
  */
-void collisiontxt(Jungle & j, double angle, double t, WinTXT & win);
+void collisiontxt(Jungle & j, double angle, double t);
 
 /**
  * @brief Affichage en mode txt
@@ -37,5 +47,9 @@ void collisiontxt(Jungle & j, double angle, double t, WinTXT & win);
  * @param[in] j 
  */
 void txtBoucle ( Jungle & j);
+
+};
+
+
 
 #endif
