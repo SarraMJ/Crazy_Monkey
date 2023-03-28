@@ -18,6 +18,8 @@ private:
     Vec2 position;
     Vec2 pos_init;
     double rayon;
+    
+    friend class Jungle;
 
 public:
 

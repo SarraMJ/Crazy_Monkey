@@ -86,7 +86,7 @@ public:
      * 
      * @return Singe 
      */
-      Singe & get_singe() ;
+      Singe  get_singe() const;
 
     /**
      * @brief Accesseur de l'état
