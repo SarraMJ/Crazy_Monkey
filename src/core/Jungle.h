@@ -22,6 +22,7 @@ private:
     bool collision_sol;
     Vec2 curseur;
     friend class AffichageSDL;
+    friend class AffichageTxt;
     
    
 public:
