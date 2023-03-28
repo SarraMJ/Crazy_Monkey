@@ -176,10 +176,9 @@ public:
     /**
      * @brief Vérifie la collision du singe avec un arbre ou le sol et fait voler le singe
      *  
-     * @param[in] t
      * @param[in] angle 
      */
-    void collision(double angle, double t);
+    void collision(double angle);
 
 
 };

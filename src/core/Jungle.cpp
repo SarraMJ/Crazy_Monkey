@@ -119,14 +119,17 @@ void Jungle::set_curseur(Vec2 c) {
     curseur = c;
 }
 
-void Jungle::collision(double angle, double t) {
+void Jungle::collision(double angle) {
 
+    double t = 0;
+    double dt = 0.1;
 
     do {
 
+        t =+ dt;
         //calcule le mouvement parabolique
+        
         s.set_pos(s.calcule_pos(angle, t));
-        cout << s.getpos().x << " " << s.getpos().y << endl;
         for (unsigned int i = 0; i < nb_arbre; i++) {
              if (distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon())) {
                 Vec2 pos_init = make_vec2(tab_arbre[i].getCentre().x, tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() + s.getrayon());
