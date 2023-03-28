@@ -8,7 +8,7 @@ Jungle::Jungle()
 {   
     Singe singe;
 
-    dimx = 30;
+    dimx = 30; //"jfieo 
     dimy = 30;
     tab_arbre = new Arbre[6];
     nb_serpent =1;
@@ -126,7 +126,7 @@ void Jungle::collision(double angle) {
 
     do {
 
-        t =+ dt;
+        t += dt;
         //calcule le mouvement parabolique
         
         s.set_pos(s.calcule_pos(angle, t));
