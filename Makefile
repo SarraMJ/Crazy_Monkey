@@ -8,13 +8,22 @@ INCLUDE_DIR_SDL = -I/usr/include/SDL2
 INCLUDE_DIR			= -Isrc -Isrc/core -Isrc/sdl2 -Itxt
 LIBS_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lGL
 
-all: folders  bin/Txt docs
+all: folders  bin/Txt bin/Sdl2 docs
 
 folders:
 	mkdir -p obj bin data
 
 bin/Txt : $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o
 	$(COMPILER) $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o -o bin/Txt
+
+bin/Sdl2 : $(OBJ) obj/AffichageSDL2.o obj/mainSDL2.o
+	$(COMPILER) $(OBJ) obj/AffichageSDL2.o obj/mainSDL2.o -o bin/Sdl2 $(LIBS_SDL) 
+
+obj/mainSDL2.o: src/sdl2/mainSDL2.cpp src/sdl2/AffichageSDL2.h 
+	$(COMPILER) $(CFLAGS) -c src/sdl2/mainSDL2.cpp -o obj/mainSDL2.o
+
+obj/AffichageSDL2.o: src/sdl2/AffichageSDL2.h src/sdl2/AffichageSDL2.cpp src/core/Jungle.h 
+	$(COMPILER) $(CFLAGS) -c src/sdl2/AffichageSDL2.cpp -o obj/AffichageSDL2.o
 
 obj/main_txt.o : src/txt/main_txt.cpp src/txt/AffichageTxt.h
 	$(COMPILER) $(CFLAGS) -c src/txt/main_txt.cpp  -o obj/main_txt.o

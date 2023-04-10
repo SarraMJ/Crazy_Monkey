@@ -181,6 +181,10 @@ public:
     void collision(double angle);
 
 
+    bool collisionsol();
+
+    bool collisionarbre();
+
 };
 
 

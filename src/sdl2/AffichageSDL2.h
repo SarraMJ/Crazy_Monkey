@@ -6,7 +6,7 @@
 #include </usr/include/SDL2/SDL_ttf.h>
 #include </usr/include/SDL2/SDL_mixer.h>
 
-#include "Jungle.h"
+#include "../core/Jungle.h"
 
 //! \brief Pour gérer une image avec SDL2
 class Image {
@@ -54,7 +54,7 @@ public:
      * @param[in] w 
      * @param[in] h 
      */
-    void dessiner (SDL_Renderer * renderer, int x, int y, int w=-1, int h=-1);
+    void dessiner (SDL_Renderer * renderer, int x, int y, int w, int h);
     /**
      * @brief accesseur de la donnée membre texture
      * 
@@ -100,6 +100,7 @@ private :
     bool souris;
     bool touche;
 
+
 public :
 
     /**
@@ -121,7 +122,7 @@ public :
     void sdlBoucle ();
 
     /**
-     * @brief affiche la fenetre sdls
+     * @brief affiche la fenetre sdl2
      * 
      */
     void sdlAff ();

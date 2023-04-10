@@ -8,11 +8,11 @@ Singe::Singe()
 {   
     nb_vie_init= 4;
     nb_vie=nb_vie_init; 
-    pos_init.x=5;
-    pos_init.y=15;
+    pos_init.x=100;
+    pos_init.y=500;
     position = pos_init;
-    v0=25;
-    rayon=10;
+    v0=50;
+    rayon=100;
     g=9.81;
 }
 

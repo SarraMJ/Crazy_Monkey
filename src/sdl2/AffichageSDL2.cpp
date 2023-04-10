@@ -69,7 +69,7 @@ void Image::dessiner (SDL_Renderer * renderer, int x, int y, int w, int h) {
     SDL_Rect r;
     r.x = x;
     r.y = y;
-    r.w = (w<0)?m_surface->w:w;
+    r.w = w;
     r.h = (h<0)?m_surface->h:h;
 
     if (m_a_change) {
@@ -87,8 +87,6 @@ SDL_Texture * Image::getTexture() const {return m_texture;}
 void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 
-
-
 // ============= CLASS SDLJEU =============== //
 
 
@@ -96,6 +94,19 @@ void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 AffichageSDL::AffichageSDL() {
 
+
+        //Initalisation jungle avec les bonnes dimensions
+        //Singe s;
+        //s.set_pos_init(make_vec2(150,150));
+        //s.setrayon(40);
+        //jungle.set_singe(s);
+        jungle.set_dimx(800);
+        jungle.set_dimy(800);
+        //jungle.s.set_pos(make_vec2(100,400));
+        //jungle.s.setrayon(70);
+
+
+    
        // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -137,102 +148,183 @@ AffichageSDL::AffichageSDL() {
 
     // IMAGES
     im_singe.telecharger_fichier("data/singe.png",renderer);
+    im_arbre.telecharger_fichier("data/arbre.png", renderer);
 
-    //Remplir l'écran de blanc
-
-    SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+    //Remplir l'écran de bleu ciel
+    SDL_SetRenderDrawColor(renderer, 166,223,255,255);
     SDL_RenderClear(renderer);
 
 
 }
 
 
-void AffichageSDL::sdlBoucle() {
+AffichageSDL::~AffichageSDL() {
+    if (avec_son) Mix_Quit();
+    TTF_CloseFont(police);
+    TTF_Quit();
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(fenetre);
+    SDL_Quit();
+}
+
+//dessine les images
+void AffichageSDL::sdlAff()
+{
+    
+    im_singe.dessiner(renderer, jungle.s.getpos().x - jungle.s.getrayon(), jungle.s.getpos().y - jungle.s.getrayon(), jungle.s.getrayon(), jungle.s.getrayon());
+    for (unsigned int i = 0; i <jungle.nb_arbre; i++) {
+        im_arbre.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getRayon());
+
+    }
+}
+
+
+void AffichageSDL::sdlBoucle()
+{
 
     SDL_Event events;
     double angle;
-    bool quit = false; 
+    bool quit = false;
 
+    // tant que ce n'est pas la fin ...
 
-
-        // tant que ce n'est pas la fin ...
-
-        while (!quit) {
-
-
-
-
-
+    while (!quit)
+    {
         // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
+    
+        SDL_RenderClear(renderer);
+        sdlAff();
+        while (SDL_PollEvent(&events))
+        {
 
-        while (SDL_PollEvent(&events)) {
+            if (events.type == SDL_QUIT)
+                quit = true;
+            switch (events.type)
+            {
+            case SDL_KEYDOWN :
+                switch (events.key.keysym.sym) 
+                {
+                case SDLK_ESCAPE:
+                    quit = true;
+                    break;
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN :
+                if (jungle.get_etat() == 0) {
+                        
+                        angle = jungle.s.calculeAlpha(make_vec2(events.button.x, events.button.y));
+                        cout << angle << " marche" << endl;
+                        jungle.etat = 1;
+                    }
+               // SDL_RenderClear(renderer);
+                //sdlAff();
+                break;
+            }
+        }
+           
+            if (jungle.get_etat() == 1)
+            {
+                double t = 0;
+                double dt = 0.1;
+                SDL_RenderClear(renderer);
+                do
+                {
 
-        if (events.type == SDL_QUIT) quit = true; // Si l'utilisateur a clique sur la croix de fermeture
+                    t += dt;
+                    // calcule le mouvement parabolique
+                   
+                    jungle.s.set_pos(jungle.s.calcule_pos(angle, t));
+                    
+                    SDL_RenderClear(renderer);
+                    sdlAff();
+                    SDL_RenderPresent(renderer);       
+                
+                     
 
-        else if (events.type == SDL_MOUSEBUTTONDOWN && jungle.get_etat == 0) { 
-        cout<<"souris"<<endl;
-        jungle.get_etat = 1;
-        angle = jungle.get_singe().calculeAlpha(make_vec2( events.button.x, events.button.y));
-        jungle.collision(angle, SDL_GetTicks());
+                } while (!jungle.collisionsol() || (!jungle.collisionarbre())) ;
+                
+                   
+            }
+            
+            SDL_RenderPresent(renderer);
+            SDL_RenderClear(renderer);
+        }
+        
 
+    
 }
 
 
+/*
+void AffichageSDL::sdlBoucle()
+{
 
+    SDL_Event events;
+    double angle;
+    bool quit = false;
+
+    // tant que ce n'est pas la fin ...
+
+    while (!quit)
+    {
+        // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
+    
+        while (SDL_PollEvent(&events))
+        {
+
+            if (events.type == SDL_QUIT)
+                quit = true;
+
+           if (jungle.get_etat() == 0) 
+           {
+                 if (events.type == SDL_MOUSEBUTTONDOWN)
+                {
+                    //if (jungle.get_etat() == 0) {
+                        angle = jungle.s.calculeAlpha(make_vec2(events.button.x, events.button.y));
+                        cout << angle << "marche" << endl;
+                        jungle.set_etat(1);
+                    //}
+                    
+                }
+                SDL_RenderClear(renderer);
+                sdlAff();
+                
+            }
+            else if (jungle.get_etat() == 1)
+            {
+                double t = 0;
+                double dt = 0.1;
+                SDL_RenderClear(renderer);
+                do
+                {
+
+                    t += dt;
+                    // calcule le mouvement parabolique
+                   
+                    jungle.s.set_pos(jungle.s.calcule_pos(angle, t));
+                    
+                    SDL_RenderClear(renderer);
+                    sdlAff();
+                    SDL_RenderPresent(renderer);       
+                    
+                    if (distance(jungle.s.getpos(), make_vec2(jungle.s.getpos().x, jungle.dimy)) <= jungle.s.getrayon())
+                    {
+                        jungle.s.set_nb_vie(jungle.s.get_nb_vie() - 1);
+                        jungle.collision_sol = true;
+                    }
+                } while (!jungle.collision_sol);
+                
+                    
+                    
+            }
+            
+            SDL_RenderPresent(renderer);
+            SDL_RenderClear(renderer);
+        }
+        
+
+    }
 }
 
+*/ 
 
-
-
-
-//affiche
-
-
-SDL_Rect rect = { s.getpos_init().x - s.getrayon(), s.getpos().y - s.getrayon(), s.getrayon(), s.getrayon() };
-
-
-
-SDL_RenderCopyEx(renderer,texture, NULL, &rect, 0, NULL, SDL_FLIP_NONE);
-
-
-
-
-
-SDL_RenderPresent(renderer);
-
-SDL_RenderClear(renderer);
-
-
-
-}
-
-}
-
-
-
-void AffichageSDL2::afficherDetruit() {
-
-SDL_DestroyRenderer(renderer);
-
-SDL_DestroyWindow(window);
-
-IMG_Quit();
-
-SDL_Quit();
-
-}
-
-
-
-void AffichageSDL2::afficher() {
-
-afficherInit();
-
-afficherBoucle();
-
-afficherDetruit();
-
-}
-
-
-//copié collé de l'ancien SDL2 juste à le coller bien dans la nouvelle classe

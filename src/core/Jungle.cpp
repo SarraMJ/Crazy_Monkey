@@ -8,15 +8,15 @@ Jungle::Jungle()
 {   
     Singe singe;
 
-    dimx = 30; //"jfieo 
-    dimy = 30;
-    tab_arbre = new Arbre[3];
+    dimx = 1000;
+    dimy = 800;
+    tab_arbre = new Arbre[4];
     nb_serpent =1;
-    nb_arbre = 3;
-    tab_arbre[0].setCentre(make_vec2(s.getpos().x+8,s.getpos().y));
+    nb_arbre = 4;
+    tab_arbre[0].setCentre(make_vec2(s.getpos().x+300,s.getpos().y+100));
     for (unsigned int i=1; i< nb_arbre; i++)
     {   
-        tab_arbre[i].setCentre(make_vec2((tab_arbre[i-1].getCentre().x+6),tab_arbre[i-1].getCentre().y));
+        tab_arbre[i].setCentre(make_vec2((tab_arbre[i-1].getCentre().x+300),tab_arbre[i-1].getCentre().y));
     }
     temps_partie =90;
     s = singe;
@@ -173,3 +173,31 @@ void Jungle::collision(double angle) {
 }
 
 
+
+bool Jungle::collisionsol() {
+   
+    if (distance(s.getpos(), make_vec2(s.getpos().x, dimy)) <= s.getrayon())
+                    {
+                        s.set_nb_vie(s.get_nb_vie() - 1);
+                        cout<<"collision détéctée avec le sol"<<endl;
+                        etat = 0;
+                         s.set_pos_init(s.getpos());
+                         return true;
+                        
+                    }
+    return false;
+}
+
+bool Jungle::collisionarbre() {
+
+     for (unsigned int i = 0; i < nb_arbre; i++) {
+                        if (distance(s.getpos(), tab_arbre[i].getCentre()) <= ( s.getrayon() + tab_arbre[i].getRayon()) )
+                    {
+                        etat = 0;
+                        s.set_pos_init(s.getpos());
+                        cout<<"collision détectée avec l'arbre"<<endl;
+                        return true;
+                    }
+        }
+    return false;
+}
