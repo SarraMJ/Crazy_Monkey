@@ -94,18 +94,6 @@ void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 AffichageSDL::AffichageSDL() {
 
-
-        //Initalisation jungle avec les bonnes dimensions
-        //Singe s;
-        //s.set_pos_init(make_vec2(150,150));
-        //s.setrayon(40);
-        //jungle.set_singe(s);
-        jungle.set_dimx(800);
-        jungle.set_dimy(800);
-        //jungle.s.set_pos(make_vec2(100,400));
-        //jungle.s.setrayon(70);
-
-
     
        // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -149,6 +137,7 @@ AffichageSDL::AffichageSDL() {
     // IMAGES
     im_singe.telecharger_fichier("data/singe.png",renderer);
     im_arbre.telecharger_fichier("data/arbre.png", renderer);
+    im_serpent.telecharger_fichier("data/serpent.png", renderer);
 
     //Remplir l'écran de bleu ciel
     SDL_SetRenderDrawColor(renderer, 166,223,255,255);
@@ -174,7 +163,9 @@ void AffichageSDL::sdlAff()
     im_singe.dessiner(renderer, jungle.s.getpos().x - jungle.s.getrayon(), jungle.s.getpos().y - jungle.s.getrayon(), 2* jungle.s.getrayon(), 2*jungle.s.getrayon());
     for (unsigned int i = 0; i <jungle.nb_arbre; i++) {
         im_arbre.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon());
-
+        if (jungle.tab_arbre[i].getSerpent())
+           im_serpent.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 60,60);
+            
     }
 }
 
@@ -241,7 +232,7 @@ void AffichageSDL::sdlBoucle()
                 
                      
 
-                } while (!jungle.collisionsol() || (!jungle.collisionarbre())) ;
+                } while ( (!jungle.collisionsol()) || (!jungle.collisionarbre())) ;
                 
                    
             }

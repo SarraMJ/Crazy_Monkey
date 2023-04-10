@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//AJOUTE ASSERTIONS
 
 Jungle::Jungle()
 {   
@@ -10,13 +11,16 @@ Jungle::Jungle()
 
     dimx = 1500;
     dimy = 850;
-    tab_arbre = new Arbre[5];
-    nb_arbre = 5;
-    tab_arbre[0].setCentre(make_vec2(s.getpos().x+400,s.getpos().y+200));
-    tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 400, tab_arbre[0].getCentre().y));
-    tab_arbre[2].setCentre(make_vec2(s.getpos().x+400,s.getpos().y-200));
-    tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 400, tab_arbre[2].getCentre().y));
-    tab_arbre[4].setCentre(make_vec2(s.getpos().x+1200,s.getpos().y));
+    tab_arbre = new Arbre[7];
+    nb_arbre = 7;
+    tab_arbre[0].setCentre(make_vec2(s.getpos().x+300,s.getpos().y+200));
+    tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y-120));
+    tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 50, tab_arbre[0].getCentre().y));
+    tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 350, tab_arbre[1].getCentre().y - 50));
+    tab_arbre[4].setCentre(make_vec2(tab_arbre[3].getCentre().x + 50, tab_arbre[0].getCentre().y));
+    tab_arbre[5].setCentre(make_vec2(tab_arbre[0].getCentre().x , tab_arbre[3].getCentre().y - 20)); //celle en haut à gauche
+    tab_arbre[6].setCentre(make_vec2(s.getpos().x+1500,s.getpos().y));
+    tab_arbre[3].set_serpent(true);
     temps_partie =90;
     s = singe;
     etat = 0;
@@ -163,7 +167,7 @@ bool Jungle::collisionsol() {
                         s.set_nb_vie(s.get_nb_vie() - 1);
                         cout<<"collision détéctée avec le sol"<<endl;
                         etat = 0;
-                         s.set_pos_init(s.getpos());
+                        //s.set_pos_init(s.getpos());
                          return true;
                         
                     }
@@ -175,7 +179,6 @@ bool Jungle::collisionarbre() {
     Vec2 arbre_cote_gauche_haut;
     Vec2 arbre_cote_droit_bas;
     Vec2 singe_cote_gauche_haut =  make_vec2(s.getpos().x  - s.getrayon(), s.getpos().y - s.getrayon());
-
     Vec2 singe_cote_droit_bas = make_vec2(s.getpos().x  + s.getrayon(), s.getpos().y + s.getrayon());
 
 

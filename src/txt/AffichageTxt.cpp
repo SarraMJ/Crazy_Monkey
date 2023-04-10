@@ -77,7 +77,7 @@ void AffichageTxt:: collisiontxt(Jungle &j, double angle, double t)
         if (j.s.getpos().y >=j.dimy)
         {
             j.s.set_nb_vie(j.s.get_nb_vie() - 1);
-            j.collision_sol==true;
+            j.collision_sol=true;
         }
     } while (!j.collision_sol);
     t = 0;
