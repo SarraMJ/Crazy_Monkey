@@ -47,3 +47,8 @@ void Arbre:: setCentre(Vec2 v)
 {
     centre=make_vec2(v.x,v.y);
 }
+
+void Arbre::set_serpent(bool se)
+{
+    serpent=se;
+}

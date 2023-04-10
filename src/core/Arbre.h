@@ -54,9 +54,9 @@ public:
     bool getCoffret_bananes() const;
 
     /**
-     * @brief Accesseur au pointeur du serpent
+     * @brief Accesseur du  serpent
      * 
-     * @return Serpent* 
+     * @return Serpent
      */
     bool getSerpent() const;
 
@@ -80,6 +80,13 @@ public:
      * @param[in] V 
      */
     void setCentre(Vec2 V);
+
+    /**
+     * @brief mutateur du serpent
+     * 
+     * @param[in] se 
+     */
+    void set_serpent(bool se);
 
 };
 
