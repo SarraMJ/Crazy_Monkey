@@ -13,10 +13,10 @@ Jungle::Jungle()
     tab_arbre = new Arbre[4];
     nb_serpent =1;
     nb_arbre = 4;
-    tab_arbre[0].setCentre(make_vec2(s.getpos().x+300,s.getpos().y+100));
+    tab_arbre[0].setCentre(make_vec2(s.getpos().x+400,s.getpos().y+100));
     for (unsigned int i=1; i< nb_arbre; i++)
     {   
-        tab_arbre[i].setCentre(make_vec2((tab_arbre[i-1].getCentre().x+300),tab_arbre[i-1].getCentre().y));
+        tab_arbre[i].setCentre(make_vec2((tab_arbre[i-1].getCentre().x+400),tab_arbre[i-1].getCentre().y));
     }
     temps_partie =90;
     s = singe;
@@ -190,6 +190,30 @@ bool Jungle::collisionsol() {
 
 bool Jungle::collisionarbre() {
 
+    Vec2 arbre_cote_gauche_haut;
+    Vec2 arbre_cote_droit_bas;
+    Vec2 singe_cote_gauche_haut =  make_vec2(s.getpos().x  - s.getrayon(), s.getpos().y - s.getrayon());
+
+    Vec2 singe_cote_droit_bas = make_vec2(s.getpos().x  + s.getrayon(), s.getpos().y + s.getrayon());
+
+
+     for (unsigned int i = 0; i < nb_arbre; i++) {
+
+        arbre_cote_gauche_haut = make_vec2(tab_arbre[i].getCentre().x - tab_arbre[i].getRayon(), tab_arbre[i].getCentre().y - tab_arbre[i].getRayon());
+        arbre_cote_droit_bas = make_vec2(tab_arbre[i].getCentre().x + tab_arbre[i].getRayon(), tab_arbre[i].getCentre().y + tab_arbre[i].getRayon());
+        if ( (singe_cote_gauche_haut.x <= arbre_cote_droit_bas.x) && (singe_cote_droit_bas.x >= arbre_cote_gauche_haut.x) && (singe_cote_droit_bas.y >= arbre_cote_gauche_haut.y ) && (singe_cote_gauche_haut.y <= arbre_cote_droit_bas.y)) {
+            etat = 0;
+            s.set_pos_init(s.getpos());
+            cout<<"collision détectée avec l'arbre "<<i<<endl;
+            return true;
+        }
+           
+    }
+    return false;
+}
+
+/*
+
      for (unsigned int i = 0; i < nb_arbre; i++) {
                         if (distance(s.getpos(), tab_arbre[i].getCentre()) <= ( s.getrayon() + tab_arbre[i].getRayon()) )
                     {
@@ -199,5 +223,4 @@ bool Jungle::collisionarbre() {
                         return true;
                     }
         }
-    return false;
-}
+*/

@@ -171,9 +171,9 @@ AffichageSDL::~AffichageSDL() {
 void AffichageSDL::sdlAff()
 {
     
-    im_singe.dessiner(renderer, jungle.s.getpos().x - jungle.s.getrayon(), jungle.s.getpos().y - jungle.s.getrayon(), jungle.s.getrayon(), jungle.s.getrayon());
+    im_singe.dessiner(renderer, jungle.s.getpos().x - jungle.s.getrayon(), jungle.s.getpos().y - jungle.s.getrayon(), 2* jungle.s.getrayon(), 2*jungle.s.getrayon());
     for (unsigned int i = 0; i <jungle.nb_arbre; i++) {
-        im_arbre.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getRayon());
+        im_arbre.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon());
 
     }
 }

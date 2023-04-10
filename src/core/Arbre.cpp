@@ -8,7 +8,7 @@ Arbre::Arbre() {
     coffret_bananes = false;
     s = nullptr;
     centre = make_vec2(200,500);
-    rayon =  200; 
+    rayon =  150; 
 }
 
 Arbre::Arbre(bool m, bool c, Serpent * serpent, Vec2 cen, int r) {
