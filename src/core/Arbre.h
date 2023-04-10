@@ -12,7 +12,7 @@ class Arbre
 private:
     bool banane_magique; 
     bool coffret_bananes;
-    Serpent * s ; 
+    bool serpent; 
     Vec2 centre; 
     int rayon;
 
@@ -33,13 +33,9 @@ public:
      * @param cen
      * @param r 
      */
-    Arbre(bool m, bool c, Serpent * serpent, Vec2 cen, int r);
+    Arbre(bool m, bool c, bool s, Vec2 cen, int r);
 
-    /**
-     * @brief Destructeur
-     * 
-     */
-    ~Arbre();
+
 
     /**
      * @brief Accesseur au bool banane_magique
@@ -62,7 +58,7 @@ public:
      * 
      * @return Serpent* 
      */
-    Serpent * getSerpent() const;
+    bool getSerpent() const;
 
     /**
      * @brief Accesseur au centre

@@ -6,27 +6,21 @@ using namespace std;
 Arbre::Arbre() {
     banane_magique = false;
     coffret_bananes = false;
-    s = nullptr;
+    serpent = false;
     centre = make_vec2(200,500);
-    rayon =  150; 
+    rayon =  100; 
 }
 
-Arbre::Arbre(bool m, bool c, Serpent * serpent, Vec2 cen, int r) {
+Arbre::Arbre(bool m, bool c, bool s, Vec2 cen, int r) {
     banane_magique = m;
     coffret_bananes = c;
-    s = serpent;
+    serpent = s;
     centre = cen;
     rayon = r;
 }
 
 
-Arbre::~Arbre() {
-    if(s!= nullptr)
-    {
-        delete s;
-        s=nullptr;
-    } 
-}
+
 
 bool Arbre::getBanane_magique() const {
     return banane_magique;
@@ -37,8 +31,8 @@ bool Arbre::getCoffret_bananes() const {
     return coffret_bananes;
 }
 
-Serpent * Arbre::getSerpent() const {
-    return s;
+bool Arbre::getSerpent() const {
+    return serpent;
 }
 
 Vec2 Arbre::getCentre() const  {
