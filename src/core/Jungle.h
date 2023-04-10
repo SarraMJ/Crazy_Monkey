@@ -18,9 +18,8 @@ private:
     float temps_partie; //en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
-    bool collision_arbre;
-    bool collision_sol;
     Vec2 curseur;
+    bool collision_sol;
     friend class AffichageSDL;
     friend class AffichageTxt;
     
@@ -45,10 +44,9 @@ public:
      * @param[in] sin 
      * @param[in] e
      * @param[in] curs
-     * @param[in] ca
-     * @param[in] cs
+     * @param[in] sol
      */
-    Jungle(unsigned int x, unsigned int y, Arbre * a,unsigned int nbs, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool ca, bool cs);
+    Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool sol);
 
     /**
      * @brief Destructeur
@@ -77,12 +75,6 @@ public:
      */
     Arbre getTab_arbre(unsigned int indice) const;
 
-    /**
-     * @brief Acesseur du nombre d'arbre
-     * 
-     * @return unsigned int 
-     */
-    unsigned int getNb_serpent() const;
 
     /**
      * @brief Accesseur du singe
@@ -105,21 +97,6 @@ public:
      */
     unsigned int get_nb_arbre() const;
 
-    /**
-     * @brief Accesseur du bool collision_arbre
-     * 
-     * @return true 
-     * @return false 
-     */
-    bool getCollision_arbre() const;
-
-    /**
-     * @brief Accesseur du bool collision_sol
-     * 
-     * @return true 
-     * @return false 
-     */
-    bool getCollision_sol() const;
 
     /**
      * @brief Accesseur du curseur
@@ -128,6 +105,7 @@ public:
      */
     Vec2 get_curseur() const; 
 
+
     /**
      * @brief Mutateur du nombre d'arbre
      * 
@@ -135,8 +113,21 @@ public:
      */
     void set_nb_arbre(unsigned int nb);
 
+    /**
+     * @brief Mutateur de la dimension x de la jungle
+     * 
+     * @param x 
+     */
     void set_dimx(unsigned int x);
+
+    /**
+     * @brief Mutateur de la dimension y de la jungle
+     * 
+     * @param y 
+     */
     void set_dimy(unsigned int y);
+
+
     /**
      * @brief Mutateur du singe
      * 
@@ -152,20 +143,6 @@ public:
     void set_etat(int e) ;
 
     /**
-     * @brief Mutateur du bool collision_arbre
-     * 
-     * @param a 
-     */
-    void setCollision_arbre(bool a) ;
-
-    /**
-     * @brief Mutateur du bool collision_sol
-     * 
-     * @param c 
-     */
-    void setCollision_sol(bool c);
-
-    /**
      * @brief Mutateur du curseur
      * 
      * @param c 
@@ -173,16 +150,21 @@ public:
     void set_curseur(Vec2 c);
 
 
+
     /**
-     * @brief Vérifie la collision du singe avec un arbre ou le sol et fait voler le singe
-     *  
-     * @param[in] angle 
+     * @brief Vérifie si y a collision avec le sol
+     * 
+     * @return true 
+     * @return false 
      */
-    void collision(double angle);
-
-
     bool collisionsol();
 
+    /**
+     * @brief Vérifie si y a collision avec un arbre
+     * 
+     * @return true 
+     * @return false 
+     */
     bool collisionarbre();
 
 };
