@@ -182,9 +182,9 @@ AffichageSDL::AffichageSDL()
     // SONS
     if (avec_son)
     {
-        son = Mix_LoadWAV("data/son.wav");
+        son = Mix_LoadWAV("data/sounds/ArthurVyncke-ChildhoodFriend.wav");
         if (son == nullptr) 
-            son = Mix_LoadWAV("../data/son.wav");
+            son = Mix_LoadWAV("../data/sounds/ArthurVyncke-ChildhoodFriend.wav");
         if (son == nullptr) {
                 cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
                 SDL_Quit();
@@ -254,6 +254,10 @@ void AffichageSDL::sdlBoucle()
 
         SDL_RenderClear(renderer);
         sdlAff();
+
+        //joue le son
+        if ((avec_son) )
+                Mix_PlayChannel(-1,son,0);
 
         // affiche le chronomètre en noir, et s'il reste moins que 10sec en rouge
         if (jungle.temps_partie < 10)
