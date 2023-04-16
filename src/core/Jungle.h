@@ -14,7 +14,7 @@ private:
     Arbre *tab_arbre;
     unsigned int nb_arbre;
     unsigned int nb_serpent;
-    float temps_partie; // en seconde
+    int temps_partie; // en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
     Vec2 curseur;
@@ -42,7 +42,7 @@ public:
      * @param[in] curs
      * @param[in] sol
      */
-    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, float temps, const Singe &sin, int e, Vec2 curs, bool sol);
+    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol);
 
     /**
      * @brief Destructeur
@@ -156,6 +156,12 @@ public:
      * @return false
      */
     bool collisionarbre();
+
+    /**
+     * @brief fonction qui vérifie si les autres fonctions de la classe fonctionnent.
+     *
+     */
+    void testRegression();
 };
 
 #endif
