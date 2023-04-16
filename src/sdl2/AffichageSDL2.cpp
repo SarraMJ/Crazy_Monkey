@@ -84,6 +84,8 @@ void Image::dessiner (SDL_Renderer * renderer, int x, int y, int w, int h) {
 
 SDL_Texture * Image::getTexture() const {return m_texture;}
 
+SDL_Surface * Image::getSurface() const {return m_surface;}
+
 void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 
@@ -135,9 +137,32 @@ AffichageSDL::AffichageSDL() {
     renderer = SDL_CreateRenderer(fenetre,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_singe.telecharger_fichier("data/singe.png",renderer);
-    im_arbre.telecharger_fichier("data/arbre.png", renderer);
-    im_serpent.telecharger_fichier("data/serpent.png", renderer);
+    im_singe.telecharger_fichier("data/img/singe.png",renderer);
+    im_arbre.telecharger_fichier("data/img/arbre.png", renderer);
+    im_serpent.telecharger_fichier("data/img/serpent.png", renderer);
+
+
+    //FONTS 
+    police = TTF_OpenFont("data/fonts/Samson.ttf",50);
+    if (police == nullptr)
+        police = TTF_OpenFont("../data/fonts/Samson.ttf",50);
+    if (police == nullptr) {
+            cout << "Failed to load Samson.ttf! SDL_TTF Error: " << TTF_GetError() << endl; 
+            SDL_Quit(); 
+            exit(1);
+	}
+	police_couleur.r = 0;
+    police_couleur.g = 0;    
+    police_couleur.b = 0;
+
+    //titre
+	im_police.setSurface(TTF_RenderText_Solid(police,"Crazy Monkey",police_couleur));
+	im_police.telecharger_apartir_surface_courante(renderer);
+
+    //message perdu
+    im_perdu.setSurface(TTF_RenderText_Solid(police,"Perdu!",police_couleur));
+	im_perdu.telecharger_apartir_surface_courante(renderer);
+
 
     //Remplir l'écran de bleu ciel
     SDL_SetRenderDrawColor(renderer, 166,223,255,255);
@@ -159,15 +184,36 @@ AffichageSDL::~AffichageSDL() {
 //dessine les images
 void AffichageSDL::sdlAff()
 {
-    
+    //Afficher le singe
     im_singe.dessiner(renderer, jungle.s.getpos().x - jungle.s.getrayon(), jungle.s.getpos().y - jungle.s.getrayon(), 2* jungle.s.getrayon(), 2*jungle.s.getrayon());
+    //Afficher les arbres
     for (unsigned int i = 0; i <jungle.nb_arbre; i++) {
         im_arbre.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon(), jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon(), 2* jungle.tab_arbre[i].getRayon());
+        //Afficher le serpent (si y en a un)
         if (jungle.tab_arbre[i].getSerpent())
            im_serpent.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 60,60);
             
     }
+    // Titre du jeu
+    SDL_Rect positionTitre({70, 0, 200, 60});
+    SDL_RenderCopy(renderer,im_police.getTexture(),nullptr,&positionTitre);
+
+    //Message perdu
+    /*if (temps_partie == 0) {
+         SDL_Rect positionTitre({jungle.dimx/2, jungle.dimy/2, 300, 120});
+    SDL_RenderCopy(renderer,im_perdu.getTexture(),nullptr,&positionTitre);
+
+    } */
 }
+
+Uint32 timer_callback(Uint32 interval, void *param)
+{
+    int *chrono = (int *)param;
+    (*chrono)--;
+    return interval;
+}
+
+
 
 
 void AffichageSDL::sdlBoucle()
@@ -176,17 +222,37 @@ void AffichageSDL::sdlBoucle()
     SDL_Event events;
     double angle;
     bool quit = false;
+    int temps_partie = 15;
+    chrono_id = SDL_AddTimer(1000, timer_callback, &temps_partie);
+
+    // Declare variables to hold the temps_partie value and the rendered text surface
 
     // tant que ce n'est pas la fin ...
+    // Ajouter l'appel à la fonction de rappel pour le chronomètre
 
     while (!quit)
     {
         // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
-    
+
         SDL_RenderClear(renderer);
         sdlAff();
+ 
+ //affiche le chronomètre en noir, et s'il reste moins que 10sec en rouge
+    if(temps_partie < 10) chrono_couleur = {255,0,0};
+    string temps_partie_str = to_string(temps_partie);
+    im_chrono.setSurface(TTF_RenderText_Solid(police, temps_partie_str.c_str(), chrono_couleur));
+    im_chrono.telecharger_apartir_surface_courante(renderer);
+    im_chrono.dessiner(renderer, jungle.dimx/2, 10, 120,60 );
+    if (temps_partie <= 0)
+    {
+        temps_partie = 0; // Set the countdown value to 0
+        SDL_RemoveTimer(chrono_id); // Stop the timer
+    }
+
+    
         while (SDL_PollEvent(&events))
         {
+
 
             if (events.type == SDL_QUIT)
                 quit = true;
@@ -232,7 +298,7 @@ void AffichageSDL::sdlBoucle()
                 
                      
 
-                } while ( (!jungle.collisionsol()) || (!jungle.collisionarbre())) ;
+                } while ( (!jungle.collisionsol()) || (!jungle.collisionarbre()) || (temps_partie>0)) ;
                 
                    
             }
@@ -240,6 +306,7 @@ void AffichageSDL::sdlBoucle()
             SDL_RenderPresent(renderer);
             SDL_RenderClear(renderer);
         }
+        
         
 
     

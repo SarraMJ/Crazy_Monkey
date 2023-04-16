@@ -16,6 +16,7 @@ private:
     SDL_Surface * m_surface;
     SDL_Texture * m_texture;
     bool m_a_change;
+    
 
 public:
 
@@ -62,6 +63,8 @@ public:
      */
     SDL_Texture * getTexture() const;
 
+    SDL_Surface * getSurface() const;
+
     /**
      * @brief mutateur de la donnée membre surface
      * 
@@ -85,17 +88,23 @@ private :
     SDL_Renderer * renderer;
 
     TTF_Font * police;
-    Image police_im;
-    SDL_Color couleur;
+    SDL_Color police_couleur;
+
+    SDL_TimerID chrono_id;
+    SDL_Color chrono_couleur;
 
     Mix_Chunk * son;
     bool avec_son;
-
+    
+    Image im_perdu;
+    Image im_police;
+    Image im_chrono;
     Image im_singe;
     Image im_arbre;
     Image im_serpent;
     Image im_banane_mag;
     Image im_coffret_banane;
+    
 
     bool souris;
     bool touche;
@@ -126,6 +135,12 @@ public :
      * 
      */
     void sdlAff ();
+
+
+
 };
+
+Uint32 timer_callback(Uint32 interval, void *param);
+
 
 #endif
