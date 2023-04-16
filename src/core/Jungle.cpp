@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Jungle.h"
+#include <assert.h>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ Jungle::Jungle()
 {   
     Singe singe;
 
-    dimx = 1500;
+    dimx = 1400;
     dimy = 850;
     tab_arbre = new Arbre[7];
     nb_arbre = 7;
@@ -29,6 +30,14 @@ Jungle::Jungle()
 }
    
 Jungle::Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool sol) {
+    assert(x > 0 && y > 0);
+    assert(a != nullptr);
+    assert( nba > 0);
+    assert(temps_partie > 0);
+    assert(sin.position.x < dimx);
+    assert(sin.position.y < dimy);
+    assert(curs.x < dimx && curs.x >= 0);
+    assert(curs.y < dimy && curs.y >= 0);
     dimx = x;
     dimy = y;
     tab_arbre = a;
@@ -59,6 +68,7 @@ unsigned int Jungle::get_dimy() const {
   }
 
   Arbre Jungle::getTab_arbre(unsigned int indice) const {
+    assert(indice >= 0);
     return tab_arbre[indice];
  }
 
@@ -83,21 +93,26 @@ unsigned int Jungle::get_nb_arbre()const
 }
 
 void Jungle::set_singe(const  Singe & sin) {
+    assert(sin.position.x>=0 && sin.position.x < dimx);
+    assert(sin.position.y>=0 && sin.position.y < dimy);
     s = sin;
 }
 
 void Jungle::set_dimx(unsigned int x)
 {
+    assert(dimx >  0);
     dimx=x;
 }
 
 void Jungle::set_dimy(unsigned int y)
 {
+    assert(dimy > 0);
     dimy=y;
 }
 
 void Jungle::set_nb_arbre(unsigned int nb)
 {
+    assert(nb>0);
     nb_arbre=nb;
 }
 
@@ -106,6 +121,8 @@ void Jungle::set_etat(int e) {
 }
 
 void Jungle::set_curseur(Vec2 c) {
+    assert(c.x >= 0 && c.x < dimx);
+    assert(c.y >= 0 && c.y < dimy);
     curseur = c;
 }
 
@@ -167,8 +184,7 @@ bool Jungle::collisionsol() {
                         s.set_nb_vie(s.get_nb_vie() - 1);
                         cout<<"collision détéctée avec le sol"<<endl;
                         etat = 0;
-                        //s.set_pos_init(s.getpos());
-                         return true;
+                        return true;
                         
                     }
     return false;
@@ -176,7 +192,7 @@ bool Jungle::collisionsol() {
 
 bool Jungle::collisionarbre() {
 
-    Vec2 arbre_cote_gauche_haut;
+    /*Vec2 arbre_cote_gauche_haut;
     Vec2 arbre_cote_droit_bas;
     Vec2 singe_cote_gauche_haut =  make_vec2(s.getpos().x  - s.getrayon(), s.getpos().y - s.getrayon());
     Vec2 singe_cote_droit_bas = make_vec2(s.getpos().x  + s.getrayon(), s.getpos().y + s.getrayon());
@@ -193,7 +209,16 @@ bool Jungle::collisionarbre() {
             return true;
         }
            
-    }
+    } */ 
+    for (unsigned int i = 0; i < nb_arbre; i++) {
+                        if (distance(s.getpos(), tab_arbre[i].getCentre()) <= ( s.getrayon() + tab_arbre[i].getRayon()) )
+                    {
+                        etat = 0;
+                        s.set_pos_init(s.getpos());
+                        cout<<"collision détectée avec l'arbre"<<endl;
+                        return true;
+                    }
+        }
     return false;
 }
 

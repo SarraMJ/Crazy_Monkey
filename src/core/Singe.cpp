@@ -1,41 +1,50 @@
 #include <iostream>
 #include "Singe.h"
 #include <math.h>
+#include <assert.h>
 
 using namespace std;
 
 Singe::Singe()
-{   
-    nb_vie_init= 4;
-    nb_vie=nb_vie_init; 
-    pos_init.x=100;
-    pos_init.y=500;
+{
+    nb_vie_init = 4;
+    nb_vie = nb_vie_init;
+    pos_init.x = 100;
+    pos_init.y = 500;
     position = pos_init;
-    v0=50;
-    rayon=55;
-    g=9.81;
+    v0 = 60;
+    rayon = 60;
+    g = 9.81;
 }
 
-Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr) {
+Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr)
+{
+    assert(viesInit > 0);
+    assert(p.x >= 0 && p.y >= 0);
+    assert(r > 0);
+    assert(v > 0);
+    assert(gr > 0);
     nb_vie = viesInit;
-    nb_vie_init= viesInit;
-    pos_init=p;
+    nb_vie_init = viesInit;
+    pos_init = p;
     position = pos_init;
-    rayon=r;
+    rayon = r;
     v0 = v;
-    g=gr;
-
+    g = gr;
 }
 
-unsigned int Singe::get_nb_vie() const {
-return nb_vie;
+unsigned int Singe::get_nb_vie() const
+{
+    return nb_vie;
 }
 
-Vec2 Singe::getpos()const {
+Vec2 Singe::getpos() const
+{
     return position;
 }
 
-double Singe::get_v0() const {
+double Singe::get_v0() const
+{
     return v0;
 }
 
@@ -44,65 +53,74 @@ unsigned int Singe::get_nb_vie_init() const
     return nb_vie_init;
 }
 
- Vec2 Singe::getpos_init() const
- {
+Vec2 Singe::getpos_init() const
+{
     return pos_init;
- }
+}
 
- double Singe::getG()const
- {
+double Singe::getG() const
+{
     return g;
- }
- double Singe::getrayon()const{
+}
+double Singe::getrayon() const
+{
     return rayon;
- }
+}
 
-void Singe::set_nb_vie(unsigned int nb) {
+void Singe::set_nb_vie(unsigned int nb)
+{
+    assert(nb >= 0);
     nb_vie = nb;
 }
 
 void Singe::set_nb_vie_init(unsigned int nb)
 {
-    nb_vie_init=nb;
+    assert(nb > 0);
+    nb_vie_init = nb;
 }
 
 void Singe::set_g(double p)
 {
-    g=p;
+    assert(p > 0);
+    g = p;
 }
 
-void Singe::set_pos(const Vec2 & v)
+void Singe::set_pos(const Vec2 &v)
 {
-    position= v;
+    assert(v.x >= 0 && v.y >= 0);
+    position = v;
 }
 
 void Singe::set_pos_init(const Vec2 &ve)
 {
-    pos_init=ve;
+    assert(ve.x >= 0 && ve.y >= 0);
+    pos_init = ve;
 }
 
 void Singe::setrayon(double r)
 {
-    rayon=r;
+    assert(r > 0);
+    rayon = r;
 }
 
 void Singe::set_v0(double v)
 {
-    v0=v;
+    assert(v > 0);
+    v0 = v;
 }
 
-
-Vec2 Singe::calcule_pos(double angle, double t) {
-   Vec2 p;
-    p.x= v0*cos(angle)*t + pos_init.x;
-    p.y= (0.5*g*t*t-v0*sin(angle)*t+pos_init.y);
+Vec2 Singe::calcule_pos(double angle, double t)
+{
+    Vec2 p;
+    p.x = v0 * cos(angle) * t + pos_init.x;
+    p.y = (0.5 * g * t * t - v0 * sin(angle) * t + pos_init.y);
     return p;
 }
 
-double Singe::calculeAlpha(const Vec2 & pos_curseur) const
+double Singe::calculeAlpha(const Vec2 &pos_curseur) const
 {
+    assert(pos_curseur.x >= 0 && pos_curseur.y >= 0);
     double alpha;
-    alpha= - atan((pos_curseur.y-pos_init.y)/(pos_curseur.x-pos_init.x));
+    alpha = -atan((pos_curseur.y - pos_init.y) / (pos_curseur.x - pos_init.x));
     return alpha;
 }
-

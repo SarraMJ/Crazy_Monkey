@@ -5,170 +5,157 @@
 
 /**
  * @brief une classe qui représente une jungle avec ses  composantes.
- * 
+ *
  */
 class Jungle
 {
 private:
-
     unsigned int dimx, dimy;
-    Arbre * tab_arbre;
+    Arbre *tab_arbre;
     unsigned int nb_arbre;
     unsigned int nb_serpent;
-    float temps_partie; //en seconde
+    float temps_partie; // en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
     Vec2 curseur;
     bool collision_sol;
     friend class AffichageSDL;
     friend class AffichageTxt;
-    
-   
-public:
 
+public:
     /**
      * @brief Constructeur par défaut de la classe jungle
-     * 
+     *
      */
     Jungle();
 
     /**
      * @brief Constructeur par copie
-     * 
-     * @param[in] x 
-     * @param[in] y 
-     * @param[in] a 
-     * @param[in] nbs
+     *
+     * @param[in] x
+     * @param[in] y
+     * @param[in] a
      * @param[in] nba
      * @param[in] temps
-     * @param[in] sin 
+     * @param[in] sin
      * @param[in] e
      * @param[in] curs
      * @param[in] sol
      */
-    Jungle(unsigned int x, unsigned int y, Arbre * a, unsigned int nba, float temps, const Singe & sin, int e, Vec2 curs, bool sol);
+    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, float temps, const Singe &sin, int e, Vec2 curs, bool sol);
 
     /**
      * @brief Destructeur
-     * 
+     *
      */
     ~Jungle();
 
     /**
      * @brief Accesseur de la dimension x de la fenêtre
-     * 
-     * @return unsigned int 
+     *
+     * @return unsigned int
      */
     unsigned int get_dimx() const;
 
     /**
      * @brief Accesseur de la dimension y de la fenêtre
-     * 
-     * @return unsigned int 
+     *
+     * @return unsigned int
      */
     unsigned int get_dimy() const;
 
     /**
      * @brief Accesseur du pointeur vers le tableau d'arbre
-     * 
-     * @return Arbre* 
+     *
+     * @return Arbre*
      */
     Arbre getTab_arbre(unsigned int indice) const;
 
-
     /**
      * @brief Accesseur du singe
-     * 
-     * @return Singe 
+     *
+     * @return Singe
      */
-      Singe  get_singe() const;
+    Singe get_singe() const;
 
     /**
      * @brief Accesseur de l'état
-     * 
-     * @return int 
+     *
+     * @return int
      */
     int get_etat() const;
 
-     /**
+    /**
      * @brief Accesseur du nombre d'arbre
-     * 
-     * @return nb_arbre 
+     *
+     * @return nb_arbre
      */
     unsigned int get_nb_arbre() const;
 
-
     /**
      * @brief Accesseur du curseur
-     * 
-     * @return Vec2 
+     *
+     * @return Vec2
      */
-    Vec2 get_curseur() const; 
-
+    Vec2 get_curseur() const;
 
     /**
      * @brief Mutateur du nombre d'arbre
-     * 
+     *
      * @param[in] nb
      */
     void set_nb_arbre(unsigned int nb);
 
     /**
      * @brief Mutateur de la dimension x de la jungle
-     * 
-     * @param x 
+     *
+     * @param[in] x
      */
     void set_dimx(unsigned int x);
 
     /**
      * @brief Mutateur de la dimension y de la jungle
-     * 
-     * @param y 
+     *
+     * @param[in] y
      */
     void set_dimy(unsigned int y);
 
-
     /**
      * @brief Mutateur du singe
-     * 
-     * @param sin 
+     *
+     * @param[in] sin
      */
     void set_singe(const Singe &sin);
 
     /**
      * @brief Mutateur de l'état
-     * 
-     * @param e 
+     *
+     * @param[in] e
      */
-    void set_etat(int e) ;
+    void set_etat(int e);
 
     /**
      * @brief Mutateur du curseur
-     * 
-     * @param c 
+     *
+     * @param[in] c
      */
     void set_curseur(Vec2 c);
 
-
-
     /**
      * @brief Vérifie si y a collision avec le sol
-     * 
-     * @return true 
-     * @return false 
+     *
+     * @return true
+     * @return false
      */
     bool collisionsol();
 
     /**
      * @brief Vérifie si y a collision avec un arbre
-     * 
-     * @return true 
-     * @return false 
+     *
+     * @return true
+     * @return false
      */
     bool collisionarbre();
-
 };
 
-
-
-#endif 
+#endif
