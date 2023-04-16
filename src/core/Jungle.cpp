@@ -183,6 +183,7 @@ bool Jungle::collisionsol() {
                     {
                         s.set_nb_vie(s.get_nb_vie() - 1);
                         cout<<"collision détéctée avec le sol"<<endl;
+                        collision_sol = true ;
                         etat = 0;
                         return true;
                         
