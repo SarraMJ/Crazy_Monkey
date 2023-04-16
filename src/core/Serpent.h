@@ -1,4 +1,4 @@
-#ifndef _SERPENT0_H
+#ifndef _SERPENT_H
 #define _SERPENT_H
 #include "Vec2.h"
 

@@ -10,7 +10,7 @@ Jungle::Jungle()
 {
     Singe singe;
 
-    dimx = 1400;
+    dimx = 1800;
     dimy = 850;
     tab_arbre = new Arbre[7];
     nb_arbre = 7;
@@ -32,13 +32,12 @@ Jungle::Jungle()
 Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol)
 {
     assert(x > 0 && y > 0);
-    assert(a != nullptr);
     assert(nba > 0);
     assert(temps_partie > 0);
-    assert(sin.position.x < dimx);
-    assert(sin.position.y < dimy);
-    assert(curs.x < dimx && curs.x >= 0);
-    assert(curs.y < dimy && curs.y >= 0);
+    assert(sin.position.x < x);
+    assert(sin.position.y < y);
+    assert(curs.x < x && curs.x >= 0);
+    assert(curs.y < y && curs.y >= 0);
     dimx = x;
     dimy = y;
     tab_arbre = a;
@@ -247,7 +246,7 @@ void Jungle::testRegression()
 {
     // test constructeur par défaut
     Jungle ju_test;
-    assert(ju_test.dimx == 1400);
+    assert(ju_test.dimx == 1800);
     assert(ju_test.dimy == 850);
     assert(ju_test.temps_partie == 90);
     assert(ju_test.etat == 0);
@@ -263,7 +262,7 @@ void Jungle::testRegression()
     assert(ju_test.curseur.y <= ju_test.dimy && ju_test.curseur.y >= 0);
 
     // test le constructeur par copie
-    Arbre *arb;
+    Arbre * arb =nullptr;
     Singe S;
     int et = 0;
     Vec2 c = make_vec2(55, 32);
@@ -271,17 +270,21 @@ void Jungle::testRegression()
     Jungle ju_test2(1500, 900, arb, 6, 80, S, et, c, so);
     assert(ju_test2.dimx == 1500);
     assert(ju_test2.dimy == 900);
-    assert(ju_test.temps_partie == 80);
-    assert(ju_test.etat == 0);
-    assert(ju_test.collision_sol == false);
-    assert(ju_test.get_singe().getpos().x <= ju_test.dimx && ju_test.get_singe().getpos().x >= 0);
-    assert(ju_test.get_singe().getpos().y <= ju_test.dimy && ju_test.get_singe().getpos().y >= 0);
-    assert(ju_test.curseur.x <= ju_test.dimx && ju_test.curseur.x >= 0);
-    assert(ju_test.curseur.y <= ju_test.dimy && ju_test.curseur.y >= 0);
+    assert(ju_test2.temps_partie == 80);
+    assert(ju_test2.etat == 0);
+    assert(ju_test2.collision_sol == false);
+    assert(ju_test2.get_singe().getpos().x <= ju_test2.dimx && ju_test2.get_singe().getpos().x >= 0);
+    assert(ju_test2.get_singe().getpos().y <= ju_test2.dimy && ju_test2.get_singe().getpos().y >= 0);
+    assert(ju_test2.curseur.x <= ju_test2.dimx && ju_test2.curseur.x >= 0);
+    assert(ju_test2.curseur.y <= ju_test2.dimy && ju_test2.curseur.y >= 0);
+    Arbre ab;
+    for(unsigned int j=0; j<6; j++)
+    {
+        arb[j]=ab;
+    }
     for (unsigned int i = 0; i < 6; i++)
     {
-        assert(ju_test.tab_arbre[i].getCentre().x <= ju_test.dimx && ju_test.tab_arbre[i].getCentre().x >= 0);
-        assert(ju_test.tab_arbre[i].getCentre().y <= ju_test.dimy && ju_test.tab_arbre[i].getCentre().y >= 0);
+        assert(ju_test2.tab_arbre[i].getCentre().x ==ab.getCentre().x  && ju_test2.tab_arbre[i].getCentre().y == ab.getCentre().y);
     }
     // teste des accesseurs: get
     assert(ju_test2.get_dimx() == dimx);
@@ -303,9 +306,9 @@ void Jungle::testRegression()
     Vec2 V = make_vec2(50, 30);
     ju_test2.set_curseur(V);
     assert(ju_test2.get_curseur().x == V.x && ju_test2.get_curseur().y == V.y);
-    Singe S(5, V, 20, 10, 9.5);
-    ju_test2.set_singe(S);
-    assert(ju_test2.get_singe().getpos().x == S.getpos().x && ju_test2.get_singe().getpos().y == S.getpos().y);
+    Singe Sing(5, V, 20, 10, 9.5);
+    ju_test2.set_singe(Sing);
+    assert(ju_test2.get_singe().getpos().x == Sing.getpos().x && ju_test2.get_singe().getpos().y == Sing.getpos().y);
     // test de la focntion collisionsol
     // test de la fonction collisionarbre
 }
