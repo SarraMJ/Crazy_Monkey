@@ -1,4 +1,5 @@
 #include <iostream>
+#include<assert.h>
 #include "Arbre.h" 
 
 using namespace std; 
@@ -12,6 +13,8 @@ Arbre::Arbre() {
 }
 
 Arbre::Arbre(bool m, bool c, bool s, Vec2 cen, int r) {
+    assert(r>0);
+    assert(cen.x>=0 && cen.y>=0);
     banane_magique = m;
     coffret_bananes = c;
     serpent = s;
@@ -44,11 +47,12 @@ int Arbre::getRayon() const {
 }
 
 void Arbre:: setCentre(Vec2 v)
-{
+{    
+    assert(v.x>=0 && v.y>=0);
     centre=make_vec2(v.x,v.y);
 }
 
 void Arbre::set_serpent(bool se)
-{
+{   
     serpent=se;
 }
