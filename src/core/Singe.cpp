@@ -12,8 +12,8 @@ Singe::Singe()
     pos_init.x = 100;
     pos_init.y = 500;
     position = pos_init;
-    v0 = 55;
-    rayon = 60;
+    v0 = 15;
+    rayon = 55;
     g = 9.81;
 }
 

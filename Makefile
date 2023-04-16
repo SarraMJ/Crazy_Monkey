@@ -8,10 +8,13 @@ INCLUDE_DIR_SDL = -I/usr/include/SDL2
 INCLUDE_DIR			= -Isrc -Isrc/core -Isrc/sdl2 -Itxt
 LIBS_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lGL
 
-all: folders  bin/Txt bin/Sdl2 docs
+all: folders  bin/Txt bin/Sdl2 bin/testR docs
 
 folders:
 	mkdir -p obj bin data
+
+bin/testR : $(OBJ) obj/mainRegression.o 
+	$(COMPILER) $(OBJ) obj/mainRegression.o -o bin/testR
 
 bin/Txt : $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o
 	$(COMPILER) $(OBJ) obj/AffichageTxt.o obj/winTxt.o obj/main_txt.o -o bin/Txt
@@ -33,6 +36,9 @@ obj/winTxt.o : src/txt/winTxt.cpp src/txt/winTxt.h
 
 obj/AffichageTxt.o: src/txt/AffichageTxt.cpp src/txt/AffichageTxt.h src/txt/winTxt.h src/core/Jungle.h 
 	$(COMPILER) $(CFLAGS) -c src/txt/AffichageTxt.cpp -o obj/AffichageTxt.o
+
+obj/mainRegression.o: src/core/mainRegression.cpp src/core/Jungle.h
+	$(COMPILER) $(CFLAGS) -c src/core/mainRegression.cpp -o obj/mainRegression.o
 
 obj/Jungle.o: src/core/Jungle.cpp src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
 	$(COMPILER) $(CFLAGS) -c src/core/Jungle.cpp -o obj/Jungle.o

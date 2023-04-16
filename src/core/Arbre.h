@@ -72,18 +72,25 @@ public:
     int getRayon() const;
 
     /**
-     * @brief mutateur de la donnée membre Centre.
+     * @brief Mutateur de la donnée membre Centre.
      *
      * @param[in] V
      */
     void setCentre(Vec2 V);
 
     /**
-     * @brief mutateur du serpent
+     * @brief Mutateur du serpent
      *
      * @param[in] se
      */
     void set_serpent(bool se);
+
+     /**
+     * @brief Mutateur du coffret de bananes
+     *
+     * @param[in] ba
+     */
+    void set_coffretbananes(bool ba);
 };
 
 #endif

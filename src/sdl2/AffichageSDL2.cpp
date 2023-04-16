@@ -152,6 +152,7 @@ AffichageSDL::AffichageSDL()
     im_singe.telecharger_fichier("data/img/singe.png", renderer);
     im_arbre.telecharger_fichier("data/img/arbre.png", renderer);
     im_serpent.telecharger_fichier("data/img/serpent.png", renderer);
+    im_coffret_banane.telecharger_fichier("data/img/coffret_bananes.png", renderer);
 
     // FONTS
     police = TTF_OpenFont("data/fonts/Samson.ttf", 50);
@@ -163,9 +164,8 @@ AffichageSDL::AffichageSDL()
         SDL_Quit();
         exit(1);
     }
-    police_couleur.r = 0;
-    police_couleur.g = 0;
-    police_couleur.b = 0;
+    police_couleur= {0,0,0};
+    chrono_couleur = {0,0,0};
 
     // titre
     im_police.setSurface(TTF_RenderText_Solid(police, "Crazy Monkey", police_couleur));
@@ -178,6 +178,19 @@ AffichageSDL::AffichageSDL()
     // Remplir l'écran de bleu ciel
     SDL_SetRenderDrawColor(renderer, 166, 223, 255, 255);
     SDL_RenderClear(renderer);
+
+    // SONS
+    if (avec_son)
+    {
+        son = Mix_LoadWAV("data/son.wav");
+        if (son == nullptr) 
+            son = Mix_LoadWAV("../data/son.wav");
+        if (son == nullptr) {
+                cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
+                SDL_Quit();
+                exit(1);
+        }
+    }
 }
 
 AffichageSDL::~AffichageSDL()
@@ -203,6 +216,9 @@ void AffichageSDL::sdlAff()
         // Afficher le serpent (si y en a un)
         if (jungle.tab_arbre[i].getSerpent())
             im_serpent.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 60, 60);
+        if(jungle.tab_arbre[i].getCoffret_bananes()) {
+            im_coffret_banane.dessiner(renderer,  jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 100, 100);
+        }
     }
     // Titre du jeu
     SDL_Rect positionTitre({70, 0, 200, 60});
@@ -229,7 +245,6 @@ void AffichageSDL::sdlBoucle()
     SDL_Event events;
     double angle;
     bool quit = false;
-    jungle.temps_partie = 5;
     chrono_id = SDL_AddTimer(1000, chrono_callback, &jungle.temps_partie);
 
     // tant que ce n'est pas la fin ...
@@ -303,9 +318,15 @@ void AffichageSDL::sdlBoucle()
                 SDL_RenderClear(renderer);
                 sdlAff();
                 SDL_RenderPresent(renderer);
+            if (jungle.collisionsol()) {
+                break;
+            }
+            if (jungle.temps_partie == 0) {
+                break;
+            }
 
-            } while ((!jungle.collisionsol()) || (!jungle.collisionarbre()) || (jungle.temps_partie > 0));
-        }
+            } while ((!jungle.collisionarbre())); 
+        } 
 
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);

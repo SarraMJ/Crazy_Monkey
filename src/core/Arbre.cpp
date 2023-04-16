@@ -56,3 +56,8 @@ void Arbre::set_serpent(bool se)
 {   
     serpent=se;
 }
+
+void Arbre::set_coffretbananes(bool ba)
+{   
+    coffret_bananes=ba;
+}
