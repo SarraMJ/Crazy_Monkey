@@ -9,93 +9,89 @@
 #include "../core/Jungle.h"
 
 //! \brief Pour gérer une image avec SDL2
-class Image {
+class Image
+{
 
 private:
-
-    SDL_Surface * m_surface;
-    SDL_Texture * m_texture;
+    SDL_Surface *m_surface;
+    SDL_Texture *m_texture;
     bool m_a_change;
-    
 
 public:
-
     /**
      * @brief constructeur par defaut de la classe image
-     * 
+     *
      */
-    Image () ;
+    Image();
     /**
-     * @brief Destructeur d ela classe image 
-     * 
+     * @brief Destructeur d ela classe image
+     *
      */
     ~Image();
 
     /**
-     * @brief télécharge un fichier 
-     * 
-     * @param[in] filename 
-     * @param[in] renderer 
+     * @brief télécharge un fichier
+     *
+     * @param[in] filename
+     * @param[in] renderer
      */
-    void telecharger_fichier (const char* filename, SDL_Renderer * renderer);
+    void telecharger_fichier(const char *filename, SDL_Renderer *renderer);
 
     /**
      * @brief télécharger à partir d'une surface
-     * 
-     * @param[in] renderer 
+     *
+     * @param[in] renderer
      */
-    void telecharger_apartir_surface_courante(SDL_Renderer * renderer);
+    void telecharger_apartir_surface_courante(SDL_Renderer *renderer);
 
     /**
-     * @brief dessiner la fenetre 
-     * 
-     * @param[in] renderer 
-     * @param[in] x 
-     * @param[in] y 
-     * @param[in] w 
-     * @param[in] h 
+     * @brief dessiner la fenetre
+     *
+     * @param[in] renderer
+     * @param[in] x
+     * @param[in] y
+     * @param[in] w
+     * @param[in] h
      */
-    void dessiner (SDL_Renderer * renderer, int x, int y, int w, int h);
+    void dessiner(SDL_Renderer *renderer, int x, int y, int w, int h);
     /**
      * @brief accesseur de la donnée membre texture
-     * 
-     * @return SDL_Texture* 
+     *
+     * @return SDL_Texture*
      */
-    SDL_Texture * getTexture() const;
+    SDL_Texture *getTexture() const;
 
-    SDL_Surface * getSurface() const;
+    SDL_Surface *getSurface() const;
 
     /**
      * @brief mutateur de la donnée membre surface
-     * 
-     * @param surf 
+     *
+     * @param surf
      */
-    void setSurface(SDL_Surface * surf);
+    void setSurface(SDL_Surface *surf);
 };
-
-
 
 /**
     La classe gerant le jeu avec un affichage SDL
 */
-class AffichageSDL {
+class AffichageSDL
+{
 
-private :
+private:
+    Jungle jungle;
 
-	Jungle jungle;
+    SDL_Window *fenetre;
+    SDL_Renderer *renderer;
 
-    SDL_Window * fenetre;
-    SDL_Renderer * renderer;
-
-    TTF_Font * police;
+    TTF_Font *police;
     SDL_Color police_couleur;
 
     SDL_TimerID chrono_id;
     SDL_Color chrono_couleur;
 
-    Mix_Chunk * son;
+    Mix_Chunk *son;
     bool avec_son;
-    
+
     Image im_perdu;
     Image im_police;
     Image im_chrono;
@@ -104,43 +100,43 @@ private :
     Image im_serpent;
     Image im_banane_mag;
     Image im_coffret_banane;
-    
 
     bool souris;
     bool touche;
 
-
-public :
-
+public:
     /**
      * @brief Constructeur par défaut de la classe SDLSimple
-     * 
+     *
      */
-    AffichageSDL ();
+    AffichageSDL();
 
     /**
      * @brief Destructeur de la classe SDLSimple
-     * 
+     *
      */
-    ~AffichageSDL ();
+    ~AffichageSDL();
 
     /**
      * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
-     * 
+     *
      */
-    void sdlBoucle ();
+    void sdlBoucle();
 
     /**
      * @brief affiche la fenetre sdl2
-     * 
+     *
      */
-    void sdlAff ();
-
-
-
+    void sdlAff();
 };
 
-Uint32 timer_callback(Uint32 interval, void *param);
-
+/**
+ * @brief Fonction qui décrémenter un pointeur entier à chaque fois qu'elle est appelée, c'est pour le chronomètre
+ *
+ * @param interval
+ * @param param
+ * @return Uint32
+ */
+Uint32 chrono_callback(Uint32 interval, void *param);
 
 #endif
