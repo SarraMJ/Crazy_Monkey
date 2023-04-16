@@ -164,8 +164,8 @@ AffichageSDL::AffichageSDL()
         SDL_Quit();
         exit(1);
     }
-    police_couleur= {0,0,0};
-    chrono_couleur = {0,0,0};
+    police_couleur = {0, 0, 0};
+    chrono_couleur = {0, 0, 0};
 
     // titre
     im_police.setSurface(TTF_RenderText_Solid(police, "Crazy Monkey", police_couleur));
@@ -182,13 +182,14 @@ AffichageSDL::AffichageSDL()
     // SONS
     if (avec_son)
     {
-        son = Mix_LoadWAV("data/sounds/ArthurVyncke-ChildhoodFriend.wav");
-        if (son == nullptr) 
-            son = Mix_LoadWAV("../data/sounds/ArthurVyncke-ChildhoodFriend.wav");
-        if (son == nullptr) {
-                cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
-                SDL_Quit();
-                exit(1);
+        son = Mix_LoadWAV("data/sounds/ArthurVyncke-ChildhoodFriend.mp3");
+        if (son == nullptr)
+            son = Mix_LoadWAV("../data/sounds/ArthurVyncke-ChildhoodFriend.mp3");
+        if (son == nullptr)
+        {
+            cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl;
+            SDL_Quit();
+            exit(1);
         }
     }
 }
@@ -196,7 +197,13 @@ AffichageSDL::AffichageSDL()
 AffichageSDL::~AffichageSDL()
 {
     if (avec_son)
+    {
         Mix_Quit();
+
+        Mix_FreeChunk(son);
+    }
+
+    Mix_CloseAudio();
     TTF_CloseFont(police);
     TTF_Quit();
     SDL_DestroyRenderer(renderer);
@@ -216,8 +223,9 @@ void AffichageSDL::sdlAff()
         // Afficher le serpent (si y en a un)
         if (jungle.tab_arbre[i].getSerpent())
             im_serpent.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 60, 60);
-        if(jungle.tab_arbre[i].getCoffret_bananes()) {
-            im_coffret_banane.dessiner(renderer,  jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 100, 100);
+        if (jungle.tab_arbre[i].getCoffret_bananes())
+        {
+            im_coffret_banane.dessiner(renderer, jungle.tab_arbre[i].getCentre().x - jungle.tab_arbre[i].getRayon() + 50, jungle.tab_arbre[i].getCentre().y - jungle.tab_arbre[i].getRayon() - 45, 100, 100);
         }
     }
     // Titre du jeu
@@ -255,10 +263,6 @@ void AffichageSDL::sdlBoucle()
         SDL_RenderClear(renderer);
         sdlAff();
 
-        //joue le son
-        if ((avec_son) )
-                Mix_PlayChannel(-1,son,0);
-
         // affiche le chronomètre en noir, et s'il reste moins que 10sec en rouge
         if (jungle.temps_partie < 10)
             chrono_couleur = {255, 0, 0};
@@ -276,6 +280,13 @@ void AffichageSDL::sdlBoucle()
 
         while (SDL_PollEvent(&events))
         {
+
+            // joue le son
+            if ((avec_son))
+            {
+                Mix_PlayChannel(-1, son, 0);
+                Mix_Volume(-1, 100);
+            }
 
             if (events.type == SDL_QUIT)
                 quit = true;
@@ -322,15 +333,17 @@ void AffichageSDL::sdlBoucle()
                 SDL_RenderClear(renderer);
                 sdlAff();
                 SDL_RenderPresent(renderer);
-            if (jungle.collisionsol()) {
-                break;
-            }
-            if (jungle.temps_partie == 0) {
-                break;
-            }
+                if (jungle.collisionsol())
+                {
+                    break;
+                }
+                if (jungle.temps_partie == 0)
+                {
+                    break;
+                }
 
-            } while ((!jungle.collisionarbre())); 
-        } 
+            } while ((!jungle.collisionarbre()));
+        }
 
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
