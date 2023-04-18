@@ -152,7 +152,7 @@ AffichageSDL::AffichageSDL()
     im_singe.telecharger_fichier("data/img/singe.png", renderer);
     im_arbre.telecharger_fichier("data/img/arbre.png", renderer);
     im_serpent.telecharger_fichier("data/img/serpent.png", renderer);
-    im_coffret_banane.telecharger_fichier("data/img/coffret_bananes.png", renderer);
+    im_coffret_banane.telecharger_fichier("data/img/bananes.png", renderer);
 
     // FONTS
     police = TTF_OpenFont("data/fonts/Samson.ttf", 50);
