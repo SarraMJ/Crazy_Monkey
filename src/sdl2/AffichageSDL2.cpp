@@ -233,7 +233,7 @@ void AffichageSDL::sdlAff()
     SDL_RenderCopy(renderer, im_police.getTexture(), nullptr, &positionTitre);
 
     // Message perdu
-    if (jungle.temps_partie == 0)
+    if (jungle.temps_partie == 0 || jungle.collision_sol)
     {
         SDL_Rect positionTitre({(int)jungle.dimx / 2 - 75, (int)jungle.dimy / 2 - 50, 300, 120});
         SDL_RenderCopy(renderer, im_perdu.getTexture(), nullptr, &positionTitre);
@@ -254,7 +254,7 @@ void AffichageSDL::sdlBoucle()
     double angle;
     bool quit = false;
     chrono_id = SDL_AddTimer(1000, chrono_callback, &jungle.temps_partie);
-
+    int col = -1;
     // tant que ce n'est pas la fin ...
     while (!quit)
     {
@@ -319,6 +319,7 @@ void AffichageSDL::sdlBoucle()
 
         if (jungle.get_etat() == 1)
         {
+
             double t = 0;
             double dt = 0.1;
             SDL_RenderClear(renderer);
@@ -341,8 +342,11 @@ void AffichageSDL::sdlBoucle()
                 {
                     break;
                 }
-
-            } while ((!jungle.collisionarbre()));
+                if ((col = jungle.collisionarbre()) >= 0) {
+                    jungle.arbre_prec = col ;
+                    break;
+                }
+            } while (true);
         }
 
         SDL_RenderPresent(renderer);

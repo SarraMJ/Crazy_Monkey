@@ -21,6 +21,7 @@ private:
     Vec2 curseur;
     bool collision_sol;
     bool coffret;
+    int arbre_prec;
     friend class AffichageSDL;
     friend class AffichageTxt;
 
@@ -158,7 +159,7 @@ public:
      * @return true
      * @return false
      */
-    bool collisionarbre();
+    int collisionarbre();
 
     /**
      * @brief fonction qui vérifie si les autres fonctions de la classe fonctionnent.

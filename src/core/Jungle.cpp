@@ -20,7 +20,7 @@ Jungle::Jungle()
     tab_arbre = new Arbre[7];
     nb_arbre = 7;
     tab_arbre[0].setCentre(make_vec2(s.getpos().x + 300, s.getpos().y + 200));
-    tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y - 120));
+    tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y - 200));
     tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 50, tab_arbre[0].getCentre().y));
     tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 350, tab_arbre[1].getCentre().y - 50));
     tab_arbre[4].setCentre(make_vec2(tab_arbre[3].getCentre().x + 50, tab_arbre[0].getCentre().y));
@@ -30,10 +30,12 @@ Jungle::Jungle()
     tab_arbre[3].set_serpent(true);
     temps_partie = 50;
     s = singe;
+    arbre_prec = -1;
     etat = 0;
     curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
     collision_sol = false;
    coffret = false;
+
 }
 
 Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof) 
@@ -191,19 +193,6 @@ void Jungle::set_curseur(Vec2 c)
 }*/
 
 
-/*
-
-     for (unsigned int i = 0; i < nb_arbre; i++) {
-                        if (distance(s.getpos(), tab_arbre[i].getCentre()) <= ( s.getrayon() + tab_arbre[i].getRayon()) )
-                    {
-                        etat = 0;
-                        s.set_pos_init(s.getpos());
-                        cout<<"collision détectée avec l'arbre"<<endl;
-                        return true;
-                    }
-        }
-*/
-
 void Jungle::testRegression()
 {
     // test constructeur par défaut
@@ -305,47 +294,32 @@ bool Jungle::collisionsol()
     return false;
 }
 
-bool Jungle::collisionarbre()
+int Jungle::collisionarbre()
 {
-
-    /*Vec2 arbre_cote_gauche_haut;
-    Vec2 arbre_cote_droit_bas;
-    Vec2 singe_cote_gauche_haut =  make_vec2(s.getpos().x  - s.getrayon(), s.getpos().y - s.getrayon());
-    Vec2 singe_cote_droit_bas = make_vec2(s.getpos().x  + s.getrayon(), s.getpos().y + s.getrayon());
-
-
-     for (unsigned int i = 0; i < nb_arbre; i++) {
-
-        arbre_cote_gauche_haut = make_vec2(tab_arbre[i].getCentre().x - tab_arbre[i].getRayon(), tab_arbre[i].getCentre().y - tab_arbre[i].getRayon());
-        arbre_cote_droit_bas = make_vec2(tab_arbre[i].getCentre().x + tab_arbre[i].getRayon(), tab_arbre[i].getCentre().y + tab_arbre[i].getRayon());
-        if ( (singe_cote_gauche_haut.x <= arbre_cote_droit_bas.x) && (singe_cote_droit_bas.x >= arbre_cote_gauche_haut.x) && (singe_cote_droit_bas.y >= arbre_cote_gauche_haut.y ) && (singe_cote_gauche_haut.y <= arbre_cote_droit_bas.y)) {
-            etat = 0;
-            s.set_pos_init(s.getpos());
-            cout<<"collision détectée avec l'arbre "<<i<<endl;
-            return true;
-        }
-
-    } */
-    for (unsigned int i = 0; i < nb_arbre; i++)
+    //Arbre ancienne_collision; 
+    for ( int i = 0; i < (int)nb_arbre; i++)
     {
-        if (s.getpos().y - s.getrayon() / 2 <= tab_arbre[i].getCentre().y + tab_arbre[i].getRayon()
-        && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon()+ tab_arbre[i].getRayon()))
+        if ( i != arbre_prec
+            && s.getpos().y + s.getrayon() <= tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() //+ s.getrayon()
+             && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon()) )
+           
+           //&& tab_arbre[i].getCentre().x != ancienne_collision.getCentre().x 
+           // && tab_arbre[i].getCentre().y != ancienne_collision.getCentre().y )
         {
             etat = 0;
             s.set_pos_init(s.getpos());
-            cout << "collision détectée avec l'arbre" << endl;
-              #ifdef _WIN32
-        Sleep(100);
-		#else
-		usleep(10000);
-        #endif // WIN32
+            //ancienne_collision = tab_arbre[i];
+            cout << "collision détectée avec l'arbre " <<i<< endl;
+
             s.set_pos(make_vec2(tab_arbre[i].getCentre().x , tab_arbre[i].getCentre().y - (tab_arbre[i].getRayon() + s.getrayon())));
-            if (tab_arbre[i].getCoffret_bananes()) {
-               coffret = true; 
-               cout<<"gagné!"<<endl;
+           
+            if (tab_arbre[i].getCoffret_bananes())
+            {
+                coffret = true;
+                cout << "gagné!" << endl;
             }
-            return true;
+            return i;
         }
     }
-    return false;
+    return -1;
 }
