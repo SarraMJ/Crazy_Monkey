@@ -3,8 +3,9 @@
 #include "Arbre.h"
 #include "Singe.h"
 
+
 /**
- * @brief une classe qui représente une jungle avec ses  composantes.
+ * @brief Classe qui représente une jungle avec ses composantes.
  *
  */
 class Jungle
@@ -13,12 +14,13 @@ private:
     unsigned int dimx, dimy;
     Arbre *tab_arbre;
     unsigned int nb_arbre;
-    unsigned int nb_serpent;
+    //unsigned int nb_serpent;
     int temps_partie; // en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
     Vec2 curseur;
     bool collision_sol;
+    bool coffret;
     friend class AffichageSDL;
     friend class AffichageTxt;
 
@@ -41,8 +43,9 @@ public:
      * @param[in] e
      * @param[in] curs
      * @param[in] sol
+     * @param[in] cof
      */
-    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol);
+    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof);
 
     /**
      * @brief Destructeur

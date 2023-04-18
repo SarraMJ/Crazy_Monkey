@@ -1,14 +1,19 @@
 #include <iostream>
 #include "Jungle.h"
 #include <assert.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif // WIN32
+
 
 using namespace std;
+//ftgyhjb
 
-// AJOUTE ASSERTIONS
-
-Jungle::Jungle()
+Jungle::Jungle() 
 {
-    Singe singe;
+     Singe singe;
 
     dimx = 1800;
     dimy = 850;
@@ -28,9 +33,10 @@ Jungle::Jungle()
     etat = 0;
     curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
     collision_sol = false;
+   coffret = false;
 }
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol)
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof) 
 {
     assert(x > 0 && y > 0);
     assert(nba > 0);
@@ -48,6 +54,7 @@ Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int t
     etat = e;
     curseur = curs;
     collision_sol = sol;
+    coffret = cof;
 }
 
 Jungle::~Jungle()
@@ -206,6 +213,7 @@ void Jungle::testRegression()
     assert(ju_test.temps_partie == 50);
     assert(ju_test.etat == 0);
     assert(ju_test.collision_sol == false);
+    assert(ju_test.coffret== false);
     assert(ju_test.get_singe().getpos().x <= ju_test.dimx && ju_test.get_singe().getpos().x >= 0);
     assert(ju_test.get_singe().getpos().y <= ju_test.dimy && ju_test.get_singe().getpos().y >= 0);
     for (unsigned int i = 0; i < 7; i++)
@@ -227,12 +235,14 @@ void Jungle::testRegression()
     int et = 0;
     Vec2 c = make_vec2(55, 32);
     bool so = false;
-    Jungle ju_test2(1500, 900, arb, 6, 80, S, et, c, so);
+    bool co = false;
+    Jungle ju_test2(1500, 900, arb, 6, 80, S, et, c, so, co);
     assert(ju_test2.dimx == 1500);
     assert(ju_test2.dimy == 900);
     assert(ju_test2.temps_partie == 80);
     assert(ju_test2.etat == 0);
     assert(ju_test2.collision_sol == false);
+     assert(ju_test2.coffret == false);   
     assert(ju_test2.get_singe().getpos().x <= ju_test2.dimx && ju_test2.get_singe().getpos().x >= 0);
     assert(ju_test2.get_singe().getpos().y <= ju_test2.dimy && ju_test2.get_singe().getpos().y >= 0);
     assert(ju_test2.curseur.x <= ju_test2.dimx && ju_test2.curseur.x >= 0);
@@ -318,11 +328,22 @@ bool Jungle::collisionarbre()
     } */
     for (unsigned int i = 0; i < nb_arbre; i++)
     {
-        if (distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon()+ tab_arbre[i].getRayon()))
+        if (s.getpos().y - s.getrayon() / 2 <= tab_arbre[i].getCentre().y + tab_arbre[i].getRayon()
+        && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon()+ tab_arbre[i].getRayon()))
         {
             etat = 0;
             s.set_pos_init(s.getpos());
             cout << "collision détectée avec l'arbre" << endl;
+              #ifdef _WIN32
+        Sleep(100);
+		#else
+		usleep(10000);
+        #endif // WIN32
+            s.set_pos(make_vec2(tab_arbre[i].getCentre().x , tab_arbre[i].getCentre().y - (tab_arbre[i].getRayon() + s.getrayon())));
+            if (tab_arbre[i].getCoffret_bananes()) {
+               coffret = true; 
+               cout<<"gagné!"<<endl;
+            }
             return true;
         }
     }
