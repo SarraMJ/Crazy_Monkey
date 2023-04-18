@@ -152,6 +152,16 @@ public:
      * @return double
      */
     double calculeAlpha(const Vec2 &pos_curseur) const;
+
+    /**
+     * @brief calcule la vitesse de lancée chosie par l'utilisateur et met cette valeur à v0.
+     * 
+     * @param[in] point
+     * @param[in] debut
+     * @param[in] fin
+     */
+    void calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin);
+
 };
 
 #endif
