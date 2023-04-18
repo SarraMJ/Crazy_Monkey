@@ -172,8 +172,13 @@ AffichageSDL::AffichageSDL()
     im_police.telecharger_apartir_surface_courante(renderer);
 
     // message perdu
-    im_perdu.setSurface(TTF_RenderText_Solid(police, "Perdu!", police_couleur));
+    im_perdu.setSurface(TTF_RenderText_Solid(police, "PERDU!", police_couleur));
     im_perdu.telecharger_apartir_surface_courante(renderer);
+
+    //message gagné
+    im_gagne.setSurface(TTF_RenderText_Solid(police, "GAGNE!", police_couleur));
+    im_gagne.telecharger_apartir_surface_courante(renderer);
+
 
     // Remplir l'écran de bleu ciel
     SDL_SetRenderDrawColor(renderer, 166, 223, 255, 255);
@@ -237,6 +242,12 @@ void AffichageSDL::sdlAff()
     {
         SDL_Rect positionTitre({(int)jungle.dimx / 2 - 75, (int)jungle.dimy / 2 - 50, 300, 120});
         SDL_RenderCopy(renderer, im_perdu.getTexture(), nullptr, &positionTitre);
+    }
+        // Message gagné
+    if (jungle.coffret)
+    {
+        SDL_Rect positionTitre({(int)jungle.dimx / 2 - 75, (int)jungle.dimy / 2 - 50, 300, 120});
+        SDL_RenderCopy(renderer, im_gagne.getTexture(), nullptr, &positionTitre);
     }
 }
 

@@ -93,6 +93,7 @@ private:
     bool avec_son;
 
     Image im_perdu;
+    Image im_gagne;
     Image im_police;
     Image im_chrono;
     Image im_singe;
