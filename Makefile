@@ -1,4 +1,4 @@
-OBJ = obj/Jungle.o obj/Arbre.o obj/Singe.o  obj/Serpent.o  obj/Vec2.o 
+OBJ = obj/Jungle.o obj/Arbre.o obj/Singe.o   obj/Vec2.o 
 
 COMPILER = g++
 
@@ -40,14 +40,11 @@ obj/AffichageTxt.o: src/txt/AffichageTxt.cpp src/txt/AffichageTxt.h src/txt/winT
 obj/mainRegression.o: src/core/mainRegression.cpp src/core/Jungle.h
 	$(COMPILER) $(CFLAGS) -c src/core/mainRegression.cpp -o obj/mainRegression.o
 
-obj/Jungle.o: src/core/Jungle.cpp src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h src/core/Serpent.h
+obj/Jungle.o: src/core/Jungle.cpp src/core/Jungle.h src/core/Arbre.h src/core/Singe.h src/core/Vec2.h
 	$(COMPILER) $(CFLAGS) -c src/core/Jungle.cpp -o obj/Jungle.o
 
-obj/Arbre.o: src/core/Arbre.cpp src/core/Arbre.h src/core/Serpent.h src/core/Vec2.h
+obj/Arbre.o: src/core/Arbre.cpp src/core/Arbre.h src/core/Vec2.h
 	$(COMPILER) $(CFLAGS) -c src/core/Arbre.cpp -o obj/Arbre.o
-
-obj/Serpent.o: src/core/Serpent.cpp src/core/Serpent.h src/core/Vec2.h
-	$(COMPILER) $(CFLAGS) -c src/core/Serpent.cpp -o obj/Serpent.o
 
 obj/Singe.o: src/core/Singe.cpp src/core/Singe.h src/core/Vec2.h
 	$(COMPILER) $(CFLAGS) -c src/core/Singe.cpp -o obj/Singe.o
