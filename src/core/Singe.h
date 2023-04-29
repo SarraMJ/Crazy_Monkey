@@ -36,8 +36,9 @@ public:
      * @param[in] r
      * @param[in] v
      * @param[in] gr
+     * @param[in] po
      */
-    Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr);
+    Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr, int po);
 
     /**
      * @brief Accesseur de la donnée membre nb_vie

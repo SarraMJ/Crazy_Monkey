@@ -18,13 +18,14 @@ Singe::Singe()
     pos_point = 0;
 }
 
-Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr)
+Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr, int po)
 {
     assert(viesInit > 0);
     assert(p.x >= 0 && p.y >= 0);
     assert(r > 0);
     assert(v > 0);
     assert(gr > 0);
+    assert(po >= 0);
     nb_vie = viesInit;
     nb_vie_init = viesInit;
     pos_init = p;
@@ -32,6 +33,7 @@ Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr)
     rayon = r;
     v0 = v;
     g = gr;
+    pos_point = po;
 }
 
 unsigned int Singe::get_nb_vie() const
