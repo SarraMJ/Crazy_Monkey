@@ -15,6 +15,7 @@ Singe::Singe()
     v0 = 50;
     rayon = 55;
     g = 9.81;
+    pos_point = 0;
 }
 
 Singe::Singe(unsigned int viesInit, Vec2 p, double r, double v, double gr)
@@ -117,7 +118,7 @@ void Singe::set_v0(double v)
 void Singe::set_pos_point(int p)
 {
     assert(p > 0);
-    pos_point = 0;
+    pos_point = p;
 }
 
 Vec2 Singe::calcule_pos(double angle, double t)
@@ -142,7 +143,7 @@ void Singe::calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin)
     //Vec2 fin = make_vec2(position.x+50, position.y-10);
     double distanceTotale = sqrt(pow(fin.x - debut.x, 2) + pow(fin.y - debut.y, 2));
     double vitesseMin = 15.0f;
-    double vitesseMax = 60.0f;
+    double vitesseMax = 100.0f;
     double distancePoint = sqrt(pow(point.x - debut.x, 2) + pow(point.y - debut.y, 2));
     double pourcentagePoint = distancePoint / distanceTotale;
     double vitesse = (1 - pourcentagePoint) * vitesseMin + pourcentagePoint * vitesseMax;
