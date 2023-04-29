@@ -149,3 +149,10 @@ void Singe::calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin)
     v0=vitesse;
 }
 
+void Singe:: changer_pos_point(int x, int w){
+
+ if(pos_point > x+w)
+    {
+        pos_point= x;
+    } else pos_point= pos_point + 2;
+}

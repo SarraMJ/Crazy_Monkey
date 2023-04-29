@@ -1,7 +1,6 @@
 #ifndef _ARBRE_H
 #define _ARBRE_H
-
-#include "Serpent.h"
+#include "Vec2.h"
 
 /**
  * @brief la classe arbre représente un arbre et ses composants.

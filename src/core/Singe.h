@@ -177,6 +177,15 @@ public:
      */
     void calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin);
 
+
+    /**
+     * @brief cette fonction permet de bouger le point de la vitesse sur la rectangle de couleur de la vitesse
+     * 
+     * @param[in] x 
+     * @param[in] w 
+     */
+    void changer_pos_point(int x, int w);
+
 };
 
 #endif
