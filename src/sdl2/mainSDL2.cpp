@@ -7,6 +7,6 @@ using namespace std;
 int main(int argc, char** argv) {
     
     AffichageSDL as;
-    as.sdlBoucle();
+    as.sdlBouclemenu();
     return 0;
 }

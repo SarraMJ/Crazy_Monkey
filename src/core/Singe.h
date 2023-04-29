@@ -17,6 +17,7 @@ private:
     Vec2 position;
     Vec2 pos_init;
     double rayon;
+    int pos_point;
 
     friend class Jungle;
 
@@ -58,6 +59,13 @@ public:
      * @return Vec2
      */
     Vec2 getpos() const;
+
+        /**
+     * @brief Accesseur de la donnée membre position
+     *
+     * @return Vec2
+     */
+    int getpos_point() const;
 
     /**
      * @brief Accesseur de la donnée membre pos_init
@@ -107,6 +115,13 @@ public:
      * @param[in] v
      */
     void set_v0(double v);
+
+        /**
+     * @brief  mutateur de la donnée membre v0
+     *
+     * @param[in] p
+     */
+    void set_pos_point(int p);
 
     /**
      * @brief  mutateur de la donnée membre pos_init

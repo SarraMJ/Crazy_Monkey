@@ -307,12 +307,17 @@ int Jungle::collisionarbre()
            // && tab_arbre[i].getCentre().y != ancienne_collision.getCentre().y )
         {
             etat = 0;
-            s.set_pos_init(s.getpos());
             //ancienne_collision = tab_arbre[i];
             cout << "collision détectée avec l'arbre " <<i<< endl;
 
+        #ifdef _WIN32
+        Sleep(100);
+		#else
+		usleep(10000);
+        #endif // WIN32
             s.set_pos(make_vec2(tab_arbre[i].getCentre().x , tab_arbre[i].getCentre().y - (tab_arbre[i].getRayon() + s.getrayon())));
-           
+                       s.set_pos_init(s.getpos());
+
             if (tab_arbre[i].getCoffret_bananes())
             {
                 coffret = true;

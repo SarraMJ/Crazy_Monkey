@@ -12,7 +12,7 @@ Singe::Singe()
     pos_init.x = 100;
     pos_init.y = 500;
     position = pos_init;
-    v0 = 55;
+    v0 = 50;
     rayon = 55;
     g = 9.81;
 }
@@ -56,6 +56,11 @@ unsigned int Singe::get_nb_vie_init() const
 Vec2 Singe::getpos_init() const
 {
     return pos_init;
+}
+
+int Singe::getpos_point() const
+{
+    return pos_point;
 }
 
 double Singe::getG() const
@@ -107,6 +112,12 @@ void Singe::set_v0(double v)
 {
     assert(v > 0);
     v0 = v;
+}
+
+void Singe::set_pos_point(int p)
+{
+    assert(p > 0);
+    pos_point = 0;
 }
 
 Vec2 Singe::calcule_pos(double angle, double t)

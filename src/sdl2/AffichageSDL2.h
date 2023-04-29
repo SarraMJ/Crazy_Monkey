@@ -83,15 +83,28 @@ private:
     SDL_Window *fenetre;
     SDL_Renderer *renderer;
 
+    SDL_Window *menu;
+    SDL_Renderer *menu_renderer;
+
     TTF_Font *police;
     SDL_Color police_couleur;
+
+    SDL_Rect box_rect;
+    SDL_Color couleur_vitesse;
+
 
     SDL_TimerID chrono_id;
     SDL_Color chrono_couleur;
 
     Mix_Chunk *son;
     bool avec_son;
+    // Pour le menu:
+    Image im_menu;
+    Image im_jouer;
+    Image im_policem;
+    Image im_regle;
 
+    // Pour le jeu:
     Image im_perdu;
     Image im_gagne;
     Image im_police;
@@ -125,10 +138,28 @@ public:
     void sdlBoucle();
 
     /**
-     * @brief affiche la fenetre sdl2
+     * @brief Initalize la fenêtre du menu
+     *
+     */
+    void initMenu();
+
+    /**
+     * @brief affiche les objets de la fenetre du jeu
      *
      */
     void sdlAff();
+
+    /**
+     * @brief affiche les objets de la fenêtre du menu
+     *
+     */
+    void sdlAffmenu();
+
+    /**
+     * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
+     *
+     */
+    void sdlBouclemenu();
 };
 
 /**
