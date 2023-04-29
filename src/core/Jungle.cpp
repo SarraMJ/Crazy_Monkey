@@ -31,7 +31,16 @@ Jungle::Jungle()
    tab_arbre[5].setCentre(make_vec2(tab_arbre[0].getCentre().x, tab_arbre[3].getCentre().y - 20)); // celle en haut à gauche
    tab_arbre[6].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
    tab_arbre[6].set_coffretbananes(true);
-   tab_arbre[3].set_serpent(true);
+   int numserpent = rand()%6;
+  
+   tab_arbre[numserpent].set_serpent(true);
+   int numbanane;
+   do {
+      numbanane = rand()%6;
+   } while (numbanane == numserpent);
+   tab_arbre[numbanane].set_banane_mag(true);
+
+   
    temps_partie = 50;
    s = singe;
    arbre_prec = -1;
@@ -163,71 +172,6 @@ void Jungle::set_curseur(Vec2 c)
    curseur = c;
 }
 
-
-
-
-/*void Jungle::collision(double angle) {
-
-
-   double t = 0;
-   double dt = 0.1;
-
-
-   do {
-
-
-       t += dt;
-       //calcule le mouvement parabolique
-
-
-       s.set_pos(s.calcule_pos(angle, t));
-       for (unsigned int i = 0; i < nb_arbre; i++) {
-            if (distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon())) {
-               Vec2 pos_init = make_vec2(tab_arbre[i].getCentre().x, tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() + s.getrayon());
-               s.set_pos_init(pos_init);
-               collision_arbre = true;
-            }
-
-
-       }
-
-
-       if (distance(s.getpos(), make_vec2(s.getpos().x, 0)) <= s.getrayon()) {
-           s.set_nb_vie(s.get_nb_vie() - 1);
-           collision_sol = true;
-
-
-       }
-   }
-   while (!collision_arbre || !collision_sol);
-
-
-   if (collision_arbre) {
-       for (unsigned int i = 0; i < nb_arbre; i++) {
-            if (tab_arbre[i].getSerpent() != nullptr) {
-               if (distance(tab_arbre[i].getSerpent()->getPosition(), s.getpos()) <= s.getrayon() + tab_arbre[i].getSerpent()->getRayon())
-                   s.set_nb_vie(s.get_nb_vie() - 1);
-            }
-             if (tab_arbre[i].getBanane_magique()) {
-               if (s.get_nb_vie() == 4)
-                   temps_partie += 10;
-               else s.set_nb_vie(s.get_nb_vie() + 1);
-               }
-            }
-   }
-
-
-   if (collision_sol) {
-       cout<<"Perdu!"<<endl;
-   }
-   etat = 0;
-
-
-}*/
-
-
-
-
 void Jungle::testRegression()
 {
    // test constructeur par défaut
@@ -300,7 +244,7 @@ void Jungle::testRegression()
    ju_test2.set_curseur(V);
    assert(ju_test2.get_curseur().x == V.x && ju_test2.get_curseur().y == V.y);
    Vec2 ve = make_vec2(50, 690);
-   Singe Sing(5, ve, 20, 10, 9.5);
+   Singe Sing(5, ve, 20, 10, 9.5, 0);
    ju_test2.set_singe(Sing);
    assert(ju_test2.get_singe().getpos().x == Sing.getpos().x && ju_test2.get_singe().getpos().y == Sing.getpos().y);
 
@@ -312,7 +256,7 @@ void Jungle::testRegression()
 
    // test de la fonction collisionarbre
    Vec2 vec = make_vec2(150, 480);
-   Singe Si(5, vec, 20, 10, 9.5);
+   Singe Si(5, vec, 20, 10, 9.5, 0);
    ju_test2.set_singe(Si);
    assert(ju_test2.collisionarbre()==true);
 
@@ -328,7 +272,7 @@ bool Jungle::collisionsol()
 
    if (distance(s.getpos(), make_vec2(s.getpos().x, dimy)) <= s.getrayon())
    {
-       s.set_nb_vie(s.get_nb_vie() - 1);
+       
        cout << "collision détéctée avec le sol" << endl;
        collision_sol = true;
        etat = 0;
@@ -344,18 +288,11 @@ int Jungle::collisionarbre()
    for ( int i = 0; i < (int)nb_arbre; i++)
    {
        if ( i != arbre_prec
-           && s.getpos().y + s.getrayon() <= tab_arbre[i].getCentre().y + tab_arbre[i].getRayon() //+ s.getrayon()
+           && s.getpos().y + s.getrayon() <= tab_arbre[i].getCentre().y //+ tab_arbre[i].getRayon() 
             && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon()) )
-         
-          //&& tab_arbre[i].getCentre().x != ancienne_collision.getCentre().x
-          // && tab_arbre[i].getCentre().y != ancienne_collision.getCentre().y )
        {
            etat = 0;
-
-
-           //ancienne_collision = tab_arbre[i];
            cout << "collision détectée avec l'arbre " <<i<< endl;
-
 
        #ifdef _WIN32
        Sleep(100);
@@ -371,6 +308,12 @@ int Jungle::collisionarbre()
            {
                coffret = true;
                cout << "gagné!" << endl;
+           }
+           if (tab_arbre[i].getSerpent()) {
+            s.set_nb_vie(s.get_nb_vie() -1);
+           }
+           if (tab_arbre[i].getBanane_magique()) {
+            temps_partie +=5;
            }
            return i;
        }

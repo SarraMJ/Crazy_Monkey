@@ -61,3 +61,8 @@ void Arbre::set_coffretbananes(bool ba)
 {   
     coffret_bananes=ba;
 }
+
+void Arbre::set_banane_mag(bool ba)
+{   
+    banane_magique=ba;
+}

@@ -7,7 +7,7 @@ using namespace std;
 
 Singe::Singe()
 {
-    nb_vie_init = 4;
+    nb_vie_init = 3;
     nb_vie = nb_vie_init;
     pos_init.x = 100;
     pos_init.y = 500;

@@ -90,6 +90,13 @@ public:
      * @param[in] ba
      */
     void set_coffretbananes(bool ba);
+
+    /**
+     * @brief mutateur de la donnée membre banane magique
+     * 
+     * @param[in] t 
+     */
+    void set_banane_mag(bool t);
 };
 
 #endif
