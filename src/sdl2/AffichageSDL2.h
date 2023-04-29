@@ -108,9 +108,6 @@ private:
    SDL_Rect box_rect;
    SDL_Color couleur_vitesse;
 
-
-
-
    SDL_TimerID chrono_id;
    SDL_Color chrono_couleur;
 

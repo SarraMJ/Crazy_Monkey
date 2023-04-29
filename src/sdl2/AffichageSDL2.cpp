@@ -458,7 +458,7 @@ void AffichageSDL::sdlAff()
 
 
    // Choix de vitesse
-   if (jungle.etat == 0 && !disparait)
+   if (jungle.etat == 0 && !disparait && !jungle.coffret)
    {
 
 
@@ -469,7 +469,7 @@ void AffichageSDL::sdlAff()
 
        // Definir le point
        // Definir la position du rectangle de degradé
-       box_rect = {(int)jungle.s.getpos().x + 100, (int)jungle.s.getpos().y - 100, 250, 20};
+       box_rect = {(int)jungle.s.getpos().x + 100, (int)jungle.s.getpos().y - 50, 250, 20};
 
 
        // Dessiner le point
@@ -494,14 +494,6 @@ void AffichageSDL::sdlAff()
            SDL_SetRenderDrawColor(renderer, couleur_vitesse.r, couleur_vitesse.g, couleur_vitesse.b, couleur_vitesse.a);
            SDL_RenderFillRect(renderer, &rect);
        }
-
-
-       /*  jungle.s.set_pos_point(jungle.s.getpos_point()+1);
-        SDL_Rect dot_rect = {box_rect.x + jungle.s.getpos_point() - taille_point / 2, box_rect.y - taille_point / 2, taille_point, taille_point};
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(renderer, &dot_rect); */
-
-
        SDL_Rect dot_rect = {jungle.s.getpos_point() - taille_point / 2, box_rect.y - taille_point / 2, taille_point, taille_point};
        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
        SDL_RenderFillRect(renderer, &dot_rect);
