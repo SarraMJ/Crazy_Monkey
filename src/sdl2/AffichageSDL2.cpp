@@ -188,6 +188,17 @@ AffichageSDL::AffichageSDL()
         SDL_Quit();
         exit(1);
     }
+
+    police2 = TTF_OpenFont("data/fonts/PTS55F.ttf", 50);
+    if (police2 == nullptr)
+        police2 = TTF_OpenFont("../data/fonts/PTS55F.ttf", 50);
+    if (police2 == nullptr)
+    {
+        cout << "Failed to load Samson.ttf! SDL_TTF Error: " << TTF_GetError() << endl;
+        SDL_Quit();
+        exit(1);
+    }
+
     police_couleur = {0, 0, 0};
     chrono_couleur = {0, 0, 0};
 
@@ -207,26 +218,29 @@ AffichageSDL::AffichageSDL()
 
     // Pour la fenêtre des règles :
 
-    im_intro.setSurface(TTF_RenderText_Solid(police, "Pour gagner la partie il faut que le singe atteint l'arbre de la jungle qui contient le coffret de banane, avant que le compte a rebours arrive a sa fin. Pour cela, voici les regles a suivre:", police_couleur));
+    im_intro.setSurface(TTF_RenderText_Solid(police2, "Pour gagner la partie il faut que le singe atteint l'arbre de la jungle qui contient le coffret de banane ,  ", police_couleur));
     im_intro.telecharger_apartir_surface_courante(regles_renderer);
-   
-    im_regle1.setSurface(TTF_RenderText_Solid(police, "- Cliquer n'importe ou sur la fenetre pour choisir un angle du lance du singe.", police_couleur));
+
+    im_intro2.setSurface(TTF_RenderText_Solid(police2, "avant que le compte a rebours arrive a sa fin. Pour cela, voici les regles a suivre: ", police_couleur));
+    im_intro2.telecharger_apartir_surface_courante(regles_renderer);
+
+    im_regle1.setSurface(TTF_RenderText_Solid(police2, "- Cliquer n'importe ou sur la fenetre pour choisir un angle du lance du singe.", police_couleur));
     im_regle1.telecharger_apartir_surface_courante(regles_renderer);
-   
-    im_regle2.setSurface(TTF_RenderText_Solid(police, "- Enfoncez la touche Espace sur votre clavier pour choisir une vitesse de lance. (Rouge = faible, vert = fort)", police_couleur));
+
+    im_regle2.setSurface(TTF_RenderText_Solid(police2, "- Enfoncez la touche Espace sur votre clavier pour choisir une vitesse de lance. (Rouge = faible, vert = fort)", police_couleur));
     im_regle2.telecharger_apartir_surface_courante(regles_renderer);
-   
-    im_regle3.setSurface(TTF_RenderText_Solid(police, "- Essayez de recuperer les bananes magiques, elles rajoutent 5 secondes au temps du jeu! ", police_couleur));
+
+    im_regle3.setSurface(TTF_RenderText_Solid(police2, "- Essayez de recuperer les bananes magiques, elles rajoutent 5 secondes au temps du jeu! ", police_couleur));
     im_regle3.telecharger_apartir_surface_courante(regles_renderer);
 
-    im_regle4.setSurface(TTF_RenderText_Solid(police, "- Attention aux serpent ils vous font perdre une vie!", police_couleur));
+    im_regle4.setSurface(TTF_RenderText_Solid(police2, "- Attention aux serpent ils vous font perdre une vie!", police_couleur));
     im_regle4.telecharger_apartir_surface_courante(regles_renderer);
 
-    im_conclu.setSurface(TTF_RenderText_Solid(police, "À vous de jouer!", police_couleur));
+    im_conclu.setSurface(TTF_RenderText_Solid(police2, "A vous de jouer!", police_couleur));
     im_conclu.telecharger_apartir_surface_courante(regles_renderer);
-   
-    im_retour.setSurface(TTF_RenderText_Solid(police, "Retour", police_couleur));
-    im_retour.telecharger_apartir_surface_courante(regles_renderer);
+
+    im_jouer2.setSurface(TTF_RenderText_Solid(police2, "Jouer", police_couleur));
+    im_jouer2.telecharger_apartir_surface_courante(regles_renderer);
 
     // Pour la fenêtre du jeu:
 
@@ -309,16 +323,36 @@ void AffichageSDL::sdlAffRegles()
     SDL_SetRenderDrawColor(regles_renderer, 166, 223, 255, 255);
     SDL_RenderClear(regles_renderer);
 
-    // Titre du jeu
-    SDL_Rect positionIntro({70, 0, 200, 60});
+    // Texte du règle affichage
+    SDL_Rect positionIntro({150, 100, 1300, 50});
     SDL_RenderCopy(regles_renderer, im_intro.getTexture(), nullptr, &positionIntro);
 
+    SDL_Rect positionIntro2({150, positionIntro.y + positionIntro.h, 1300, 50});
+    SDL_RenderCopy(regles_renderer, im_intro2.getTexture(), nullptr, &positionIntro2);
 
+    SDL_Rect positionRegle1({150, positionIntro2.y + positionIntro2.h + 100, 1300, 50});
+    SDL_RenderCopy(regles_renderer, im_regle1.getTexture(), nullptr, &positionRegle1);
+
+    SDL_Rect positionRegle2({150, positionRegle1.y + positionRegle1.h + 20, 1350, 50});
+    SDL_RenderCopy(regles_renderer, im_regle2.getTexture(), nullptr, &positionRegle2);
+
+    SDL_Rect positionRegle3({150, positionRegle2.y + positionRegle2.h + 20, 1350, 50});
+    SDL_RenderCopy(regles_renderer, im_regle3.getTexture(), nullptr, &positionRegle3);
+
+    SDL_Rect positionRegle4({150, positionRegle3.y + positionRegle3.h + 20, 1200, 50});
+    SDL_RenderCopy(regles_renderer, im_regle4.getTexture(), nullptr, &positionRegle4);
+
+    SDL_Rect positionConclu({150, positionRegle4.y + positionRegle4.h + 50, 400, 50});
+    SDL_RenderCopy(regles_renderer, im_conclu.getTexture(), nullptr, &positionConclu);
+
+    SDL_Rect positionJouer({(int)jungle.dimx / 2 - 50, positionConclu.y + positionConclu.h + 50, 300, 120});
+    SDL_RenderCopy(regles_renderer, im_jouer2.getTexture(), nullptr, &positionJouer);
 }
 
 void AffichageSDL::sdlBoucleregles()
 {
     bool quit = false;
+    bool sortir = false;
     SDL_Event e;
 
     while (!quit)
@@ -334,7 +368,10 @@ void AffichageSDL::sdlBoucleregles()
                 Mix_Volume(-1, 100);
             }
             if (e.type == SDL_QUIT)
+            {
+                sortir = true;
                 quit = true;
+            }
 
             switch (e.type)
             {
@@ -342,6 +379,7 @@ void AffichageSDL::sdlBoucleregles()
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_ESCAPE:
+                    sortir = true;
                     quit = true;
                     break;
                 }
@@ -349,27 +387,28 @@ void AffichageSDL::sdlBoucleregles()
                 int curseur_x, curseur_y;
                 SDL_GetMouseState(&curseur_x, &curseur_y);
                 // si il clique sur Jouer :
-                if ((curseur_x >= (int)jungle.dimx / 2 - 75) && (curseur_x <= (int)jungle.dimx / 2 + 225) && (curseur_y >= (int)jungle.dimy / 2 - 50) && (curseur_y <= (int)jungle.dimy / 2 + 70))
+                if ((curseur_x >= (int)jungle.dimx / 2 - 50) && (curseur_x <= (int)jungle.dimx / 2 + 250) && (curseur_y >= 740) && (curseur_y <= 900))
                 {
-                    
                     quit = true;
                 }
-                
-            
             }
         }
         // Render the menu background
         sdlAffRegles();
         SDL_RenderPresent(regles_renderer);
     }
+
     SDL_DestroyRenderer(regles_renderer);
     SDL_DestroyWindow(regles);
-    sdlBoucle();
+    TTF_CloseFont(police2);
+    if (!sortir)
+        sdlBoucle();
 }
 
 void AffichageSDL::sdlBouclemenu()
 {
     bool quit = false;
+    bool sortir = false;
     bool jouer = false;
     bool regles = false;
     SDL_Event e;
@@ -387,8 +426,10 @@ void AffichageSDL::sdlBouclemenu()
                 Mix_Volume(-1, 100);
             }
             if (e.type == SDL_QUIT)
+            {
+                sortir = true;
                 quit = true;
-
+            }
             switch (e.type)
             {
             case SDL_KEYDOWN:
@@ -396,6 +437,7 @@ void AffichageSDL::sdlBouclemenu()
                 {
                 case SDLK_ESCAPE:
                     quit = true;
+                    sortir = true;
                     break;
                 }
             case SDL_MOUSEBUTTONDOWN:
@@ -407,7 +449,7 @@ void AffichageSDL::sdlBouclemenu()
                     jouer = true;
                     quit = true;
                 }
-                 if ((curseur_x >= 1500) && (curseur_x <= 1500+200) && (curseur_y >= 0) && (curseur_y <= 60))
+                if ((curseur_x >= 1500) && (curseur_x <= 1500 + 200) && (curseur_y >= 0) && (curseur_y <= 60))
                 {
                     regles = true;
                     quit = true;
@@ -425,8 +467,13 @@ void AffichageSDL::sdlBouclemenu()
     }
     SDL_DestroyRenderer(menu_renderer);
     SDL_DestroyWindow(menu);
-    if (jouer)  sdlBoucle();
-    if (regles) sdlBoucleregles();
+    if (!sortir)
+    {
+        if (jouer)
+            sdlBoucle();
+        if (regles)
+            sdlBoucleregles();
+    }
 }
 
 // dessine les images

@@ -117,15 +117,18 @@ private:
    Image im_regle;
 
    //Pour les règles du jeu : 
+    // Police pour l'explication:
+   TTF_Font *police2;
 
    //Contient du texte:
    Image im_intro;
+   Image im_intro2;
    Image im_regle1;
    Image im_regle2;
    Image im_regle3;
    Image im_regle4;
    Image im_conclu;
-   Image im_retour;
+   Image im_jouer2;
 
    // Pour le jeu:
    
