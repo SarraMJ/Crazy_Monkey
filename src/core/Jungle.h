@@ -55,6 +55,25 @@ public:
      */
     ~Jungle();
 
+
+    /**
+     * @brief Met en place la jungle par rapport au niveau 1
+     * 
+     */
+    void jungle_niveau1();
+
+     /**
+     * @brief Met en place la jungle par rapport au niveau 2
+     * 
+     */
+    void jungle_niveau2();
+
+    /**
+     * @brief Met en place la jungle par rapport au niveau 3
+     * 
+     */
+    void jungle_niveau3();
+
     /**
      * @brief Accesseur de la dimension x de la fenêtre
      *

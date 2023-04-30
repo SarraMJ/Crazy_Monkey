@@ -8,48 +8,21 @@
 #endif // WIN32
 
 
-
-
 using namespace std;
-//ftgyhjb
-
 
 Jungle::Jungle()
 {
     Singe singe;
-
-
    dimx = 1800;
    dimy = 850;
-   tab_arbre = new Arbre[7];
-   nb_arbre = 7;
-   tab_arbre[0].setCentre(make_vec2(s.getpos().x + 300, s.getpos().y + 200));
-   tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y - 200));
-   tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 50, tab_arbre[0].getCentre().y));
-   tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 350, tab_arbre[1].getCentre().y - 50));
-   tab_arbre[4].setCentre(make_vec2(tab_arbre[3].getCentre().x + 50, tab_arbre[0].getCentre().y));
-   tab_arbre[5].setCentre(make_vec2(tab_arbre[0].getCentre().x, tab_arbre[3].getCentre().y - 20)); // celle en haut à gauche
-   tab_arbre[6].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
-   tab_arbre[6].set_coffretbananes(true);
-   int numserpent = rand()%6;
-  
-   tab_arbre[numserpent].set_serpent(true);
-   int numbanane;
-   do {
-      numbanane = rand()%6;
-   } while (numbanane == numserpent);
-   tab_arbre[numbanane].set_banane_mag(true);
-
-   
-   temps_partie = 50;
    s = singe;
+   tab_arbre = new Arbre[1];
+   nb_arbre = 1;
    arbre_prec = -1;
    etat = 0;
    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
    collision_sol = false;
    coffret = false;
-
-
 }
 
 
@@ -85,6 +58,77 @@ Jungle::~Jungle()
        delete[] tab_arbre;
        tab_arbre = nullptr;
    }
+}
+
+void Jungle::jungle_niveau1() {
+   tab_arbre = new Arbre[5];
+   nb_arbre = 5;
+   tab_arbre[0].setCentre(make_vec2(s.getpos().x + 300, s.getpos().y + 200));
+   tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y - 200));
+   tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 50, tab_arbre[0].getCentre().y));
+   tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 350, tab_arbre[1].getCentre().y - 50));
+   tab_arbre[4].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
+   tab_arbre[4].set_coffretbananes(true);
+   temps_partie = 40;
+   
+}
+
+void Jungle::jungle_niveau2() {
+   tab_arbre = new Arbre[7];
+   nb_arbre = 7;
+   tab_arbre[0].setCentre(make_vec2(s.getpos().x + 300, s.getpos().y + 200));
+   tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 350, s.getpos().y - 200));
+   tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 50, tab_arbre[0].getCentre().y));
+   tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 350, tab_arbre[1].getCentre().y - 50));
+   tab_arbre[4].setCentre(make_vec2(tab_arbre[3].getCentre().x + 50, tab_arbre[0].getCentre().y));
+   tab_arbre[5].setCentre(make_vec2(tab_arbre[0].getCentre().x, tab_arbre[3].getCentre().y - 20)); // celle en haut à gauche
+   tab_arbre[6].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
+   tab_arbre[6].set_coffretbananes(true);
+   int numserpent = rand()%6;
+  
+   tab_arbre[numserpent].set_serpent(true);
+   int numbanane;
+   do {
+      numbanane = rand()%6;
+   } while (numbanane == numserpent);
+   tab_arbre[numbanane].set_banane_mag(true);
+   temps_partie = 50;
+}
+
+void Jungle::jungle_niveau3() {
+   s.setrayon(35);
+   tab_arbre = new Arbre[10];
+   nb_arbre = 10;
+   for (unsigned int i = 0; i<nb_arbre; i++) {
+      tab_arbre[i].set_rayon(75);
+   }
+   tab_arbre[0].setCentre(make_vec2(350, 300));
+   tab_arbre[1].setCentre(make_vec2(tab_arbre[0].getCentre().x + 250, tab_arbre [0].getCentre().y - 20));
+   tab_arbre[2].setCentre(make_vec2(tab_arbre[1].getCentre().x + 250, tab_arbre[1].getCentre().y + 80));
+   tab_arbre[3].setCentre(make_vec2(tab_arbre[2].getCentre().x + 300, tab_arbre[1].getCentre().y - 50));
+   tab_arbre[4].setCentre(make_vec2(tab_arbre[3].getCentre().x + 175, tab_arbre[0].getCentre().y - 45));
+   tab_arbre[5].setCentre(make_vec2(tab_arbre[0].getCentre().x, 750));
+   tab_arbre[6].setCentre(make_vec2(tab_arbre[5].getCentre().x + 225, tab_arbre[5].getCentre().y - 20)); // celle en haut à gauche
+   tab_arbre[7].setCentre(make_vec2(tab_arbre[6].getCentre().x + 265, tab_arbre[6].getCentre().y - 75)); // celle en haut à gauche
+   tab_arbre[8].setCentre(make_vec2(tab_arbre[7].getCentre().x + 320, tab_arbre[7].getCentre().y + 45)); // celle en haut à gauche
+
+   tab_arbre[9].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
+   tab_arbre[9].set_coffretbananes(true);
+   
+
+   int numserpent = rand()%6;
+   tab_arbre[numserpent].set_serpent(true);
+   int numserpent2;
+   do {
+      numserpent2 = rand()%6;
+   } while (numserpent == numserpent2);
+   tab_arbre[numserpent2].set_serpent(true);
+   int numbanane;
+   do {
+      numbanane = rand()%6;
+   } while (numbanane == numserpent && numbanane == numserpent2);
+   tab_arbre[numbanane].set_banane_mag(true);
+   temps_partie = 40;
 }
 
 

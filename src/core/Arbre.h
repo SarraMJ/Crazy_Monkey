@@ -84,6 +84,13 @@ public:
      */
     void set_serpent(bool se);
 
+    /**
+     * @brief Mutateur du rayon
+     *
+     * @param[in] r
+     */
+    void set_rayon(int r);
+
      /**
      * @brief Mutateur du coffret de bananes
      *

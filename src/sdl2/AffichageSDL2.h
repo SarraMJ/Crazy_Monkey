@@ -84,10 +84,6 @@ private:
    SDL_Window *fenetre;
    SDL_Renderer *renderer;
 
-  /*  // Fenêtre du jeu niveau 1
-   SDL_Window *niveau1;
-   SDL_Renderer *niveau1_renderer; */
-
    // Fenêtre page menu
    SDL_Window *menu;
    SDL_Renderer *menu_renderer;
@@ -134,7 +130,9 @@ private:
    Image im_regle3;
    Image im_regle4;
    Image im_conclu;
+   Image im_jouer1;
    Image im_jouer2;
+   Image im_jouer3;
 
    // Pour le jeu:
 
@@ -169,34 +167,10 @@ public:
    ~AffichageSDL();
 
    /**
-    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
-    *
-    */
-   void sdlBoucleniveau2();
-
-   /**
-    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
-    *
-    */
-   void sdlBoucleniveau1();
-
-   /**
-    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
-    *
-    */
-   void sdlBoucleniveau3();
-
-   /**
-    * @brief Initalize la fenêtre du niveau 1
-    *
-    */
-   void initniveau1();
-
-   /**
     * @brief Initalize la fenêtre du niveau 2
     *
     */
-   void initniveau2();
+   void initjeu();
 
    /**
     * @brief Initalize la fenêtre des règles
@@ -209,7 +183,6 @@ public:
     *
     */
    void initMenu();
-   
 
    /**
     * @brief affiche les objets de la fenetre du jeu
@@ -224,12 +197,6 @@ public:
    void sdlAffmenu();
 
    /**
-    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
-    *
-    */
-   void sdlBouclemenu();
-
-   /**
     * @brief affiche les objets de la fenêtre du règles
     *
     */
@@ -239,7 +206,19 @@ public:
     * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
     *
     */
+   void sdlBouclemenu();
+
+   /**
+    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
+    *
+    */
    void sdlBoucleregles();
+
+   /**
+    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
+    *
+    */
+   void sdlBouclejeu();
 };
 
 /**
