@@ -3,7 +3,6 @@
 #include "Arbre.h"
 #include "Singe.h"
 
-
 /**
  * @brief Classe qui représente une jungle avec ses composantes.
  *
@@ -14,7 +13,7 @@ private:
     unsigned int dimx, dimy;
     Arbre *tab_arbre;
     unsigned int nb_arbre;
-    //unsigned int nb_serpent;
+    // unsigned int nb_serpent;
     int temps_partie; // en seconde
     Singe s;
     int etat; // si = 0 alors au joueur de choisir l'angle, si = 1 alors le singe bouge
@@ -55,22 +54,21 @@ public:
      */
     ~Jungle();
 
-
     /**
      * @brief Met en place la jungle par rapport au niveau 1
-     * 
+     *
      */
     void jungle_niveau1();
 
-     /**
+    /**
      * @brief Met en place la jungle par rapport au niveau 2
-     * 
+     *
      */
     void jungle_niveau2();
 
     /**
      * @brief Met en place la jungle par rapport au niveau 3
-     * 
+     *
      */
     void jungle_niveau3();
 

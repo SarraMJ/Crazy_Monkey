@@ -61,7 +61,7 @@ public:
      */
     Vec2 getpos() const;
 
-        /**
+    /**
      * @brief Accesseur de la donnée membre position
      *
      * @return Vec2
@@ -117,7 +117,7 @@ public:
      */
     void set_v0(double v);
 
-        /**
+    /**
      * @brief  mutateur de la donnée membre v0
      *
      * @param[in] p
@@ -171,22 +171,20 @@ public:
 
     /**
      * @brief calcule la vitesse de lancée chosie par l'utilisateur et met cette valeur à v0.
-     * 
+     *
      * @param[in] point
      * @param[in] debut
      * @param[in] fin
      */
     void calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin);
 
-
     /**
      * @brief cette fonction permet de bouger le point de la vitesse sur la rectangle de couleur de la vitesse
-     * 
-     * @param[in] x 
-     * @param[in] w 
+     *
+     * @param[in] x
+     * @param[in] w
      */
     void changer_pos_point(int x, int w);
-
 };
 
 #endif

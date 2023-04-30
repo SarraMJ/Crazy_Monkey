@@ -2,7 +2,6 @@
 #include <math.h>
 #include "Vec2.h"
 
-
 Vec2 make_vec2(double x, double y)
 {
     Vec2 v;
@@ -19,7 +18,7 @@ Vec2 operator+(Vec2 a, Vec2 b)
     return r;
 }
 
-Vec2 operator-( Vec2 a, Vec2 b)
+Vec2 operator-(Vec2 a, Vec2 b)
 {
     Vec2 r;
     r.x = a.x - b.x;
@@ -28,21 +27,20 @@ Vec2 operator-( Vec2 a, Vec2 b)
     return r;
 }
 
-Vec2 operator+=(Vec2 a,  Vec2 b)
+Vec2 operator+=(Vec2 a, Vec2 b)
 {
     a.x += b.x;
     a.y += b.y;
     return a;
 }
 
-Vec2 operator*(float a,  Vec2 b)
+Vec2 operator*(float a, Vec2 b)
 {
     Vec2 r;
     r.x = a * b.x;
     r.y = a * b.y;
     return r;
 }
-
 
 Vec2 operator*(Vec2 b, float a)
 {
@@ -60,7 +58,7 @@ Vec2 operator/(Vec2 a, float b)
     return r;
 }
 
-
-double distance (Vec2 a, Vec2 b) {
-    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+double distance(Vec2 a, Vec2 b)
+{
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }

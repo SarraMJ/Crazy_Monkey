@@ -91,7 +91,7 @@ public:
      */
     void set_rayon(int r);
 
-     /**
+    /**
      * @brief Mutateur du coffret de bananes
      *
      * @param[in] ba
@@ -100,8 +100,8 @@ public:
 
     /**
      * @brief mutateur de la donnée membre banane magique
-     * 
-     * @param[in] t 
+     *
+     * @param[in] t
      */
     void set_banane_mag(bool t);
 };

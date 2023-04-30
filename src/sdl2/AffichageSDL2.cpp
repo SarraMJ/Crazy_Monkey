@@ -190,8 +190,8 @@ AffichageSDL::AffichageSDL()
 
 void AffichageSDL::initjeu()
 {
-    //création fenetre jeu
-            fenetre = SDL_CreateWindow("Crazy Monkey", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, jungle.get_dimx(), jungle.get_dimy(), SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    // création fenetre jeu
+    fenetre = SDL_CreateWindow("Crazy Monkey", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, jungle.get_dimx(), jungle.get_dimy(), SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (fenetre == nullptr)
     {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl;
@@ -233,7 +233,7 @@ void AffichageSDL::initMenu()
 
     // Pour le texte:
 
-        // bouton niveau 1
+    // bouton niveau 1
     im_niveau1.setSurface(TTF_RenderText_Solid(police, "Niveau 1", police_couleur));
     im_niveau1.telecharger_apartir_surface_courante(menu_renderer);
 
@@ -241,7 +241,7 @@ void AffichageSDL::initMenu()
     im_niveau2.setSurface(TTF_RenderText_Solid(police, "Niveau 2", police_couleur));
     im_niveau2.telecharger_apartir_surface_courante(menu_renderer);
 
-        // bouton niveau 3
+    // bouton niveau 3
     im_niveau3.setSurface(TTF_RenderText_Solid(police, "Niveau 3", police_couleur));
     im_niveau3.telecharger_apartir_surface_courante(menu_renderer);
 
@@ -294,7 +294,7 @@ void AffichageSDL::initRegles()
     im_jouer2.telecharger_apartir_surface_courante(regles_renderer);
 
     im_jouer3.setSurface(TTF_RenderText_Solid(police2, "Niveau 3", police_couleur));
-    im_jouer3.telecharger_apartir_surface_courante(regles_renderer);    
+    im_jouer3.telecharger_apartir_surface_courante(regles_renderer);
 }
 
 AffichageSDL::~AffichageSDL()
@@ -328,7 +328,7 @@ void AffichageSDL::sdlAffmenu()
     SDL_SetRenderDrawColor(menu_renderer, 166, 223, 255, 255);
     SDL_RenderClear(menu_renderer);
 
-// Affichage du bouton de niveau 1
+    // Affichage du bouton de niveau 1
     SDL_Rect positionBouton1({(int)jungle.dimx / 2 - 75, (int)jungle.dimy / 2 - 200, 300, 120});
     SDL_RenderCopy(menu_renderer, im_niveau1.getTexture(), nullptr, &positionBouton1);
 
@@ -381,7 +381,7 @@ void AffichageSDL::sdlAffRegles()
     SDL_Rect positionJouer2({(int)jungle.dimx / 2 + 50, positionConclu.y + positionConclu.h + 50, 300, 120});
     SDL_RenderCopy(regles_renderer, im_jouer2.getTexture(), nullptr, &positionJouer2);
 
-    SDL_Rect positionJouer3({(int)jungle.dimx / 2 +600, positionConclu.y + positionConclu.h + 50, 300, 120});
+    SDL_Rect positionJouer3({(int)jungle.dimx / 2 + 600, positionConclu.y + positionConclu.h + 50, 300, 120});
     SDL_RenderCopy(regles_renderer, im_jouer3.getTexture(), nullptr, &positionJouer3);
 
     SDL_Rect positionJouer1({(int)jungle.dimx / 2 - 600, positionConclu.y + positionConclu.h + 50, 300, 120});
@@ -455,17 +455,20 @@ void AffichageSDL::sdlBoucleregles()
 
     SDL_DestroyRenderer(regles_renderer);
     SDL_DestroyWindow(regles);
-    if (!sortir) {
-        if (niveau_2) {
+    if (!sortir)
+    {
+        if (niveau_2)
+        {
             jungle.jungle_niveau2();
             sdlBouclejeu();
         }
-        if (niveau_1) 
+        if (niveau_1)
         {
-           jungle.jungle_niveau1();
+            jungle.jungle_niveau1();
             sdlBouclejeu();
         }
-        if (niveau_3) {
+        if (niveau_3)
+        {
             jungle.jungle_niveau3();
             sdlBouclejeu();
         }
@@ -534,7 +537,7 @@ void AffichageSDL::sdlBouclemenu()
                     regles = true;
                     quit = true;
                 }
-                
+
                 break;
             }
         }
@@ -546,16 +549,18 @@ void AffichageSDL::sdlBouclemenu()
     SDL_DestroyWindow(menu);
     if (!sortir)
     {
-        if (niveau_2) {
+        if (niveau_2)
+        {
             jungle.jungle_niveau2();
             sdlBouclejeu();
         }
-        if (niveau_1) 
+        if (niveau_1)
         {
-           jungle.jungle_niveau1();
+            jungle.jungle_niveau1();
             sdlBouclejeu();
         }
-        if (niveau_3) {
+        if (niveau_3)
+        {
             jungle.jungle_niveau3();
             sdlBouclejeu();
         }
@@ -669,7 +674,6 @@ Uint32 chrono_callback(Uint32 interval, void *param)
     return interval;
 }
 
-
 void AffichageSDL::sdlBouclejeu()
 {
 
@@ -678,6 +682,7 @@ void AffichageSDL::sdlBouclejeu()
     bool bouger = false;
     bool point = true;
     bool quit = false;
+    bool fin_saut = false;
     chrono_id = SDL_AddTimer(1000, chrono_callback, &jungle.temps_partie);
     int col = -1;
 
@@ -698,7 +703,7 @@ void AffichageSDL::sdlBouclejeu()
         }
         if (jungle.collision_sol || jungle.coffret)
             SDL_RemoveTimer(chrono_id);
-       
+
         while (SDL_PollEvent(&events))
         {
 
@@ -711,6 +716,7 @@ void AffichageSDL::sdlBouclejeu()
 
             if (events.type == SDL_QUIT)
                 quit = true;
+
             switch (events.type)
             {
             case SDL_KEYDOWN:
@@ -734,9 +740,7 @@ void AffichageSDL::sdlBouclejeu()
                 {
                     if (jungle.etat == 0)
                     {
-
                         angle = jungle.s.calculeAlpha(make_vec2(events.button.x, events.button.y));
-                        cout << angle << " marche" << endl;
                         jungle.etat = 1;
                     }
                 }
@@ -746,55 +750,60 @@ void AffichageSDL::sdlBouclejeu()
                 break;
             }
         }
+        // Pour bouger le point sur le rectangle de vitesse
         if (point)
             bouger = true;
-
         if (jungle.etat == 0 && bouger)
         {
-
             jungle.s.changer_pos_point(box_rect.x, box_rect.w);
         }
 
+        if (jungle.temps_partie > 0 && !jungle.collision_sol && !jungle.coffret)
+            fin_saut = false;
+
+        // Si le singe est dans la deuxieme phase (etat 1), c'est-à-dire pendant son mouvement:
         if (jungle.etat == 1)
         {
-
             double t = 0;
             double dt = 0.1;
             SDL_RenderClear(renderer);
             do
             {
                 t += dt;
-                // calcule le mouvement parabolique
 
+                // calcule le mouvement parabolique
                 jungle.s.set_pos(jungle.s.calcule_pos(angle, t));
 
                 SDL_RenderClear(renderer);
                 sdlAff();
                 SDL_RenderPresent(renderer);
+
                 // SI y a une collision avec le sol, le singe s'arrête
                 if (jungle.collisionsol())
                 {
                     disparait = true;
-                    break;
+                    fin_saut = true;
+                    // break;
                 }
                 // Si le temps de la partie est finie, le jeu s'arrête
                 if (jungle.temps_partie == 0)
                 {
-                    break;
+                    fin_saut = true;
+                    // break;
                 }
                 // S'il y a une collision avec un arbre, le singe s'arrête
                 if ((col = jungle.collisionarbre()) >= 0)
                 {
                     nouveau_saut = true;
                     point = true;
+                    fin_saut = true;
                     jungle.arbre_prec = col;
-                   break;
+                    // break;
                 }
-            } while (true);
+            } while (!fin_saut);
         }
 
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
     }
 }
-

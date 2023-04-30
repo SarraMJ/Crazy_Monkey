@@ -6,50 +6,44 @@
 class AffichageTxt
 {
 private:
-
   WinTXT win;
-  
-public:
 
+public:
   /**
    * @brief Constructeur par défaut de la classe AffichageTxt.
-   * 
+   *
    */
   AffichageTxt();
 
+  /**
+   * @brief Affiche les éléments de la fenétre
+   *
+   * @param[in] j
+   */
+  void txtAff(const Jungle &j);
 
- /**
-  * @brief Affiche les éléments de la fenétre
-  * 
-  * @param[in] j 
-  */
-void txtAff(const Jungle & j);
+  /**
+   * @brief affiche seulement l singe avce la nouvelle position.
+   *
+   * @param[in] j
+   */
+  void txtAff2(const Jungle &j);
 
-/**
- * @brief affiche seulement l singe avce la nouvelle position.
- * 
- * @param[in] j 
- */
-void txtAff2(const Jungle & j);
+  /**
+   * @brief calcule si il ya  collision du singe avec les autres elements de la fenetre.
+   *
+   * @param[in] j
+   * @param[in] angle
+   * @param[in] t
+   */
+  void collisiontxt(Jungle &j, double angle, double t);
 
-/**
- * @brief calcule si il ya  collision du singe avec les autres elements de la fenetre.
- * 
- * @param[in] j 
- * @param[in] angle 
- * @param[in] t 
- */
-void collisiontxt(Jungle & j, double angle, double t);
-
-/**
- * @brief Affichage en mode txt
- * 
- * @param[in] j 
- */
-void txtBoucle ( Jungle & j);
-
+  /**
+   * @brief Affichage en mode txt
+   *
+   * @param[in] j
+   */
+  void txtBoucle(Jungle &j);
 };
-
-
 
 #endif
