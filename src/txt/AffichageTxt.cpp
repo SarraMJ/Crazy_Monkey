@@ -12,8 +12,9 @@ using namespace std;
 
 AffichageTxt::AffichageTxt()
 {
-    WinTXT w(30, 30);
+    WinTXT w(35, 25);
     win = w;
+    
 }
 
 void AffichageTxt::txtAff(const Jungle &j)
@@ -21,7 +22,6 @@ void AffichageTxt::txtAff(const Jungle &j)
 
     win.clear();
     // Affichage du singe
-    // win.print(j.s.getpos().x, j.s.getpos().y, 'S');
     win.print(j.s.getpos().x, j.s.getpos().y, 'S');
     win.print(j.curseur.x, j.curseur.y, '*');
     for (unsigned int i = 0; i < j.nb_arbre; i++)
@@ -36,7 +36,6 @@ void AffichageTxt::txtAff2(const Jungle &j)
     win.clear();
     // Affichage du singe
     win.print(j.s.getpos().x, j.s.getpos().y, 'S');
-    // win.print(j.s.getpos().x, j.s.getpos().y, 'S');
     for (unsigned int i = 0; i < j.nb_arbre; i++)
     {
         win.print(j.tab_arbre[i].getCentre().x, j.tab_arbre[i].getCentre().y, 'A');
@@ -47,40 +46,48 @@ void AffichageTxt::txtAff2(const Jungle &j)
 void AffichageTxt::collisiontxt(Jungle &j, double angle, double t)
 {
 
+bool stop = false;
     double dt = 0.1;
-    // Singe si;
+    int col;
     do
     {
         t += dt;
-        // calcule le mouvement parabolique
-        // si.set_pos(j.s.calcule_pos(angle, t));
-        // j.set_singe(si);
 
-        j.s.set_pos(j.s.calcule_pos(angle, t)); // get singe rend une copie du singe, et quand j'ai modifié pour rendre le singe après les .set() ne marchent pas
+        j.s.set_pos(j.s.calcule_pos(angle, t)); 
 
         cout << "Position singe x : " << j.s.getpos().x << " et y :" << j.s.getpos().y << endl;
 
         txtAff2(j);
 
 #ifdef _MSC_VER
-        Sleep(100);
+        Sleep(1000);
 #else
-        usleep(100000);
+        usleep(1000000);
 #endif
         cout << endl;
 
-        if (j.s.getpos().y >= j.dimy)
-        {
-            j.s.set_nb_vie(j.s.get_nb_vie() - 1);
+        if (j.collisionsol()) {
+            stop = true;
+        }
+         
+        if ((col = j.collisionarbre()) >= 0) {
+            stop = true;
+            j.arbre_prec = col;
+
+        }
+        if (j.s.getpos().y > 25) {
+            stop = true;
             j.collision_sol = true;
         }
-    } while (!j.collision_sol);
+
+    } while (!stop);
     t = 0;
 
     if (j.collision_sol)
     {
         cout << "Perdu!" << endl;
     }
+    if (j.coffret) cout<<"Gagné!"<<endl;
     j.set_etat(0);
 }
 
@@ -98,11 +105,16 @@ void AffichageTxt::txtBoucle(Jungle &j)
     do
     {
 
+    if (j.collision_sol)
+    {
+        cout << "Perdu!" << endl;
+    }
+
         txtAff(j);
 #ifdef _MSC_VER
-        Sleep(100);
+        Sleep(1000);
 #else
-        usleep(100000);
+        usleep(1000000);
 #endif
         cout << endl;
 
@@ -112,10 +124,7 @@ void AffichageTxt::txtBoucle(Jungle &j)
 
         angle = j.s.calculeAlpha(j.curseur);
         cout << "angle : " << angle << endl;
-        if (j.collision_sol)
-        {
-            cout << "Perdu!" << endl;
-        }
+       
         c = win.getCh();
         switch (c)
         {
@@ -130,6 +139,7 @@ void AffichageTxt::txtBoucle(Jungle &j)
         case 'e':
             j.etat = 1;
             collisiontxt(j, angle, t);
+            j.curseur = make_vec2(j.s.getpos().x + 5, j.s.getpos().y);
             break;
         case 'q':
             ok = false;

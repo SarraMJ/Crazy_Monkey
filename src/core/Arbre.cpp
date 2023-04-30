@@ -15,7 +15,7 @@ Arbre::Arbre()
 
 Arbre::Arbre(bool m, bool c, bool s, Vec2 cen, int r)
 {
-    assert(r > 0);
+    assert(r >= 0);
     assert(cen.x >= 0 && cen.y >= 0);
     banane_magique = m;
     coffret_bananes = c;

@@ -115,19 +115,19 @@ void Jungle::jungle_niveau3()
    tab_arbre[9].setCentre(make_vec2(s.getpos().x + 1500, s.getpos().y));
    tab_arbre[9].set_coffretbananes(true);
 
-   int numserpent = rand() % 6;
+   int numserpent = rand() % 9;
    tab_arbre[numserpent].set_serpent(true);
    int numserpent2;
    do
    {
-      numserpent2 = rand() % 6;
+      numserpent2 = rand() % 9;
    } while (numserpent == numserpent2);
    tab_arbre[numserpent2].set_serpent(true);
    int numbanane;
    do
    {
-      numbanane = rand() % 6;
-   } while (numbanane == numserpent && numbanane == numserpent2);
+      numbanane = rand() % 9;
+   } while ((numbanane == numserpent) && (numbanane == numserpent2));
    tab_arbre[numbanane].set_banane_mag(true);
    temps_partie = 40;
 }
