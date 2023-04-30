@@ -252,6 +252,10 @@ void AffichageSDL::initMenu()
     // règles du jeu
     im_regle.setSurface(TTF_RenderText_Solid(police, "Regles du jeu", police_couleur));
     im_regle.telecharger_apartir_surface_courante(menu_renderer);
+
+    im_singe.telecharger_fichier("data/img/singe.png", menu_renderer);
+    im_arbre2.telecharger_fichier("data/img/arbre.png", menu_renderer);
+    im_coffret_banane.telecharger_fichier("data/img/bananes.png", menu_renderer);
 }
 
 void AffichageSDL::initRegles()
@@ -347,9 +351,12 @@ void AffichageSDL::sdlAffmenu()
     // Règles du jeu:
     SDL_Rect positionRegles({1500, 0, 200, 60});
     SDL_RenderCopy(menu_renderer, im_regle.getTexture(), nullptr, &positionRegles);
+
+    im_arbre2.dessiner(menu_renderer, 800, 1000, 100, 100);
+
 }
 
-// dessine le menu
+// dessine les règles
 void AffichageSDL::sdlAffRegles()
 {
     // Remplir l'écran de bleu ciel
@@ -569,7 +576,7 @@ void AffichageSDL::sdlBouclemenu()
     }
 }
 
-// dessine les images
+// dessine les objets du jeu
 void AffichageSDL::sdlAff()
 {
     // Remplir l'écran de bleu ciel

@@ -117,6 +117,7 @@ private:
    Image im_niveau3;
    Image im_policem;
    Image im_regle;
+   Image im_arbre2;
 
    // Pour les règles du jeu :
    //  Police pour l'explication:
