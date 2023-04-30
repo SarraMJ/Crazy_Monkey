@@ -45,8 +45,9 @@ public:
      * @param[in] curs
      * @param[in] sol
      * @param[in] cof
+     * @param[in] prec
      */
-    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof);
+    Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof, int prec);
 
     /**
      * @brief Destructeur

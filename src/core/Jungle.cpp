@@ -47,13 +47,13 @@ Jungle::Jungle()
    etat = 0;
    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
    collision_sol = false;
-  coffret = false;
+   coffret = false;
 
 
 }
 
 
-Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof)
+Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int temps, const Singe &sin, int e, Vec2 curs, bool sol, bool cof, int prec)
 {
    assert(x > 0 && y > 0);
    assert(nba > 0);
@@ -72,6 +72,7 @@ Jungle::Jungle(unsigned int x, unsigned int y, Arbre *a, unsigned int nba, int t
    curseur = curs;
    collision_sol = sol;
    coffret = cof;
+   arbre_prec = prec; 
 }
 
 
@@ -191,7 +192,7 @@ void Jungle::testRegression()
    }
    assert(ju_test.curseur.x <= ju_test.dimx && ju_test.curseur.x >= 0);
    assert(ju_test.curseur.y <= ju_test.dimy && ju_test.curseur.y >= 0);
-
+   
 
    // test le constructeur par copie
    Arbre * arb = new Arbre[6];
@@ -205,17 +206,18 @@ void Jungle::testRegression()
    Vec2 c = make_vec2(55, 32);
    bool so = false;
    bool co = false;
-   Jungle ju_test2(1500, 900, arb, 6, 80, S, et, c, so, co);
+   Jungle ju_test2(1500 ,900, arb, 6, 80, S, et, c, so, co, -1);
    assert(ju_test2.dimx == 1500);
    assert(ju_test2.dimy == 900);
    assert(ju_test2.temps_partie == 80);
    assert(ju_test2.etat == 0);
    assert(ju_test2.collision_sol == false);
-    assert(ju_test2.coffret == false);  
+   assert(ju_test2.coffret == false);  
    assert(ju_test2.get_singe().getpos().x <= ju_test2.dimx && ju_test2.get_singe().getpos().x >= 0);
    assert(ju_test2.get_singe().getpos().y <= ju_test2.dimy && ju_test2.get_singe().getpos().y >= 0);
    assert(ju_test2.curseur.x <= ju_test2.dimx && ju_test2.curseur.x >= 0);
    assert(ju_test2.curseur.y <= ju_test2.dimy && ju_test2.curseur.y >= 0);
+   assert(ju_test2.arbre_prec == -1);
    for (unsigned int i = 0; i < 6; i++)
    {
        assert(ju_test2.tab_arbre[i].getCentre().x ==ab.getCentre().x  && ju_test2.tab_arbre[i].getCentre().y == ab.getCentre().y);
@@ -231,6 +233,7 @@ void Jungle::testRegression()
    assert(ju_test2.get_etat() == et);
    assert(ju_test2.get_curseur().x == c.x && ju_test2.get_curseur().y == c.y);
    assert(ju_test2.get_nb_arbre() == 6);
+   assert(ju_test2.s.getpos_point()== 0);
    // test des mutateurs set
    ju_test2.set_dimx(1600);
    assert(ju_test2.get_dimx() == 1600);
@@ -247,7 +250,11 @@ void Jungle::testRegression()
    Singe Sing(5, ve, 20, 10, 9.5, 0);
    ju_test2.set_singe(Sing);
    assert(ju_test2.get_singe().getpos().x == Sing.getpos().x && ju_test2.get_singe().getpos().y == Sing.getpos().y);
-
+   int pointTest = 5;
+   ju_test2.s.set_pos_point(pointTest);
+   assert(ju_test2.s.getpos_point()== pointTest);
+   
+   
 
    // test de la fonction collisionsol
    assert(ju_test.collisionsol()==false);
