@@ -80,9 +80,13 @@ class AffichageSDL
 private:
    Jungle jungle;
 
-   // Fenêtre du jeu
+   // Fenêtre du jeu niveau 2
    SDL_Window *fenetre;
    SDL_Renderer *renderer;
+
+  /*  // Fenêtre du jeu niveau 1
+   SDL_Window *niveau1;
+   SDL_Renderer *niveau1_renderer; */
 
    // Fenêtre page menu
    SDL_Window *menu;
@@ -112,15 +116,17 @@ private:
 
    // Contient du texte:
    Image im_menu;
-   Image im_jouer;
+   Image im_niveau1;
+   Image im_niveau2;
+   Image im_niveau3;
    Image im_policem;
    Image im_regle;
 
-   //Pour les règles du jeu : 
-    // Police pour l'explication:
+   // Pour les règles du jeu :
+   //  Police pour l'explication:
    TTF_Font *police2;
 
-   //Contient du texte:
+   // Contient du texte:
    Image im_intro;
    Image im_intro2;
    Image im_regle1;
@@ -131,7 +137,6 @@ private:
    Image im_jouer2;
 
    // Pour le jeu:
-   
 
    // Contient du texte:
    Image im_perdu;
@@ -167,19 +172,44 @@ public:
     * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
     *
     */
-   void sdlBoucle();
+   void sdlBoucleniveau2();
 
    /**
-    * @brief Initalize la fenêtre du menu
+    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
     *
     */
-   void initMenu();
+   void sdlBoucleniveau1();
+
+   /**
+    * @brief prend en considèration l'interaction de l'utilisateur avec l'interface
+    *
+    */
+   void sdlBoucleniveau3();
+
+   /**
+    * @brief Initalize la fenêtre du niveau 1
+    *
+    */
+   void initniveau1();
+
+   /**
+    * @brief Initalize la fenêtre du niveau 2
+    *
+    */
+   void initniveau2();
 
    /**
     * @brief Initalize la fenêtre des règles
     *
     */
    void initRegles();
+
+   /**
+    * @brief Initalize la fenêtre du menu
+    *
+    */
+   void initMenu();
+   
 
    /**
     * @brief affiche les objets de la fenetre du jeu
