@@ -8,7 +8,7 @@
 
 #include "../core/Jungle.h"
 
-//! \brief Pour gérer une image avec SDL2
+//! @brief Pour gérer une image avec SDL2
 class Image
 {
 
@@ -72,7 +72,7 @@ public:
 };
 
 /**
-   La classe gerant le jeu avec un affichage SDL
+   @brief classe gerant le jeu avec un affichage SDL
 */
 class AffichageSDL
 {

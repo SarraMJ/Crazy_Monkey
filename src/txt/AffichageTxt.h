@@ -3,6 +3,10 @@
 #include "../core/Jungle.h"
 #include "winTxt.h"
 
+/**
+ * @brief Classe qui gère une version minimale du jeu
+ * 
+ */
 class AffichageTxt
 {
 private:
