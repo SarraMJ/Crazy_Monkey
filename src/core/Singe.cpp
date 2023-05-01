@@ -141,8 +141,9 @@ double Singe::calculeAlpha(const Vec2 &pos_curseur) const
 
 void Singe::calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin)
 {
-    // Vec2 debut = make_vec2(position.x+20, position.y-10);
-    // Vec2 fin = make_vec2(position.x+50, position.y-10);
+    assert(point.x >= 0 && point.y >= 0);
+    assert(debut.x > 0 && debut.y > 0);
+    assert(fin.x > 0 && fin.y > 0);
     double distanceTotale = sqrt(pow(fin.x - debut.x, 2) + pow(fin.y - debut.y, 2));
     double vitesseMin = 15.0f;
     double vitesseMax = 100.0f;
@@ -154,7 +155,8 @@ void Singe::calculeVitesse(Vec2 point, Vec2 debut, Vec2 fin)
 
 void Singe::changer_pos_point(int x, int w)
 {
-
+    assert(x > 0);
+    assert(w > 0);
     if (pos_point > x + w)
     {
         pos_point = x;
