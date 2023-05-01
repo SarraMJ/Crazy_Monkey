@@ -790,13 +790,13 @@ void AffichageSDL::sdlBouclejeu()
                 {
                     disparait = true;
                     fin_saut = true;
-                    // break;
+                    
                 }
                 // Si le temps de la partie est finie, le jeu s'arrête
                 if (jungle.temps_partie == 0)
                 {
                     fin_saut = true;
-                    // break;
+                   
                 }
                 // S'il y a une collision avec un arbre, le singe s'arrête
                 if ((col = jungle.collisionarbre()) >= 0)
@@ -805,7 +805,7 @@ void AffichageSDL::sdlBouclejeu()
                     point = true;
                     fin_saut = true;
                     jungle.arbre_prec = col;
-                    // break;
+                    
                 }
             } while (!fin_saut);
         }

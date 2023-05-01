@@ -19,6 +19,7 @@ Jungle::Jungle()
    nb_arbre = 1;
    arbre_prec = -1;
    etat = 0;
+   temps_partie = 50;
    curseur = make_vec2(s.getpos().x + 5, s.getpos().y);
    collision_sol = false;
    coffret = false;
@@ -292,7 +293,7 @@ void Jungle::testRegression()
    Vec2 vec = make_vec2(150, 480);
    Singe Si(5, vec, 20, 10, 9.5, 0);
    ju_test2.set_singe(Si);
-   assert(ju_test2.collisionarbre() == true);
+   assert(ju_test2.collisionarbre() != -1);
 }
 
 bool Jungle::collisionsol()
@@ -314,8 +315,7 @@ int Jungle::collisionarbre()
 
    for (int i = 0; i < (int)nb_arbre; i++)
    {
-      if (i != arbre_prec && s.getpos().y + s.getrayon() <= tab_arbre[i].getCentre().y //+ tab_arbre[i].getRayon()
-          && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon()))
+      if (i != arbre_prec && s.getpos().y + s.getrayon() <= tab_arbre[i].getCentre().y && distance(s.getpos(), tab_arbre[i].getCentre()) <= (s.getrayon() + tab_arbre[i].getRayon()))
       {
          etat = 0;
          cout << "collision détectée avec l'arbre " << i << endl;
